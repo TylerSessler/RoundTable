@@ -111,7 +111,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
-            Instantiate(drop, headPos);
+            Instantiate(drop, new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z), drop.transform.rotation);
             Destroy(gameObject);
         }
     }

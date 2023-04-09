@@ -1803,11 +1803,11 @@ MonoBehaviour:
   playerFaceSpeed: 3
   sightAngle: 180
   shootDamage: 1
-  shootRate: 0.25
+  shootRate: 0.33
   shootDist: 1
-  bulletSpeed: 30
+  bulletSpeed: 10
   bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
-  isShooting: 0
+  drop: {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
 --- !u!95 &8503887633373350796
 Animator:
   serializedVersion: 5
