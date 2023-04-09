@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("Stats")]
     [SerializeField] int health;
     [SerializeField] float movementSpeed;
-    [SerializeField] float sprintSpeed;
+    float sprintSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] int maxJumps;
     [SerializeField] float gravity;
@@ -45,6 +45,8 @@ public class playerController : MonoBehaviour, IDamage
         originalMovementSpeed = movementSpeed;
         originalJumpHeight = jumpHeight;
         originalMaxJumps = maxJumps;
+        sprintSpeed = 1.5f * movementSpeed;
+        originalSprintSpeed = sprintSpeed;
     }
 
     // Update is called once per frame
