@@ -154,12 +154,15 @@ MonoBehaviour:
   controller: {fileID: 6716251274883284217}
   health: 10
   movementSpeed: 5
+  sprintSpeed: 7.5
   jumpHeight: 6
   maxJumps: 2
   gravity: 9.81
   shootRate: 0.25
   shootDistance: 25
   shootDamage: 1
+  groundedPlayer: 0
+  isSprinting: 0
 --- !u!143 &6716251274883284217
 CharacterController:
   m_ObjectHideFlags: 0
