@@ -86,9 +86,6 @@ public class playerController : MonoBehaviour, IDamage
     }
     void movement()
     {
-        
-
-
 
         isSprinting = Input.GetButton("Sprint");
         groundedPlayer = controller.isGrounded;
@@ -112,8 +109,6 @@ public class playerController : MonoBehaviour, IDamage
             movementSpeed = originalMovementSpeed;
         }
         controller.Move(move * Time.deltaTime * movementSpeed);
-        if (!gravityFlipped)
-        {
             if (Input.GetButtonDown("Jump"))
             {
                 // If player is in air and didn't jump to enter the state effectively disable double/extra jumps
@@ -128,24 +123,8 @@ public class playerController : MonoBehaviour, IDamage
                     playerVelocity.y = jumpHeight;
                 }
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                // If player is in air and didn't jump to enter the state effectively disable double/extra jumps
-                if (groundedPlayer == false && jumpCount == 0)
-                {
-                    jumpCount = maxJumps;
-                }
-                // Compare number of jumps preformed & max number of jumps to check if player can jump.
-                if (jumpCount < maxJumps)
-                {
-                    jumpCount++;
-                    playerVelocity.y = -jumpHeight;
-                }
-            }
-        }
+        
+        
         
 
         playerVelocity.y -= gravity * Time.deltaTime;
@@ -184,12 +163,28 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger");
+        if (other.CompareTag("Drop"))
+        {
+            Debug.Log("Drop");
+            takeDamage(-3);
+            
+            Destroy(other.gameObject);
+        }
+
+    }
 
     
 
     public void takeDamage(int dmg)
     {
         health -= dmg;
+        if (health > originalHealth)
+        {
+            health = originalHealth;
+        }
         playerUIUpdate();
         if (health <= 0)
         {
