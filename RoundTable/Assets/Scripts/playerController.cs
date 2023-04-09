@@ -9,7 +9,8 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Stats")]
     [SerializeField] int health;
-    [SerializeField] int movementSpeed;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float sprintSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] int maxJumps;
     [SerializeField] float gravity;
@@ -21,7 +22,8 @@ public class playerController : MonoBehaviour, IDamage
 
     // used for resetting stats. For all call resetStats()
     int originalHealth;
-    int originalMovementSpeed;
+    float originalMovementSpeed;
+    float originalSprintSpeed;
     int originalJumpHeight;
     int originalMaxJumps;
 
@@ -29,8 +31,8 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 move;
     // Used for jump & sprint logic
     int jumpCount;
-    private bool groundedPlayer;
-    private bool isSprinting;
+    public bool groundedPlayer;
+    public bool isSprinting;
     private bool isShooting;
 
 
@@ -64,24 +66,31 @@ public class playerController : MonoBehaviour, IDamage
         movementSpeed = originalMovementSpeed;
         jumpHeight = originalJumpHeight;
         maxJumps = originalMaxJumps;
+        sprintSpeed = originalSprintSpeed;
     }
     void movement()
     {
+        isSprinting = Input.GetButton("Sprint");
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
             jumpCount = 0;
         }
+        
         // Might implement if-check to prevent/lower air-strafing.
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
+
 
         // If sprint is held
         if (isSprinting)
         {
-            // Implement
+            movementSpeed = sprintSpeed;
         }
-
+        else
+        {
+            movementSpeed = originalMovementSpeed;
+        }
         controller.Move(move * Time.deltaTime * movementSpeed);
 
         if (Input.GetButtonDown("Jump"))
