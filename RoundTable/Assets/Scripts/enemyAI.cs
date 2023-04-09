@@ -53,8 +53,6 @@ public class enemyAI : MonoBehaviour, IDamage
         playerDir = (gameManager.instance.player.transform.position - headPos.position);
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
-        Debug.DrawRay(headPos.position, playerDir, Color.yellow);
-
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -80,7 +78,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDir * bulletSpeed;
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }

@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 7420861326005228612}
   - component: {fileID: 391675520872154096}
   - component: {fileID: 2857034396975530721}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mid Tier Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
