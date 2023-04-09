@@ -1797,7 +1797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 8503887633377637708}
   agent: {fileID: 7112282486483363882}
-  headPos: {fileID: 8503887633382417440}
+  headPos: {fileID: 8860091921982226890}
   shootPos: {fileID: 8860091921982226890}
   HP: 10
   playerFaceSpeed: 3
@@ -1805,8 +1805,9 @@ MonoBehaviour:
   shootDamage: 1
   shootRate: 0.25
   shootDist: 1
-  bulletSpeed: 25
+  bulletSpeed: 30
   bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
+  isShooting: 0
 --- !u!95 &8503887633373350796
 Animator:
   serializedVersion: 5
