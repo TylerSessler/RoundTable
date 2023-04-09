@@ -22,6 +22,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Range(1, 100)][SerializeField] int shootDist;
     [Range(1, 100)][SerializeField] int bulletSpeed;
     [SerializeField] GameObject bullet;
+    [SerializeField] GameObject drop;
 
     Vector3 playerDir;
     bool playerInRange;
@@ -110,6 +111,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
+            Instantiate(drop, headPos);
             Destroy(gameObject);
         }
     }
