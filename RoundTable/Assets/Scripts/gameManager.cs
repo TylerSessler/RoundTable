@@ -60,7 +60,7 @@ public class gameManager : MonoBehaviour
     {
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
         activeMenu.SetActive(false);
         activeMenu = null;
     }
@@ -68,7 +68,6 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
-        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if (enemiesRemaining <= 0)
         {
             activeMenu = winMenu;

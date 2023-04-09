@@ -28,8 +28,8 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 playerVelocity;
     Vector3 move;
     // Used for jump & sprint logic
-    int jumpCount;
-    private bool groundedPlayer;
+    public int jumpCount;
+    public bool groundedPlayer;
     private bool isSprinting;
     private bool isShooting;
 
@@ -91,6 +91,7 @@ public class playerController : MonoBehaviour, IDamage
             {
                 jumpCount = maxJumps;
             }
+            
             // Compare number of jumps preformed & max number of jumps to check if player can jump.
             if (jumpCount < maxJumps)
             {
