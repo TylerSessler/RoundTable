@@ -17,8 +17,11 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Weapon")]
     [SerializeField] float shootRate;
+    [SerializeField] float meleeSpeed;
     [SerializeField] float shootDistance;
+    [SerializeField] float meleeRange;
     [SerializeField] int shootDamage;
+    [SerializeField] int meleeDamage;
     [SerializeField] int bulletCount;
 
     // used for resetting stats. For all call resetStats()
@@ -38,6 +41,7 @@ public class playerController : MonoBehaviour, IDamage
     public bool groundedPlayer;
     public bool isSprinting;
     private bool isShooting;
+    private bool isMelee;
     public bool gravityFlipped;
 
 
@@ -174,33 +178,59 @@ public class playerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
         }
+
+        // If player is out of ammo, default to melee
+        else 
+        {
+            StartCoroutine(melee());
+        }
     }
+
+    IEnumerator melee()
+    {
+        isMelee = true;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
+        {
+            IDamage damageable = hit.collider.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(meleeDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(meleeSpeed);
+        isMelee = false;
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
         if (other.CompareTag("Drop"))
         {
-            Debug.Log("Drop");
+            // Using -3 to heal instead of creating heal function
             takeDamage(-3);
             bulletCount += 5;
             bulletCountUpdate();
-
 
             Destroy(other.gameObject);
         }
 
     }
 
+
     
 
     public void takeDamage(int dmg)
     {
         health -= dmg;
+        // Prevent overhealing
         if (health > originalHealth)
         {
             health = originalHealth;
         }
         playerUIUpdate();
+        // Player dies
         if (health <= 0)
         {
             gameManager.instance.playerDead();
