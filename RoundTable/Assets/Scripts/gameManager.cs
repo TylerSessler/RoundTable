@@ -69,6 +69,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
+        enemiesRemainingUIUpdate();
         if (enemiesRemaining <= 0)
         {
             activeMenu = winMenu;
@@ -83,5 +84,11 @@ public class gameManager : MonoBehaviour
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
 
+    }
+
+
+    void enemiesRemainingUIUpdate()
+    {
+        enemiesRemainingText.text = enemiesRemaining.ToString();
     }
 }

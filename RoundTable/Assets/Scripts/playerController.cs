@@ -216,4 +216,5 @@ public class playerController : MonoBehaviour, IDamage
     {
         gameManager.instance.bulletCountText.text = bulletCount.ToString();
     }
+
 }
