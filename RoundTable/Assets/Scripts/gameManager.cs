@@ -19,6 +19,7 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
+    public TextMeshProUGUI bulletCountText;
 
     public int enemiesRemaining;
 

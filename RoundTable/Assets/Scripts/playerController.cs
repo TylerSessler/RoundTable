@@ -19,6 +19,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] float shootDistance;
     [SerializeField] int shootDamage;
+    [SerializeField] int bulletCount;
 
     // used for resetting stats. For all call resetStats()
     int originalHealth;
@@ -28,6 +29,7 @@ public class playerController : MonoBehaviour, IDamage
     int originalJumpHeight;
     int originalMaxJumps;
     float originalGravity;
+    int originalBulletCount;
 
     private Vector3 playerVelocity;
     Vector3 move;
@@ -51,6 +53,10 @@ public class playerController : MonoBehaviour, IDamage
         sprintSpeed = 1.5f * movementSpeed;
         originalSprintSpeed = sprintSpeed;
         originalGravity = gravity;
+        originalBulletCount = bulletCount;
+
+        // Initial UI Update
+        gameManager.instance.bulletCountText.text = bulletCount.ToString();
     }
 
     // Update is called once per frame
@@ -83,6 +89,7 @@ public class playerController : MonoBehaviour, IDamage
         maxJumps = originalMaxJumps;
         sprintSpeed = originalSprintSpeed;
         gravity = originalGravity;
+        bulletCount = originalBulletCount;
     }
     void movement()
     {
@@ -149,19 +156,24 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
-        isShooting = true;
-        RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
+        if (bulletCount > 0)
         {
-            IDamage damageable = hit.collider.GetComponent<IDamage>();
-            if (damageable != null)
+            isShooting = true;
+            bulletCount -= 1;
+            gameManager.instance.bulletCountText.text = bulletCount.ToString();
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
-                damageable.takeDamage(shootDamage);
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(shootDamage);
+                }
             }
-        }
 
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
