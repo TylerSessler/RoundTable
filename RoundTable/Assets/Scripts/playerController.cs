@@ -56,7 +56,7 @@ public class playerController : MonoBehaviour, IDamage
         originalBulletCount = bulletCount;
 
         // Initial UI Update
-        gameManager.instance.bulletCountText.text = bulletCount.ToString();
+        bulletCountUpdate();
     }
 
     // Update is called once per frame
@@ -160,7 +160,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             isShooting = true;
             bulletCount -= 1;
-            gameManager.instance.bulletCountText.text = bulletCount.ToString();
+            bulletCountUpdate();
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
             {
@@ -182,7 +182,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             Debug.Log("Drop");
             takeDamage(-3);
-            
+            bulletCount += 5;
+            bulletCountUpdate();
+
+
             Destroy(other.gameObject);
         }
 
@@ -207,5 +210,10 @@ public class playerController : MonoBehaviour, IDamage
     void playerUIUpdate()
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
+    }
+
+    void bulletCountUpdate()
+    {
+        gameManager.instance.bulletCountText.text = bulletCount.ToString();
     }
 }
