@@ -17,6 +17,8 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject gunReticle;
+    public GameObject meleeReticle;
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;

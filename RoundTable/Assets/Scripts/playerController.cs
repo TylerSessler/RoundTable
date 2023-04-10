@@ -180,8 +180,9 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         // If player is out of ammo, default to melee
-        else 
+        if (bulletCount == 0) 
         {
+            gameManager.instance.meleeReticle.SetActive(true);
             StartCoroutine(melee());
         }
     }
@@ -210,8 +211,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Using -3 to heal instead of creating heal function
             takeDamage(-3);
+
+            // Update amount of bullets, change reticle to gun
             bulletCount += 5;
             bulletCountUpdate();
+            gameManager.instance.meleeReticle.SetActive(false);
 
             Destroy(other.gameObject);
         }
