@@ -21,6 +21,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [Range(.1f, 5)][SerializeField] float shootRate;
     [Range(1, 100)][SerializeField] int shootDist;
     [Range(1, 100)][SerializeField] int bulletSpeed;
+    [Range(0, 2)][SerializeField] float vertSpread;
+    [Range(0, 2)][SerializeField] float HoriSpread;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject drop;
 
@@ -77,9 +79,12 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
+        float vertOffset = Random.Range(vertSpread * -1, vertSpread);
+        float horiOffset = Random.Range(HoriSpread * -1, HoriSpread);
+
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = playerDir * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(playerDir.x + horiOffset, playerDir.y + vertOffset, playerDir.z) * bulletSpeed;
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }

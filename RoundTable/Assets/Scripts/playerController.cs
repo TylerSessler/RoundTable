@@ -83,6 +83,8 @@ public class playerController : MonoBehaviour, IDamage
             if (isShooting == false && Input.GetButton("Shoot"))
             {
                 StartCoroutine(shoot());
+                // Update UI for bullet count
+                bulletCountUpdate();
             }
         }
     }
