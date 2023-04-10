@@ -61,6 +61,8 @@ public class playerController : MonoBehaviour, IDamage
 
         // Initial UI Update
         bulletCountUpdate();
+        // Default to ranged reticle (automatic since player has ammo)
+        reticleSwap();
     }
 
     // Update is called once per frame
@@ -174,7 +176,11 @@ public class playerController : MonoBehaviour, IDamage
                     damageable.takeDamage(shootDamage);
                 }
             }
-
+            // If player runs out of ammo, swap to melee reticle
+            if (bulletCount == 0)
+            {
+                reticleSwap();
+            }
             yield return new WaitForSeconds(shootRate);
             isShooting = false;
         }
@@ -215,15 +221,27 @@ public class playerController : MonoBehaviour, IDamage
             // Update amount of bullets, change reticle to gun
             bulletCount += 5;
             bulletCountUpdate();
-            gameManager.instance.meleeReticle.SetActive(false);
-
+            // Make sure player has correct reticle after picking up ammo.
+            reticleSwap();
             Destroy(other.gameObject);
         }
 
     }
 
-
-    
+    // Exclusively used to swap reticle without code bloat.
+    void reticleSwap()
+    {
+        if (bulletCount > 0)
+        {
+            gameManager.instance.gunReticle.SetActive(true);
+            gameManager.instance.meleeReticle.SetActive(false);
+        }
+        else
+        {
+            gameManager.instance.gunReticle.SetActive(false);
+            gameManager.instance.meleeReticle.SetActive(true);
+        }
+    }
 
     public void takeDamage(int dmg)
     {
