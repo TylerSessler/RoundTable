@@ -122,16 +122,13 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator roam()
     {
-        Debug.Log("roam called");
         isRoaming = true;
         NavMeshHit hit;
         Vector3 roamDestination = headPos.position + Random.insideUnitSphere * roamRange;
         if (NavMesh.SamplePosition(roamDestination, out hit, 2.0f, NavMesh.AllAreas))
         {
-            Debug.Log("Set position");
             agent.stoppingDistance = 0;
             agent.SetDestination(hit.position);
-            Debug.Log("moving");
         }
         yield return new WaitForSeconds(roamCooldown);
         isRoaming = false;
@@ -165,7 +162,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
-            Instantiate(drop, new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z), drop.transform.rotation);
+            Instantiate(drop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1 , gameObject.transform.position.z), drop.transform.rotation);
             Destroy(gameObject);
         }
     }
