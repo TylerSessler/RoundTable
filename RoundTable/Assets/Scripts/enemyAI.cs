@@ -55,6 +55,7 @@ public class enemyAI : MonoBehaviour, IDamage
         // Make sure enemy isn't pathing currently. Both for agro & for current roaming if it is past the cooldown timer while still moving
         if (!strippedVision() && agent.remainingDistance <= agent.stoppingDistance)
         {
+            
             StartCoroutine(roam());
         }
     }
