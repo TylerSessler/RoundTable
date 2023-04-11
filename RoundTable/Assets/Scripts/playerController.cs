@@ -189,9 +189,30 @@ public class playerController : MonoBehaviour, IDamage
     void inventoryUI(int num)
     {
         // Disable all hightlights
-        
+        gameManager.instance.glow1.SetActive(false);
+        gameManager.instance.glow2.SetActive(false);
+        gameManager.instance.glow3.SetActive(false);
+        gameManager.instance.glow4.SetActive(false);
+        gameManager.instance.glow5.SetActive(false);
         // Enable specific hightlight
-
+        switch (num)
+        {
+            case 1:
+                gameManager.instance.glow1.SetActive(true);
+                break;
+            case 2:
+                gameManager.instance.glow2.SetActive(true);
+                break; 
+            case 3:
+                gameManager.instance.glow3.SetActive(true);
+                break;
+            case 4:
+                gameManager.instance.glow4.SetActive(true);
+                break;
+            case 5:
+                gameManager.instance.glow5.SetActive(true);
+                break;
+        }
     }
 
     void jump()

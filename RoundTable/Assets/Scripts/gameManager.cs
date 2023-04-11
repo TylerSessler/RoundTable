@@ -22,6 +22,11 @@ public class gameManager : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
+    public GameObject glow1;
+    public GameObject glow2;
+    public GameObject glow3;
+    public GameObject glow4;
+    public GameObject glow5;
 
     public int enemiesRemaining;
 
