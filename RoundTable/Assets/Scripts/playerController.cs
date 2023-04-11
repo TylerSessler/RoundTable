@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class playerController : MonoBehaviour, IDamage
 {
     [Header("Components")]
     [SerializeField] CharacterController controller;
-    string[] Weapon = { "Pistol", "Rifle", "Sniper", "Grenade", "Unarmed" };
+    Weapon[] inv;
+   
 
     [Header("Stats")]
     [SerializeField] int health;
@@ -46,13 +46,16 @@ public class playerController : MonoBehaviour, IDamage
     bool isShooting;
     bool isMelee;
     bool gravityFlipped;
-    string activeWeapon;
+    Weapon activeWeapon;
 
 
 
 
     void Start()
     {
+        Weapon weaponController = new Weapon();
+        inv = weaponController.generateInventory();
+
         originalHealth = health;
         originalMovementSpeed = movementSpeed;
         originalJumpHeight = jumpHeight;
@@ -66,6 +69,7 @@ public class playerController : MonoBehaviour, IDamage
         bulletCountUpdate();
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
+
     }
 
     // Update is called once per frame
@@ -141,34 +145,46 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
+    
     void inventory()
     {
         if (Input.GetButtonDown("1"))
         {
-            activeWeapon = Weapon[1];
+            // Set active weapon for shoot()
+            activeWeapon = inv[0];
             // Enable inventory Highlight
+            inventoryUI(1);
         }
         else if (Input.GetButtonDown("2"))
         {
-            activeWeapon = Weapon[2];
+            // Set active weapon for shoot()
+            activeWeapon = inv[1];
             // Enable inventory Highlight
+            inventoryUI(2);
         }
         else if (Input.GetButtonDown("3"))
         {
-            activeWeapon = Weapon[3];
+            // Set active weapon for shoot()
+            activeWeapon = inv[2];
             // Enable inventory Highlight
+            inventoryUI(3);
         }
         else if (Input.GetButtonDown("4"))
         {
-            activeWeapon = Weapon[4];
+            // Set active weapon for shoot()
+            activeWeapon = inv[3];
             // Enable inventory Highlight
+            inventoryUI(4);
         }
         else if (Input.GetButtonDown("5"))
         {
-            activeWeapon = Weapon[5];
+            // Set active weapon for shoot()
+            activeWeapon = inv[4];
             // Enable inventory Highlight
+            inventoryUI(5);
         }
     }
+    
 
     void inventoryUI(int num)
     {
