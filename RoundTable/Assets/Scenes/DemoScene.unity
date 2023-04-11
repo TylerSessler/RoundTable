@@ -485,22 +485,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7746804687859562116, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
-      propertyPath: roamRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746804687859562116, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
-      propertyPath: HoriSpread
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746804687859562116, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
-      propertyPath: vertSpread
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7746804687859562116, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
-      propertyPath: roamCooldown
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
 --- !u!1001 &933705169
@@ -631,14 +615,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8847050711893224514, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
-      propertyPath: roamRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8847050711893224514, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
-      propertyPath: roamCooldown
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
 --- !u!1001 &1612270454
@@ -713,22 +689,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
-      propertyPath: roamRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
-      propertyPath: HoriSpread
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
-      propertyPath: vertSpread
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
-      propertyPath: roamCooldown
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -1044,26 +1004,6 @@ PrefabInstance:
     - target: {fileID: 6716251274883284101, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: m_Name
       value: TempPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-      propertyPath: meleeRange
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-      propertyPath: meleeSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-      propertyPath: bulletCount
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-      propertyPath: meleeDamage
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-      propertyPath: movementSpeed
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6716251274883284219, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: m_RootOrder

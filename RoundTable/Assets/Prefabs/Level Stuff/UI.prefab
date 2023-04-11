@@ -2998,9 +2998,9 @@ MonoBehaviour:
   pauseMenu: {fileID: 7159330024596765506}
   winMenu: {fileID: 7159330025158320257}
   loseMenu: {fileID: 7159330025083492785}
+  gunReticle: {fileID: 7159330023504026813}
+  meleeReticle: {fileID: 4389073891973806102}
   HPBar: {fileID: 7159330024500842396}
-  gunReticle: {fileID: 0}
-  meleeReticle: {fileID: 0}
   enemiesRemainingText: {fileID: 7159330023783506245}
   bulletCountText: {fileID: 7159330025572239159}
   enemiesRemaining: 0

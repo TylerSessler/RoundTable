@@ -153,16 +153,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6716251274883284217}
   health: 10
-  movementSpeed: 5
-  sprintSpeed: 7.5
+  movementSpeed: 10
   jumpHeight: 6
   maxJumps: 2
   gravity: 9.81
+  tempVal: 0
   shootRate: 0.25
+  meleeSpeed: 1
   shootDistance: 25
+  meleeRange: 1.5
   shootDamage: 1
+  meleeDamage: 3
+  bulletCount: 25
   groundedPlayer: 0
   isSprinting: 0
+  gravityFlipped: 0
 --- !u!143 &6716251274883284217
 CharacterController:
   m_ObjectHideFlags: 0
