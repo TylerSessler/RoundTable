@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    int damage;
-    float range;
-    float rate;
-    int ammo;
-    int clipSize;
-    int maxAmmo;
-    float reloadTime;
+    public int damage;
+    public float range;
+    public float rate;
+    public int ammo;
+    public int clipSize;
+    public int maxAmmo;
+    public int maxClip;
+    public float reloadTime;
 
 
     
@@ -38,6 +39,7 @@ public class Weapon : MonoBehaviour
         gun.ammo = ammo;
         gun.maxAmmo = ammo;
         gun.reloadTime = reload;
+        gun.maxClip = clip;
 
         return gun;
     }
@@ -51,7 +53,7 @@ public class Weapon : MonoBehaviour
         Inventory[1] = generate(1, 20, 0.25f, 21, 30, 3);
         Inventory[2] = generate(8, 60, 3, 4, 12, 5);
         Inventory[3] = generate(12, 10, 6, 1, 3, 6);
-        Inventory[4] = generate(2, 1.25f, 2, 1, 30, 0);
+        Inventory[4] = generate(2, 1.25f, 2, 1, 1, 0);
         return Inventory;
     }
 }

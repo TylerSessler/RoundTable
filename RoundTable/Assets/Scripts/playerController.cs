@@ -18,15 +18,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravity;
     [SerializeField] float tempVal;
 
-    [Header("Weapon")]
-    [SerializeField] float shootRate;
-    [SerializeField] float meleeSpeed;
-    [SerializeField] float shootDistance;
-    [SerializeField] float meleeRange;
-    [SerializeField] int shootDamage;
-    [SerializeField] int meleeDamage;
-    [SerializeField] int bulletCount;
-
     // used for resetting stats. For all call resetStats()
     int originalHealth;
     float originalMovementSpeed;
@@ -35,7 +26,6 @@ public class playerController : MonoBehaviour, IDamage
     int originalJumpHeight;
     int originalMaxJumps;
     float originalGravity;
-    int originalBulletCount;
 
     private Vector3 playerVelocity;
     Vector3 move;
@@ -44,8 +34,10 @@ public class playerController : MonoBehaviour, IDamage
     public bool groundedPlayer;
     bool isSprinting;
     bool isShooting;
+    bool isReloading;
     bool isMelee;
     bool gravityFlipped;
+    int activeSlot;
     Weapon activeWeapon;
 
 
@@ -56,6 +48,9 @@ public class playerController : MonoBehaviour, IDamage
         Weapon weaponController = new Weapon();
         inv = weaponController.generateInventory();
 
+        activeWeapon = inv[0];
+        inventoryUI(1);
+
         originalHealth = health;
         originalMovementSpeed = movementSpeed;
         originalJumpHeight = jumpHeight;
@@ -63,10 +58,7 @@ public class playerController : MonoBehaviour, IDamage
         sprintSpeed = 1.5f * movementSpeed;
         originalSprintSpeed = sprintSpeed;
         originalGravity = gravity;
-        originalBulletCount = bulletCount;
 
-        // Initial UI Update
-        bulletCountUpdate();
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
 
@@ -82,9 +74,14 @@ public class playerController : MonoBehaviour, IDamage
             {
                 flipGrav();
             }
+            if (!isReloading && Input.GetButtonDown("Reload"))
+            {
+                StartCoroutine(reload());
+                bulletCountUpdate();
+            }
             movement();
             inventory();
-            if (isShooting == false && Input.GetButton("Shoot"))
+            if (!isShooting && Input.GetButton("Shoot"))
             {
                 StartCoroutine(shoot());
                 // Update UI for bullet count
@@ -101,7 +98,6 @@ public class playerController : MonoBehaviour, IDamage
         maxJumps = originalMaxJumps;
         sprintSpeed = originalSprintSpeed;
         gravity = originalGravity;
-        bulletCount = originalBulletCount;
     }
     void movement()
     {
@@ -145,13 +141,13 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    
     void inventory()
     {
         if (Input.GetButtonDown("1"))
         {
-            // Set active weapon for shoot()
+            // Set active weapon & slot for shoot()
             activeWeapon = inv[0];
+            activeSlot = 1;
             // Enable inventory Highlight
             inventoryUI(1);
         }
@@ -159,6 +155,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon for shoot()
             activeWeapon = inv[1];
+            activeSlot = 2;
             // Enable inventory Highlight
             inventoryUI(2);
         }
@@ -166,6 +163,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon for shoot()
             activeWeapon = inv[2];
+            activeSlot = 3;
             // Enable inventory Highlight
             inventoryUI(3);
         }
@@ -173,6 +171,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon for shoot()
             activeWeapon = inv[3];
+            activeSlot = 4;
             // Enable inventory Highlight
             inventoryUI(4);
         }
@@ -180,12 +179,12 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon for shoot()
             activeWeapon = inv[4];
+            activeSlot = 5;
             // Enable inventory Highlight
             inventoryUI(5);
         }
     }
     
-
     void inventoryUI(int num)
     {
         // Disable all hightlights
@@ -213,6 +212,10 @@ public class playerController : MonoBehaviour, IDamage
                 gameManager.instance.glow5.SetActive(true);
                 break;
         }
+        // Update UI for ammo to match current weapon
+        bulletCountUpdate();
+        // Make sure proper reticle is active
+        reticleSwap();
     }
 
     void jump()
@@ -246,7 +249,6 @@ public class playerController : MonoBehaviour, IDamage
         controller.transform.Rotate(new Vector3(180, 0, 0));
         playerVelocity.y = 0;
     }
-   
 
     bool isGrounded()
     {
@@ -275,51 +277,74 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator shoot()
     {
-        if (bulletCount > 0)
+        // If player isn't melee
+        if (activeSlot != 5)
         {
-            isShooting = true;
-            bulletCount -= 1;
-            bulletCountUpdate();
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance))
+            if (activeWeapon.clipSize > 0)
             {
-                IDamage damageable = hit.collider.GetComponent<IDamage>();
-                if (damageable != null)
-                {
-                    damageable.takeDamage(shootDamage);
-                }
-            }
-            // If player runs out of ammo, swap to melee reticle
-            if (bulletCount == 0)
-            {
-                reticleSwap();
-            }
-            yield return new WaitForSeconds(shootRate);
-            isShooting = false;
-        }
+                // Set flag
+                isShooting = true;
+                // Reduce current ammo
+                activeWeapon.clipSize--;
+                // Fire projectile.
 
-        // If player is out of ammo, default to melee
-        if (bulletCount == 0) 
+
+
+                yield return new WaitForSeconds(activeWeapon.rate);
+                isShooting = false;
+            }
+        }
+        // Player is melee
+        else if (activeSlot == 5)
         {
-            gameManager.instance.meleeReticle.SetActive(true);
             StartCoroutine(melee());
         }
+        
+
+        
+    }
+
+    IEnumerator reload()
+    {
+        Debug.Log("Reload Called");
+        isReloading = true;
+        // Reload 1 bullet at a time (to prevent overloading/free-loading)
+        for (int i = 0; i < activeWeapon.maxClip; i++)
+        {
+            Debug.Log("Need Bullet");
+            // Prevent overloading
+            if (activeWeapon.clipSize < activeWeapon.maxClip)
+            {
+                Debug.Log("Not overloading");
+                // Prevent free-loading
+                if (activeWeapon.ammo > 0)
+                {
+                    Debug.Log("Not free-loading");
+                    // swap ammo from supply->clip
+                    activeWeapon.ammo--;
+                    activeWeapon.clipSize++;
+                }
+            }
+        }
+        yield return new WaitForSeconds(activeWeapon.reloadTime);
+        
+        isReloading = false;
     }
 
     IEnumerator melee()
     {
         isMelee = true;
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, activeWeapon.range))
         {
             IDamage damageable = hit.collider.GetComponent<IDamage>();
             if (damageable != null)
             {
-                damageable.takeDamage(meleeDamage);
+                damageable.takeDamage(activeWeapon.damage);
             }
         }
 
-        yield return new WaitForSeconds(meleeSpeed);
+        yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
 
@@ -331,11 +356,20 @@ public class playerController : MonoBehaviour, IDamage
             // Using -3 to heal instead of creating heal function
             takeDamage(-3);
 
-            // Update amount of bullets, change reticle to gun
-            bulletCount += 5;
+            // Add ammo to all guns. Could use inv[1], inv[2], inv[3], inv[4] to give different ammo to each gun instead of for loop.
+            // Skip inv[5] since melee doesn't use ammo
+            for (int i = 0; i < 4; i++)
+            {
+                // Make sure player doesn't over-cap ammo.
+                if (activeWeapon.ammo < activeWeapon.maxAmmo)
+                {
+                    // Only adding ammo to backup, not to active clip.
+                    inv[i].ammo += 3;
+                }
+               
+            }
             bulletCountUpdate();
-            // Make sure player has correct reticle after picking up ammo.
-            reticleSwap();
+
             Destroy(other.gameObject);
         }
 
@@ -344,7 +378,7 @@ public class playerController : MonoBehaviour, IDamage
     // Exclusively used to swap reticle without code bloat.
     void reticleSwap()
     {
-        if (bulletCount > 0)
+        if (activeSlot != 5)
         {
             gameManager.instance.gunReticle.SetActive(true);
             gameManager.instance.meleeReticle.SetActive(false);
@@ -379,7 +413,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void bulletCountUpdate()
     {
-        gameManager.instance.bulletCountText.text = bulletCount.ToString();
+        gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
     }
 
 }
