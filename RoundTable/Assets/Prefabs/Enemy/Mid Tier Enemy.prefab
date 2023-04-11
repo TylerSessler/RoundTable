@@ -724,10 +724,14 @@ MonoBehaviour:
   HP: 5
   playerFaceSpeed: 30
   sightAngle: 90
+  roamRange: 10
+  roamCooldown: 6
   shootDamage: 1
   shootRate: 0.7
   shootDist: 1
   bulletSpeed: 8
+  vertSpread: 0.2
+  HoriSpread: 0.2
   bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
   drop: {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
 --- !u!95 &3946821624300542884
