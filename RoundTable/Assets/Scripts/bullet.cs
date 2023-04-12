@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    [SerializeField] int damage;
+    [SerializeField] float damage;
     [SerializeField] int timer;
+
     // Start is called before the first frame update
     void Start()
     {
         Destroy(gameObject, timer);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +21,7 @@ public class bullet : MonoBehaviour
         
         IDamage damageable = other.GetComponent<IDamage>();
         if (damageable != null)
-            damageable.takeDamage(damage);
+            damageable.takeDamage((int)Mathf.Floor(damage * gameObject.GetComponent<Rigidbody>().velocity.magnitude));
 
         Destroy(gameObject);
     }

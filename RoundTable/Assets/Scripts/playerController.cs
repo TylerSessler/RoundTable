@@ -7,8 +7,8 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("Components")]
     [SerializeField] CharacterController controller;
-    Weapon[] inv;
-   
+    [SerializeField] GameObject playerBullet;
+    [SerializeField] Transform shootPos;
 
     [Header("Stats")]
     [SerializeField] int health;
@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage
     int originalJumpHeight;
     int originalMaxJumps;
     float originalGravity;
+    Vector3 playerLook;
 
     private Vector3 playerVelocity;
     Vector3 move;
@@ -38,10 +39,8 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
     bool gravityFlipped;
     int activeSlot;
+    Weapon[] inv;
     Weapon activeWeapon;
-
-
-
 
     void Start()
     {
@@ -139,6 +138,17 @@ public class playerController : MonoBehaviour, IDamage
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
+    }
+
+    Vector3 getLook()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            return hit.point;
+        }
+        else return ray.GetPoint(1000);
     }
 
     void inventory()
@@ -286,10 +296,9 @@ public class playerController : MonoBehaviour, IDamage
                 isShooting = true;
                 // Reduce current ammo
                 activeWeapon.clipSize--;
-                // Fire projectile.
-
-
-
+                // Fire projectile
+                GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
+                bulletClone.GetComponent<Rigidbody>().velocity = getLook() * 15;
                 yield return new WaitForSeconds(activeWeapon.rate);
                 isShooting = false;
             }
@@ -415,5 +424,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
     }
+
+    
 
 }

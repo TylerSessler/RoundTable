@@ -953,6 +953,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
+--- !u!4 &1533017331 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1533017331, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+  m_PrefabInstance: {fileID: 2006983343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1612270454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1176,31 +1181,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c096cdb0de9bd428618e80a2fe5b03, type: 3}
---- !u!1 &1699055407 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6716251274883284101, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
-  m_PrefabInstance: {fileID: 2006983343}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1699055414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699055407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  range: 0
-  rate: 0
-  ammo: 0
-  clipSize: 0
-  maxAmmo: 0
-  maxClip: 0
-  reloadTime: 0
 --- !u!1001 &1704571536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1497,6 +1477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TempPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: shootPos
+      value: 
+      objectReference: {fileID: 1533017331}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: playerBullet
+      value: 
+      objectReference: {fileID: 4666130587434676967, guid: 664044c8bc0b8c14991c83e9e8970936, type: 3}
     - target: {fileID: 6716251274883284219, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: m_RootOrder
       value: 4
