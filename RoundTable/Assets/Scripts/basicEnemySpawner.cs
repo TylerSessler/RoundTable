@@ -36,6 +36,21 @@ public class basicEnemySpawner : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
+    private void Start()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            spawns(basic_enemyPrefab, basicrange);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            spawns(mid_enemyPrefab, midrange);
+        }
+        for (int i = 0; i < 1; i++)
+        {
+            spawns(boss_enemyPrefab, bossrange);
+        }
+    }
 
     void Update()
     {
@@ -52,37 +67,32 @@ public class basicEnemySpawner : MonoBehaviour
     IEnumerator basicspawn()
     {
         basicspawner = true;
-        Vector3 point;
-        if (RandomPoint(transform.position, basicrange, out point))
-        {
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
-            Instantiate(basic_enemyPrefab, point, basic_enemyPrefab.transform.rotation);
-        }
+        spawns(basic_enemyPrefab, basicrange);
         yield return new WaitForSeconds(basicspawnTime);
         basicspawner = false;
     }
     IEnumerator midspawn()
     {
         midspawner = true;
-        Vector3 point;
-        if (RandomPoint(transform.position, midrange, out point))
-        {
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
-            Instantiate(mid_enemyPrefab, point, mid_enemyPrefab.transform.rotation);
-        }
+        spawns(mid_enemyPrefab, midrange);
         yield return new WaitForSeconds(midspawnTime);
         midspawner = false;
     }
     IEnumerator bossspawn()
     {
         bossspawner = true;
-        Vector3 point;
-        if (RandomPoint(transform.position, bossrange, out point))
-        {
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
-            Instantiate(boss_enemyPrefab, point, boss_enemyPrefab.transform.rotation);
-        }
+        spawns(boss_enemyPrefab, bossrange);
         yield return new WaitForSeconds(bossspawnTime);
         bossspawner = false;
+    }
+
+    void spawns(GameObject g, float r)
+    {
+        Vector3 point;
+        if (RandomPoint(transform.position, r, out point))
+        {
+            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+            Instantiate(g, point, g.transform.rotation);
+        }
     }
 }

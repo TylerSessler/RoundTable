@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int maxJumps;
     [SerializeField] float gravity;
     [SerializeField] float tempVal;
-    [SerializeField] int bulletSpeed;
+    [SerializeField] float bulletSpeed;
 
     // used for resetting stats. For all call resetStats()
     int originalHealth;
@@ -304,6 +304,7 @@ public class playerController : MonoBehaviour, IDamage
                 // Fire projectile
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = getLook() * bulletSpeed;
+                Debug.Log(bulletClone.GetComponent<Rigidbody>().velocity);
                 yield return new WaitForSeconds(activeWeapon.rate);
                 isShooting = false;
             }
