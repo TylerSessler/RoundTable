@@ -381,7 +381,10 @@ public class playerController : MonoBehaviour, IDamage
 
             Destroy(other.gameObject);
         }
-
+        else if (other.CompareTag("Extraction Zone"))
+        {
+            gameManager.instance.winCondition();
+        }
     }
 
     // Exclusively used to swap reticle without code bloat.

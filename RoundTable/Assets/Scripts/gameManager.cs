@@ -83,11 +83,7 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
         if (enemiesRemaining <= 0)
-        {
-            activeMenu = winMenu;
-            activeMenu.SetActive(true);
-            pauseState();
-        }
+            winCondition();
     }
 
     public void playerDead()
@@ -102,5 +98,12 @@ public class gameManager : MonoBehaviour
     void enemiesRemainingUIUpdate()
     {
         enemiesRemainingText.text = enemiesRemaining.ToString();
+    }
+
+    public void winCondition()
+    {
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
+        pauseState();
     }
 }

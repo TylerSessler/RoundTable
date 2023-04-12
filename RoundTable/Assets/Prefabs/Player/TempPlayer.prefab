@@ -185,7 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6716251274883284217}
-  playerBullet: {fileID: 0}
+  playerBullet: {fileID: 4666130587434676967, guid: 664044c8bc0b8c14991c83e9e8970936, type: 3}
+  shootPos: {fileID: 1533017331}
   health: 10
   movementSpeed: 10
   jumpHeight: 6
