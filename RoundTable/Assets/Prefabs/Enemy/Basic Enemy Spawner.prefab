@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicrange: 30
-  basicspawnTime: 6
+  basicspawnTime: 5
   basic_enemyPrefab: {fileID: 6402736061975867633, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
   midrange: 20
-  midspawnTime: 10
+  midspawnTime: 15
   mid_enemyPrefab: {fileID: 3946821624309934124, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
   bossrange: 10
-  bossspawnTime: 15
+  bossspawnTime: 30
   boss_enemyPrefab: {fileID: 8503887633382848540, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
