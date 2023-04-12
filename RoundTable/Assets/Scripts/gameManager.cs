@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading;
 
 public class gameManager : MonoBehaviour
 {
@@ -27,6 +28,16 @@ public class gameManager : MonoBehaviour
     public GameObject glow3;
     public GameObject glow4;
     public GameObject glow5;
+
+    [Header("----- Timer Stuff -----")]
+    [SerializeField] int timeValue;
+    [SerializeField] int extractValue;
+    public GameObject timeUntilText;
+    public TextMeshProUGUI timerText;
+    public GameObject extractionText;
+    public TextMeshProUGUI extractionTimerText;
+    public GameObject extractionZone;
+
 
     public int enemiesRemaining;
 
@@ -61,6 +72,11 @@ public class gameManager : MonoBehaviour
             }
                 
         }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(timerUpdate(timeValue, extractValue));
     }
 
     public void pauseState()
@@ -105,5 +121,26 @@ public class gameManager : MonoBehaviour
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
+    }
+
+    IEnumerator timerUpdate(int time, int extract)
+    {
+        // Time until extraction starts
+        for (int i = time; i >= 0; i--)
+        {
+            timerText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
+        timeUntilText.SetActive(false);
+        extractionZone.SetActive(true);
+
+        // Time until extraction ends
+        extractionText.SetActive(true);
+        for (int i = extract; i >= 0; i--)
+        {
+            extractionTimerText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
+        playerDead();
     }
 }
