@@ -36,6 +36,7 @@ public class playerController : MonoBehaviour, IDamage
     bool isSprinting;
     bool isShooting;
     bool isReloading;
+    bool isZoomed;
     bool isMelee;
     bool gravityFlipped;
     int activeSlot;
@@ -80,6 +81,7 @@ public class playerController : MonoBehaviour, IDamage
             }
             movement();
             inventory();
+            zoom();
             if (!isShooting && Input.GetButton("Shoot"))
             {
                 StartCoroutine(shoot());
@@ -310,9 +312,15 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(melee());
         }
-        
+    }
 
-        
+    void zoom()
+    {
+        isZoomed = Input.GetMouseButton(1);
+        if (isZoomed && activeWeapon.canZoom == true)
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+        else
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
     }
 
     IEnumerator reload()
