@@ -122,11 +122,13 @@ public class playerController : MonoBehaviour, IDamage
         if (isSprinting)
         {
             movementSpeed = sprintSpeed;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
         }
         // Reset function
         else
         {
             movementSpeed = originalMovementSpeed;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
         }
         controller.Move(move * Time.deltaTime * movementSpeed);
 
