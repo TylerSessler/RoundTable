@@ -44,15 +44,13 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
 
     int activeSlot;
-    Weapon[] inv;
-    Weapon activeWeapon;
+    public List<weapon> inv = new List<weapon>();
+    weapon activeWeapon;
 
     void Start()
     {
-        Weapon weaponController = new Weapon();
-        inv = weaponController.generateInventory();
-
-        activeWeapon = inv[0];
+        activeWeapon = null;
+        activeSlot = 0;
         inventoryUI(1);
 
         originalHealth = health;
@@ -60,7 +58,6 @@ public class playerController : MonoBehaviour, IDamage
         originalJumpHeight = jumpHeight;
         originalMaxJumps = maxJumps;
         sprintSpeed = 1.5f * movementSpeed;
-        zoomedFov = 60;
         originalSprintSpeed = sprintSpeed;
         originalGravity = gravity;
 
@@ -148,7 +145,6 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
 
     }
-
     Vector3 getLook()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -159,7 +155,6 @@ public class playerController : MonoBehaviour, IDamage
         }
         else return ray.GetPoint(1000);
     }
-
     void inventory()
     {
         if (Input.GetButtonDown("1"))
@@ -203,7 +198,6 @@ public class playerController : MonoBehaviour, IDamage
             inventoryUI(5);
         }
     }
-    
     void inventoryUI(int num)
     {
         // Disable all hightlights
@@ -292,7 +286,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         // If player isn't melee
-        if (activeSlot != 5)
+        if (activeSlot != 5 && activeWeapon != null)
         {
             if (activeWeapon.clipSize > 0)
             {
@@ -314,20 +308,21 @@ public class playerController : MonoBehaviour, IDamage
             StartCoroutine(melee());
         }
     }
-
     void zoom()
     {
-        isZoomed = Input.GetButton("Zoom");
-        if (isZoomed && activeWeapon.canZoom == true)
+        if (activeWeapon != null)
         {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+            isZoomed = Input.GetButton("Zoom");
+            if (isZoomed && activeWeapon.canZoom == true)
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+            }
+            else
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+            }
         }
-        else
-        {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-        }
-            
-
+        
 
         if (isSprinting)
         {
@@ -341,7 +336,6 @@ public class playerController : MonoBehaviour, IDamage
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
         }
     }
-
     IEnumerator reload()
     {
         Debug.Log("Reload Called");
@@ -368,7 +362,6 @@ public class playerController : MonoBehaviour, IDamage
         
         isReloading = false;
     }
-
     IEnumerator melee()
     {
         isMelee = true;
@@ -385,7 +378,6 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -415,10 +407,9 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.winCondition();
         }
     }
-
-    // Exclusively used to swap reticle without code bloat.
     void reticleSwap()
     {
+        // Exclusively used to swap reticle without code bloat.
         if (activeSlot != 5)
         {
             gameManager.instance.gunReticle.SetActive(true);
@@ -430,7 +421,6 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.meleeReticle.SetActive(true);
         }
     }
-
     public void takeDamage(int dmg)
     {
         health -= dmg;
@@ -446,17 +436,23 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerDead();
         }
     }
-
     void playerUIUpdate()
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
     }
-
     void bulletCountUpdate()
     {
-        gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
+        if (activeWeapon != null)
+        {
+            gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
+        }
     }
 
-    
+
+    public void addWeapon(weapon gun)
+    {
+        inv.Add(gun);
+        
+    }
 
 }
