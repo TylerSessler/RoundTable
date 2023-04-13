@@ -49,6 +49,7 @@ public class gameManager : MonoBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
+        extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
     }
@@ -76,7 +77,7 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(timerUpdate(timeValue, extractValue));
+        StartCoroutine(timerUpdate(timeValue));
     }
 
     public void pauseState()
@@ -99,7 +100,9 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
         if (enemiesRemaining <= 0)
-            winCondition();
+        {
+            StartCoroutine(startExtraction(extractValue));
+        }
     }
 
     public void playerDead()
@@ -123,24 +126,33 @@ public class gameManager : MonoBehaviour
         pauseState();
     }
 
-    IEnumerator timerUpdate(int time, int extract)
+    IEnumerator timerUpdate(int time)
     {
+        extractionZone.SetActive(false);
         // Time until extraction starts
         for (int i = time; i >= 0; i--)
         {
             timerText.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
-        timeUntilText.SetActive(false);
-        extractionZone.SetActive(true);
+        StartCoroutine(startExtraction(extractValue));
+    }
 
-        // Time until extraction ends
-        extractionText.SetActive(true);
-        for (int i = extract; i >= 0; i--)
+    IEnumerator startExtraction(int extract)
+    {
+        if (timeUntilText.active == true) // Since there are multiple win conditions, check if one is already active
         {
-            extractionTimerText.text = i.ToString();
-            yield return new WaitForSeconds(1);
+            timeUntilText.SetActive(false);
+            extractionZone.SetActive(true);
+
+            // Time until extraction ends
+            extractionText.SetActive(true);
+            for (int i = extract; i >= 0; i--)
+            {
+                extractionTimerText.text = i.ToString();
+                yield return new WaitForSeconds(1);
+            }
+            playerDead();
         }
-        playerDead();
     }
 }
