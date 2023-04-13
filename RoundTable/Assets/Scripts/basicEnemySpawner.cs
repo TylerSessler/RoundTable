@@ -6,14 +6,17 @@ using UnityEngine.AI;
 public class basicEnemySpawner : MonoBehaviour
 {
     [Header("Basic Enemy Spawner Specs")]
+    [SerializeField] int basicEnemiesAtStart = 5;
     [SerializeField] float basicrange = 30.0f;
     [SerializeField] float basicspawnTime = 6.0f;
     [SerializeField] GameObject basic_enemyPrefab;
     [Header("Mid Enemy Spawner Specs")]
+    [SerializeField] int midEnemiesAtStart = 3;
     [SerializeField] float midrange = 20.0f;
     [SerializeField] float midspawnTime = 10.0f;
     [SerializeField] GameObject mid_enemyPrefab;
     [Header("Boss Enemy Spawner Specs")]
+    [SerializeField] int bossEnemiesAtStart = 1;
     [SerializeField] float bossrange = 10.0f;
     [SerializeField] float bossspawnTime = 15.0f;
     [SerializeField] GameObject boss_enemyPrefab;
@@ -38,15 +41,15 @@ public class basicEnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <= basicEnemiesAtStart; i++)
         {
             spawns(basic_enemyPrefab, basicrange);
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <= midEnemiesAtStart; i++)
         {
             spawns(mid_enemyPrefab, midrange);
         }
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i <= bossEnemiesAtStart; i++)
         {
             spawns(boss_enemyPrefab, bossrange);
         }
@@ -93,6 +96,10 @@ public class basicEnemySpawner : MonoBehaviour
         {
             Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
             Instantiate(g, point, g.transform.rotation);
+        }
+        else
+        {
+            spawns(g, r);
         }
     }
 }
