@@ -35,11 +35,14 @@ public class playerController : MonoBehaviour, IDamage
     public int jumpCount;
     public bool groundedPlayer;
     bool isSprinting;
+    bool gravityFlipped;
+    // Used for shooting & zoom logic
     bool isShooting;
     bool isReloading;
     bool isZoomed;
+    int zoomedFov;
     bool isMelee;
-    bool gravityFlipped;
+
     int activeSlot;
     Weapon[] inv;
     Weapon activeWeapon;
@@ -57,6 +60,7 @@ public class playerController : MonoBehaviour, IDamage
         originalJumpHeight = jumpHeight;
         originalMaxJumps = maxJumps;
         sprintSpeed = 1.5f * movementSpeed;
+        zoomedFov = 60;
         originalSprintSpeed = sprintSpeed;
         originalGravity = gravity;
 
@@ -111,7 +115,7 @@ public class playerController : MonoBehaviour, IDamage
             playerVelocity.y = 0;
             jumpCount = 0;
         }
-        if (groundedPlayer && gravityFlipped && playerVelocity.y > 0)
+        else if (groundedPlayer && gravityFlipped && playerVelocity.y > 0)
         {
             playerVelocity.y = 0;
             jumpCount = 0;
@@ -232,7 +236,6 @@ public class playerController : MonoBehaviour, IDamage
         // Make sure proper reticle is active
         reticleSwap();
     }
-
     void jump()
     {
         // If player is not grounded and didn't jump to enter the state effectively disable double/extra jumps
@@ -255,7 +258,6 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
-
     void flipGrav()
     {
         gravityFlipped = !gravityFlipped;
@@ -264,7 +266,6 @@ public class playerController : MonoBehaviour, IDamage
         controller.transform.Rotate(new Vector3(180, 0, 0));
         playerVelocity.y = 0;
     }
-
     bool isGrounded()
     {
         RaycastHit floorCheck;
@@ -288,8 +289,6 @@ public class playerController : MonoBehaviour, IDamage
         }
         return false;
     }
-   
-
     IEnumerator shoot()
     {
         // If player isn't melee
@@ -318,11 +317,29 @@ public class playerController : MonoBehaviour, IDamage
 
     void zoom()
     {
-        isZoomed = Input.GetMouseButton(1);
+        isZoomed = Input.GetButton("Zoom");
         if (isZoomed && activeWeapon.canZoom == true)
+        {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+        }
         else
+        {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+        }
+            
+
+
+        if (isSprinting)
+        {
+            movementSpeed = sprintSpeed;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
+        }
+        // Reset function
+        else
+        {
+            movementSpeed = originalMovementSpeed;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+        }
     }
 
     IEnumerator reload()
