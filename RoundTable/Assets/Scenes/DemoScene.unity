@@ -231,6 +231,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
+      propertyPath: midrange
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
+      propertyPath: bossrange
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
+      propertyPath: bossEnemiesAtStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 294626769331504939, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
       propertyPath: m_Name
       value: Basic Enemy Spawner
@@ -542,6 +554,22 @@ PrefabInstance:
     - target: {fileID: 6716251274883284102, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: jumpHeight
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: movementSpeed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6716251274883284219, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: m_RootOrder
