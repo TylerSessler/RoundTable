@@ -719,6 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 3946821624296269156}
   agent: {fileID: 7420861326005228612}
+  anim: {fileID: 3946821624300542884}
   headPos: {fileID: 3946821624310101112}
   shootPos: {fileID: 3578991479328241303}
   HP: 5
@@ -726,6 +727,7 @@ MonoBehaviour:
   sightAngle: 90
   roamRange: 10
   roamCooldown: 6
+  animTransSpeed: 8
   shootDamage: 1
   shootRate: 0.7
   shootDist: 1
@@ -742,12 +744,12 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3946821624309934124}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e26e70556bd52af468dffcaa626b3d35, type: 3}
   m_Controller: {fileID: 9100000, guid: 110b926d88027064bbfbd56c2c4faf0f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

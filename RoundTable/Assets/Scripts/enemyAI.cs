@@ -8,6 +8,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
 
@@ -17,6 +18,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int sightAngle;
     [SerializeField] int roamRange;
     [SerializeField] float roamCooldown;
+    [SerializeField] float animTransSpeed;
 
     [Header("----- Enemy Gun -----")]
     [Range(1, 10)][SerializeField] int shootDamage;
@@ -34,6 +36,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isShooting;
     float stoppingDistOrig;
     bool isRoaming;
+    float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,10 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+
+        speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+        anim.SetFloat("Speed", speed);
+
         if (playerInRange)
         {
             if (canSeePlayer())

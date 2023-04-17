@@ -44,12 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8969381774b5dde49af24ff54522fde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicEnemiesAtStart: 0
   basicrange: 100
-  basicspawnTime: 5
+  basicspawnTime: 100
   basic_enemyPrefab: {fileID: 6402736061975867633, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
+  midEnemiesAtStart: 0
   midrange: 50
-  midspawnTime: 15
+  midspawnTime: 100
   mid_enemyPrefab: {fileID: 3946821624309934124, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
+  bossEnemiesAtStart: 0
   bossrange: 15
-  bossspawnTime: 30
+  bossspawnTime: 100
   boss_enemyPrefab: {fileID: 8503887633382848540, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
