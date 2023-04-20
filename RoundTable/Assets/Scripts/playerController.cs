@@ -151,7 +151,7 @@ public class playerController : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            return hit.point;
+            return new Vector3(Mathf.Abs(hit.point.x), Mathf.Abs(hit.point.y), Mathf.Abs(hit.point.z));
         }
         else return ray.GetPoint(1000);
     }
@@ -295,8 +295,11 @@ public class playerController : MonoBehaviour, IDamage
                 // Reduce current ammo
                 activeWeapon.clipSize--;
                 // Fire projectile
+                
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
-                bulletClone.GetComponent<Rigidbody>().velocity = getLook() * bulletSpeed;
+                bulletClone.GetComponent<Rigidbody>().velocity = getLook().normalized * bulletSpeed;
+                Debug.Log(getLook());
+                Debug.Log(bulletClone.transform.position);
                 Debug.Log(bulletClone.GetComponent<Rigidbody>().velocity);
                 yield return new WaitForSeconds(activeWeapon.rate);
                 isShooting = false;
