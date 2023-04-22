@@ -153,7 +153,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             return new Vector3(Mathf.Abs(hit.point.x), Mathf.Abs(hit.point.y), Mathf.Abs(hit.point.z));
         }
-        else return ray.GetPoint(1000);
+        else return ray.GetPoint(5);
     }
     void inventory()
     {
@@ -297,7 +297,7 @@ public class playerController : MonoBehaviour, IDamage
                 // Fire projectile
                 
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
-                bulletClone.GetComponent<Rigidbody>().velocity = getLook().normalized * bulletSpeed;
+                bulletClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * bulletSpeed;
                 Debug.Log(getLook());
                 Debug.Log(bulletClone.transform.position);
                 Debug.Log(bulletClone.GetComponent<Rigidbody>().velocity);

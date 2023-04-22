@@ -15,7 +15,7 @@ MonoBehaviour:
   damage: 1
   rate: 0.15
   range: 30
-  ammo: 90
+  ammo: 300
   maxAmmo: 90
   clipSize: 26
   maxClip: 26

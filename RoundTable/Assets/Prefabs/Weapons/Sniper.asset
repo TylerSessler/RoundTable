@@ -15,9 +15,9 @@ MonoBehaviour:
   damage: 7
   rate: 2.25
   range: 90
-  ammo: 15
+  ammo: 300
   maxAmmo: 15
-  clipSize: 3
+  clipSize: 4
   maxClip: 4
   canZoom: 1
   reloadTime: 5
