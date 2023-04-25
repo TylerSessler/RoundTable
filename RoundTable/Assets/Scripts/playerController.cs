@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -145,16 +146,6 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
 
     }
-    Vector3 getLook()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            return new Vector3(Mathf.Abs(hit.point.x), Mathf.Abs(hit.point.y), Mathf.Abs(hit.point.z));
-        }
-        else return ray.GetPoint(5);
-    }
     void inventory()
     {
         if (Input.GetButtonDown("1"))
@@ -286,7 +277,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         // If player isn't melee
-        if (activeSlot != 5 && activeWeapon != null)
+        if (activeSlot != 1 && activeWeapon != null)
         {
             if (activeWeapon.clipSize > 0)
             {
@@ -298,15 +289,12 @@ public class playerController : MonoBehaviour, IDamage
                 
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * bulletSpeed;
-                Debug.Log(getLook());
-                Debug.Log(bulletClone.transform.position);
-                Debug.Log(bulletClone.GetComponent<Rigidbody>().velocity);
                 yield return new WaitForSeconds(activeWeapon.rate);
                 isShooting = false;
             }
         }
         // Player is melee
-        else if (activeSlot == 5)
+        else if (activeSlot == 1)
         {
             StartCoroutine(melee());
         }
@@ -454,8 +442,28 @@ public class playerController : MonoBehaviour, IDamage
 
     public void addWeapon(weapon gun)
     {
+        gun.ammo = gun.maxAmmo;
+        gun.clipSize = gun.maxClip;
         inv.Add(gun);
-        
+        switch (inv.Count)
+        {
+            case 2:
+                gameManager.instance.item2.SetActive(true);
+                gameManager.instance.item2.GetComponent<RawImage>().texture = gun.sprite;
+                break;
+            case 3:
+                gameManager.instance.item3.SetActive(true);
+                gameManager.instance.item3.GetComponent<RawImage>().texture = gun.sprite;
+                break;
+            case 4:
+                gameManager.instance.item4.SetActive(true);
+                gameManager.instance.item4.GetComponent<RawImage>().texture = gun.sprite;
+                break;
+            case 5:
+                gameManager.instance.item5.SetActive(true);
+                gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
+                break;
+        }
     }
 
 }

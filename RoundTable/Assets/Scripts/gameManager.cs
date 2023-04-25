@@ -23,11 +23,17 @@ public class gameManager : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
+    // Hotbar selected slot
     public GameObject glow1;
     public GameObject glow2;
     public GameObject glow3;
     public GameObject glow4;
     public GameObject glow5;
+    // Dynamically add item to hotbar (graphic). Ignore slot 1 since it is always melee
+    public GameObject item2;
+    public GameObject item3;
+    public GameObject item4;
+    public GameObject item5;
 
     [Header("----- Timer Stuff -----")]
     [SerializeField] int timeValue;

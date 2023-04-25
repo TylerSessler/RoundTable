@@ -15,11 +15,12 @@ MonoBehaviour:
   damage: 1
   rate: 0.15
   range: 30
-  ammo: 300
+  ammo: 90
   maxAmmo: 90
-  clipSize: 26
+  clipSize: 18
   maxClip: 26
   canZoom: 0
   reloadTime: 4
   model: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
   gunShot: {fileID: 0}
+  sprite: {fileID: 2800000, guid: 126149c16f403ee43ada0f5b5849f528, type: 3}

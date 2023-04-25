@@ -20,8 +20,7 @@ public class weaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            weapon addGun = gun;
-            gameManager.instance.playerScript.addWeapon(addGun);
+            gameManager.instance.playerScript.addWeapon(gun);
             Destroy(gameObject);
         }
 

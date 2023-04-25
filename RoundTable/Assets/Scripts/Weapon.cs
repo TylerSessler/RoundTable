@@ -16,5 +16,6 @@ public class weapon : ScriptableObject
     public float reloadTime;
     public GameObject model;
     public AudioClip gunShot;
+    public Texture sprite;
 
 }
