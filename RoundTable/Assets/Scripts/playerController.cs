@@ -24,8 +24,7 @@ public class playerController : MonoBehaviour, IDamage
     // used for resetting stats. For all call resetStats()
     int originalHealth;
     public float originalMovementSpeed;
-    float sprintSpeed;
-    float originalSprintSpeed;
+    public float sprintSpeed;
     int originalJumpHeight;
     int originalMaxJumps;
     float originalGravity;
@@ -60,8 +59,6 @@ public class playerController : MonoBehaviour, IDamage
         originalMovementSpeed = movementSpeed;
         originalJumpHeight = jumpHeight;
         originalMaxJumps = maxJumps;
-        sprintSpeed = 1.5f * movementSpeed;
-        originalSprintSpeed = sprintSpeed;
         originalGravity = gravity;
 
         // Default to ranged reticle (automatic since player has ammo)
@@ -102,7 +99,6 @@ public class playerController : MonoBehaviour, IDamage
         movementSpeed = originalMovementSpeed;
         jumpHeight = originalJumpHeight;
         maxJumps = originalMaxJumps;
-        sprintSpeed = originalSprintSpeed;
         gravity = originalGravity;
     }
     void movement()
