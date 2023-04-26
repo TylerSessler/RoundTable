@@ -241,18 +241,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
-      propertyPath: midrange
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
-      propertyPath: bossrange
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 294626769331504938, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
-      propertyPath: bossEnemiesAtStart
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 294626769331504939, guid: 76ee6c823bef34d4b981057fb78cb474, type: 3}
       propertyPath: m_Name
       value: Basic Enemy Spawner

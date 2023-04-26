@@ -49,10 +49,10 @@ MonoBehaviour:
   basicspawnTime: 20
   basic_enemyPrefab: {fileID: 6402736061975867633, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
   midEnemiesAtStart: 4
-  midrange: 50
+  midrange: 100
   midspawnTime: 30
   mid_enemyPrefab: {fileID: 3946821624309934124, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
   bossEnemiesAtStart: 1
-  bossrange: 15
+  bossrange: 100
   bossspawnTime: 40
   boss_enemyPrefab: {fileID: 8503887633382848540, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
