@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class weapon : ScriptableObject
 {
+    public string label;
     public int damage;
     public float rate;
     public float range;
@@ -17,5 +18,4 @@ public class weapon : ScriptableObject
     public GameObject model;
     public AudioClip gunShot;
     public Texture sprite;
-
 }

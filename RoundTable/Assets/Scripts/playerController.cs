@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
     [SerializeField] GameObject playerBullet;
     [SerializeField] Transform shootPos;
+    [SerializeField] GameObject activeModel;
 
     [Header("Stats")]
     [SerializeField] int health;
@@ -45,8 +46,9 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
 
     int activeSlot;
-    public List<weapon> inv = new List<weapon>();
     weapon activeWeapon;
+    public List<weapon> inv = new List<weapon>();
+
 
     void Start()
     {
@@ -188,6 +190,8 @@ public class playerController : MonoBehaviour, IDamage
             // Enable inventory Highlight
             inventoryUI(5);
         }
+        activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+        activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
     void inventoryUI(int num)
     {
@@ -286,7 +290,6 @@ public class playerController : MonoBehaviour, IDamage
                 // Reduce current ammo
                 activeWeapon.clipSize--;
                 // Fire projectile
-                
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * bulletSpeed;
                 yield return new WaitForSeconds(activeWeapon.rate);
@@ -299,6 +302,24 @@ public class playerController : MonoBehaviour, IDamage
             StartCoroutine(melee());
         }
     }
+
+    IEnumerator melee()
+    {
+        isMelee = true;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, activeWeapon.range))
+        {
+            IDamage damageable = hit.collider.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(activeWeapon.damage);
+            }
+        }
+
+        yield return new WaitForSeconds(activeWeapon.rate);
+        isMelee = false;
+    }
+
     void zoom()
     {
         if (activeWeapon != null)
@@ -353,23 +374,6 @@ public class playerController : MonoBehaviour, IDamage
         
         isReloading = false;
     }
-    IEnumerator melee()
-    {
-        isMelee = true;
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, activeWeapon.range))
-        {
-            IDamage damageable = hit.collider.GetComponent<IDamage>();
-            if (damageable != null)
-            {
-                damageable.takeDamage(activeWeapon.damage);
-            }
-        }
-
-        yield return new WaitForSeconds(activeWeapon.rate);
-        isMelee = false;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Drop"))
@@ -401,7 +405,7 @@ public class playerController : MonoBehaviour, IDamage
     void reticleSwap()
     {
         // Exclusively used to swap reticle without code bloat.
-        if (activeSlot != 5)
+        if (activeSlot != 1)
         {
             gameManager.instance.gunReticle.SetActive(true);
             gameManager.instance.meleeReticle.SetActive(false);
@@ -438,31 +442,46 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
         }
     }
-
-
     public void addWeapon(weapon gun)
     {
+        bool found = false;
         gun.ammo = gun.maxAmmo;
         gun.clipSize = gun.maxClip;
-        inv.Add(gun);
-        switch (inv.Count)
+        
+        for (int i = 1; i < inv.Count; i++)
         {
-            case 2:
-                gameManager.instance.item2.SetActive(true);
-                gameManager.instance.item2.GetComponent<RawImage>().texture = gun.sprite;
-                break;
-            case 3:
-                gameManager.instance.item3.SetActive(true);
-                gameManager.instance.item3.GetComponent<RawImage>().texture = gun.sprite;
-                break;
-            case 4:
-                gameManager.instance.item4.SetActive(true);
-                gameManager.instance.item4.GetComponent<RawImage>().texture = gun.sprite;
-                break;
-            case 5:
-                gameManager.instance.item5.SetActive(true);
-                gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
-                break;
+            if (!found)
+            {
+                if (gun.label == inv[i].label)
+                {
+                    found = true;
+                    inv[i].ammo += inv[i].clipSize;
+                    bulletCountUpdate();
+                }
+            }
+        }
+        if (!found)
+        {
+            inv.Add(gun);
+            switch (inv.Count)
+            {
+                case 2:
+                    gameManager.instance.item2.SetActive(true);
+                    gameManager.instance.item2.GetComponent<RawImage>().texture = gun.sprite;
+                    break;
+                case 3:
+                    gameManager.instance.item3.SetActive(true);
+                    gameManager.instance.item3.GetComponent<RawImage>().texture = gun.sprite;
+                    break;
+                case 4:
+                    gameManager.instance.item4.SetActive(true);
+                    gameManager.instance.item4.GetComponent<RawImage>().texture = gun.sprite;
+                    break;
+                case 5:
+                    gameManager.instance.item5.SetActive(true);
+                    gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
+                    break;
+            }
         }
     }
 
