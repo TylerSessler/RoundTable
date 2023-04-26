@@ -273,13 +273,18 @@ MonoBehaviour:
   shootPos: {fileID: 1533017331}
   activeModel: {fileID: 4904650240889215659}
   health: 100
+  originalHealth: 100
   movementSpeed: 10
-  jumpHeight: 12
+  originalMovementSpeed: 10
+  jumpHeight: 10
+  originalJumpHeight: 10
   maxJumps: 2
+  originalMaxJumps: 2
   gravity: 9.81
+  originalGravity: 9.81
   tempVal: 0
   bulletSpeed: 20
-  originalMovementSpeed: 10
+  sprintSpeed: 15
   jumpCount: 0
   groundedPlayer: 0
   inv: []
