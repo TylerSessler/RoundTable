@@ -26,11 +26,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float tempVal;
     [SerializeField] float bulletSpeed;
 
-    // used for resetting stats. For all call resetStats()
-
     public float sprintSpeed;
-    Vector3 playerLook;
-
     private Vector3 playerVelocity;
     Vector3 move;
     // Used for jump & sprint logic
@@ -57,7 +53,6 @@ public class playerController : MonoBehaviour, IDamage
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
-
     }
 
     // Update is called once per frame
@@ -200,7 +195,6 @@ public class playerController : MonoBehaviour, IDamage
 
         
     }
-
     void inventoryUI(int num)
     {
         // Disable all hightlights
