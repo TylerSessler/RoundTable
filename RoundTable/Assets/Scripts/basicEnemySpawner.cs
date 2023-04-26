@@ -41,15 +41,15 @@ public class basicEnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i <= basicEnemiesAtStart; i++)
+        for (int i = 0; i < basicEnemiesAtStart; i++)
         {
             spawns(basic_enemyPrefab, basicrange);
         }
-        for (int i = 0; i <= midEnemiesAtStart; i++)
+        for (int i = 0; i < midEnemiesAtStart; i++)
         {
             spawns(mid_enemyPrefab, midrange);
         }
-        for (int i = 0; i <= bossEnemiesAtStart; i++)
+        for (int i = 0; i < bossEnemiesAtStart; i++)
         {
             spawns(boss_enemyPrefab, bossrange);
         }
@@ -70,22 +70,22 @@ public class basicEnemySpawner : MonoBehaviour
     IEnumerator basicspawn()
     {
         basicspawner = true;
-        spawns(basic_enemyPrefab, basicrange);
         yield return new WaitForSeconds(basicspawnTime);
+        spawns(basic_enemyPrefab, basicrange);
         basicspawner = false;
     }
     IEnumerator midspawn()
     {
         midspawner = true;
-        spawns(mid_enemyPrefab, midrange);
         yield return new WaitForSeconds(midspawnTime);
+        spawns(mid_enemyPrefab, midrange);
         midspawner = false;
     }
     IEnumerator bossspawn()
     {
         bossspawner = true;
-        spawns(boss_enemyPrefab, bossrange);
         yield return new WaitForSeconds(bossspawnTime);
+        spawns(boss_enemyPrefab, bossrange);
         bossspawner = false;
     }
 
