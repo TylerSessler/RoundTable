@@ -160,39 +160,58 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (Input.GetButtonDown("2"))
         {
-            // Set active weapon for shoot()
-            activeWeapon = inv[1];
-            activeSlot = 2;
-            // Enable inventory Highlight
-            inventoryUI(2);
+            // Make sure slot is filled
+            if (inv.Count >= 2)
+            {
+                // Set active weapon for shoot()
+                activeWeapon = inv[1];
+                activeSlot = 2;
+                // Enable inventory Highlight
+                inventoryUI(2);
+            }
+            
         }
         else if (Input.GetButtonDown("3"))
         {
-            // Set active weapon for shoot()
-            activeWeapon = inv[2];
-            activeSlot = 3;
-            // Enable inventory Highlight
-            inventoryUI(3);
+            // Make sure slot is filled
+            if (inv.Count >= 3)
+            {
+                // Set active weapon for shoot()
+                activeWeapon = inv[2];
+                activeSlot = 3;
+                // Enable inventory Highlight
+                inventoryUI(3);
+            }
         }
         else if (Input.GetButtonDown("4"))
         {
-            // Set active weapon for shoot()
-            activeWeapon = inv[3];
-            activeSlot = 4;
-            // Enable inventory Highlight
-            inventoryUI(4);
+            // Make sure slot is filled
+            if (inv.Count >= 4)
+            {
+                // Set active weapon for shoot()
+                activeWeapon = inv[3];
+                activeSlot = 4;
+                // Enable inventory Highlight
+                inventoryUI(4);
+            }
         }
         else if (Input.GetButtonDown("5"))
         {
-            // Set active weapon for shoot()
-            activeWeapon = inv[4];
-            activeSlot = 5;
-            // Enable inventory Highlight
-            inventoryUI(5);
+            // Make sure slot is filled
+            if (inv.Count >= 5)
+            {
+                // Set active weapon for shoot()
+                activeWeapon = inv[4];
+                activeSlot = 5;
+                // Enable inventory Highlight
+                inventoryUI(5);
+            }
         }
-        activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-        activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        
     }
+
+
     void inventoryUI(int num)
     {
         // Disable all hightlights
@@ -224,6 +243,9 @@ public class playerController : MonoBehaviour, IDamage
         bulletCountUpdate();
         // Make sure proper reticle is active
         reticleSwap();
+        // Set gun visual to active gun's texture/model
+        activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+        activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
     void jump()
     {
