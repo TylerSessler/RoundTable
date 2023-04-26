@@ -14,20 +14,21 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Stats")]
     [SerializeField] int health;
+    [SerializeField] int originalHealth;
     [SerializeField] float movementSpeed;
+    [SerializeField] float originalMovementSpeed;
     [SerializeField] int jumpHeight;
+    [SerializeField] int originalJumpHeight;
     [SerializeField] int maxJumps;
+    [SerializeField] int originalMaxJumps;
     [SerializeField] float gravity;
+    [SerializeField] float originalGravity;
     [SerializeField] float tempVal;
     [SerializeField] float bulletSpeed;
 
     // used for resetting stats. For all call resetStats()
-    int originalHealth;
-    public float originalMovementSpeed;
+
     public float sprintSpeed;
-    int originalJumpHeight;
-    int originalMaxJumps;
-    float originalGravity;
     Vector3 playerLook;
 
     private Vector3 playerVelocity;
@@ -49,18 +50,11 @@ public class playerController : MonoBehaviour, IDamage
     public List<weapon> inv = new List<weapon>();
 
 
-    void Start()
+    void start()
     {
         activeWeapon = null;
         activeSlot = 0;
         inventoryUI(1);
-
-        originalHealth = health;
-        originalMovementSpeed = movementSpeed;
-        originalJumpHeight = jumpHeight;
-        originalMaxJumps = maxJumps;
-        originalGravity = gravity;
-
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
 
