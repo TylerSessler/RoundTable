@@ -735,7 +735,9 @@ MonoBehaviour:
   vertSpread: 0
   HoriSpread: 0
   bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
-  drop: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
+  drop1: {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}
+  drop2: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
+  drop3: {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
 --- !u!95 &3946821624300542884
 Animator:
   serializedVersion: 5

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  label: Pistol
   damage: 2
   rate: 0.5
   range: 20
   ammo: 30
   maxAmmo: 30
-  clipSize: 9
+  clipSize: 11
   maxClip: 11
   canZoom: 0
   reloadTime: 2.5

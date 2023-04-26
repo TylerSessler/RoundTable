@@ -28,7 +28,12 @@ public class enemyAI : MonoBehaviour, IDamage
     [Range(0, 2)][SerializeField] float vertSpread;
     [Range(0, 2)][SerializeField] float HoriSpread;
     [SerializeField] GameObject bullet;
-    [SerializeField] GameObject drop;
+    [Header("Drop Table")]
+    [SerializeField] GameObject drop1;
+    [SerializeField] GameObject drop2;
+    [SerializeField] GameObject drop3;
+    // End item decided to be dropped by the enemy
+    GameObject trueDrop;
 
     Vector3 playerDir;
     bool playerInRange;
@@ -38,11 +43,28 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isRoaming;
     float speed;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager.instance.updateGameGoal(1);
         stoppingDistOrig = agent.stoppingDistance;
+        int dropSelect = Random.Range(1, 3);
+        switch (dropSelect)
+        {
+            case 1:
+                trueDrop = drop1;
+                break;
+            case 2:
+                trueDrop = drop2;
+                break;
+            case 3:
+                trueDrop = drop3;
+                break;
+        }
+
     }
 
     // Update is called once per frame
@@ -168,8 +190,9 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
+            
             gameManager.instance.updateGameGoal(-1);
-            Instantiate(drop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1 , gameObject.transform.position.z), drop.transform.rotation);
+            Instantiate(trueDrop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1 , gameObject.transform.position.z), trueDrop.transform.rotation);
             Destroy(gameObject);
         }
     }

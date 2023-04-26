@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
+  label: Sniper
   damage: 7
   rate: 2.25
   range: 90

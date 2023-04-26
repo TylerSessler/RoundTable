@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  label: Rifle
   damage: 1
   rate: 0.15
   range: 30
-  ammo: 90
+  ammo: 116
   maxAmmo: 90
-  clipSize: 18
+  clipSize: 26
   maxClip: 26
   canZoom: 0
   reloadTime: 4
