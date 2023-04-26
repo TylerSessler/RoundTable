@@ -41,15 +41,15 @@ public class basicEnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i <= basicEnemiesAtStart; i++)
+        for (int i = 0; i < basicEnemiesAtStart; i++)
         {
             spawns(basic_enemyPrefab, basicrange);
         }
-        for (int i = 0; i <= midEnemiesAtStart; i++)
+        for (int i = 0; i < midEnemiesAtStart; i++)
         {
             spawns(mid_enemyPrefab, midrange);
         }
-        for (int i = 0; i <= bossEnemiesAtStart; i++)
+        for (int i = 0; i < bossEnemiesAtStart; i++)
         {
             spawns(boss_enemyPrefab, bossrange);
         }
