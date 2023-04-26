@@ -908,6 +908,34 @@ PrefabInstance:
       value: TempPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: jumpHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: sprintSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: originalHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: originalGravity
+      value: 9.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: originalMaxJumps
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: originalJumpHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
+      propertyPath: originalSprintSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716251274883284218, guid: 9e32d3ad751e01e4b9c5a1dc44ab6801, type: 3}
       propertyPath: originalMovementSpeed
       value: 10
       objectReference: {fileID: 0}
