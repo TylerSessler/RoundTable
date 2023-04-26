@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533017330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.435, z: 0.522}
+  m_LocalPosition: {x: 0.587, y: -0.073, z: 1.422}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5718166096977854481}
-  - component: {fileID: 8715831223097954251}
   - component: {fileID: 8715831223097954228}
   - component: {fileID: 6850024615626144638}
   m_Layer: 0
@@ -65,22 +64,6 @@ Transform:
   m_Father: {fileID: 6716251274883284219}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8715831223097954251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4904650240889215659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12d04b3e3ea662549bb3bb860efcb7b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gun: {fileID: 0}
-  model: {fileID: 0}
-  material: {fileID: 0}
-  shootPos: {fileID: 0}
 --- !u!33 &8715831223097954228
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -296,6 +279,7 @@ MonoBehaviour:
   gravity: 9.81
   tempVal: 0
   bulletSpeed: 20
+  originalMovementSpeed: 0
   jumpCount: 0
   groundedPlayer: 0
   inv: []

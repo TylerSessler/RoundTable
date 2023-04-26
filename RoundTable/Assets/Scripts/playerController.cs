@@ -23,7 +23,7 @@ public class playerController : MonoBehaviour, IDamage
 
     // used for resetting stats. For all call resetStats()
     int originalHealth;
-    float originalMovementSpeed;
+    public float originalMovementSpeed;
     float sprintSpeed;
     float originalSprintSpeed;
     int originalJumpHeight;
@@ -211,7 +211,6 @@ public class playerController : MonoBehaviour, IDamage
         
     }
 
-
     void inventoryUI(int num)
     {
         // Disable all hightlights
@@ -246,6 +245,7 @@ public class playerController : MonoBehaviour, IDamage
         // Set gun visual to active gun's texture/model
         activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
         activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
     }
     void jump()
     {

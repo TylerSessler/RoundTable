@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Melee
   m_EditorClassIdentifier: 
+  label: Unarmed
   damage: 2
   rate: 1.5
   range: 1.25
