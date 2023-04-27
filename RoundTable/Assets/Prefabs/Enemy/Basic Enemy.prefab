@@ -839,7 +839,7 @@ MonoBehaviour:
   animTransSpeed: 8
   shootDamage: 1
   shootRate: 0.82
-  shootDist: 1
+  shootDist: 0
   bulletSpeed: 5
   vertSpread: 0
   HoriSpread: 0
