@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: ba7946f134d38144f82f5d93037bde4d, type: 2}
-  model: {fileID: 0}
-  material: {fileID: 0}
+  model: {fileID: -5754084199372789682, guid: 9db2afcf86c94124480b5c4bea340c95, type: 3}
+  material: {fileID: -7511558181221131132, guid: 9db2afcf86c94124480b5c4bea340c95, type: 3}
 --- !u!33 &1075344853087859797
 MeshFilter:
   m_ObjectHideFlags: 0
