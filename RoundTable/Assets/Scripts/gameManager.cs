@@ -50,7 +50,7 @@ public class gameManager : MonoBehaviour
 
 
     public int enemiesRemaining;
-    public int credits;
+    [SerializeField] public int credits;
     public bool isPaused;
     float timeScaleOrig;
 
@@ -100,7 +100,6 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(timerUpdate(timeValue));
-        credits = 5;
         creditsValueText.text = credits.ToString();
     }
 

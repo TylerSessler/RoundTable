@@ -3884,6 +3884,7 @@ MonoBehaviour:
   extractionTimerText: {fileID: 2055203174}
   extractionZone: {fileID: 0}
   enemiesRemaining: 0
+  credits: 10
   isPaused: 0
   audWin: {fileID: 8300000, guid: 201b31be0273a22449daa9c360afbaf0, type: 3}
   audWinVol: 0.2
