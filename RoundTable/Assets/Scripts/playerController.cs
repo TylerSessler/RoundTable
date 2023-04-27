@@ -52,7 +52,10 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audStepsVol;
     [SerializeField] AudioClip[] audJump;
     [SerializeField][Range(0, 1)] float audJumpVol;
-
+    [SerializeField] AudioClip audGrav;
+    [SerializeField][Range(0, 1)] float audGravVol;
+    [SerializeField] AudioClip audPickup;
+    [SerializeField][Range(0, 1)] float audPickupVol;
 
     void start()
     {
@@ -288,6 +291,7 @@ public class playerController : MonoBehaviour, IDamage
 
         controller.transform.Rotate(new Vector3(180, 0, 0));
         playerVelocity.y = 0;
+        aud.PlayOneShot(audGrav, audGravVol);
     }
     bool isGrounded()
     {
@@ -403,6 +407,7 @@ public class playerController : MonoBehaviour, IDamage
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;
+                    aud.PlayOneShot(activeWeapon.audReload, activeWeapon.audReloadVol);
                 }
             }
         }
@@ -481,6 +486,7 @@ public class playerController : MonoBehaviour, IDamage
     public void addWeapon(weapon gun)
     {
         bool found = false;
+        aud.PlayOneShot(audPickup, audPickupVol);
         gun.ammo = gun.maxAmmo;
         gun.clipSize = gun.maxClip;
         

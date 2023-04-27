@@ -319,6 +319,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1821b89d7eb151c458c4f2df366d8a65, type: 3}
   - {fileID: 8300000, guid: 1a8f8d9c89ad2d241ac0dbd8c215e01f, type: 3}
   audJumpVol: 0.5
+  audGrav: {fileID: 8300000, guid: 9f7c1ceb571d91045870498d6665e80e, type: 3}
+  audGravVol: 0.5
+  audPickup: {fileID: 8300000, guid: e2455abb71c979e478e3abe096eba5fc, type: 3}
+  audPickupVol: 0.5
 --- !u!143 &6716251274883284217
 CharacterController:
   m_ObjectHideFlags: 0

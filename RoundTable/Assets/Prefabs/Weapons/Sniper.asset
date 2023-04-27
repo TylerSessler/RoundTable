@@ -18,7 +18,7 @@ MonoBehaviour:
   range: 90
   ammo: 11
   maxAmmo: 15
-  clipSize: 4
+  clipSize: 2
   maxClip: 4
   canZoom: 1
   reloadTime: 5
@@ -26,4 +26,6 @@ MonoBehaviour:
   gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: c48a313122fe93f4fbb5c58ee801ebd0, type: 3}
   gunShotAud: {fileID: 8300000, guid: a8bee23cb250ebe4f8ed328b85583455, type: 3}
+  audReload: {fileID: 8300000, guid: cfcc6d5c9c21a2c45b5e0d399c5e7e14, type: 3}
   gunShotAudVol: 0.4
+  audReloadVol: 0.149
