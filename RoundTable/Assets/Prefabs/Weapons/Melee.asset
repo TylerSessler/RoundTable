@@ -25,3 +25,5 @@ MonoBehaviour:
   model: {fileID: 0}
   gunShot: {fileID: 0}
   sprite: {fileID: 0}
+  gunShotAud: {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
+  gunShotAudVol: 0.4

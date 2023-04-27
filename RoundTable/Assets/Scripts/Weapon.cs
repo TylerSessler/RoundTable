@@ -18,4 +18,6 @@ public class weapon : ScriptableObject
     public GameObject model;
     public AudioClip gunShot;
     public Texture sprite;
+    public AudioClip gunShotAud;
+    [Range(0, 1)] public float gunShotAudVol;
 }

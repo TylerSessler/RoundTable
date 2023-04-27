@@ -11,6 +11,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
+    [SerializeField] AudioSource aud;
+
 
     [Header("----- Enemy Stats -----")]
     [Range(1, 10)][SerializeField] int HP;
@@ -43,7 +45,9 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isRoaming;
     float speed;
 
-
+    [Header("Audio")]
+    [SerializeField] AudioClip[] audShoot;
+    [SerializeField][Range(0, 1)] float audShootVol;
 
 
     // Start is called before the first frame update
@@ -142,6 +146,7 @@ public class enemyAI : MonoBehaviour, IDamage
         float vertOffset = Random.Range(vertSpread * -1, vertSpread);
         float horiOffset = Random.Range(HoriSpread * -1, HoriSpread);
 
+        aud.PlayOneShot(audShoot[UnityEngine.Random.Range(0, audShoot.Length)], audShootVol);
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(playerDir.x + horiOffset, playerDir.y + vertOffset, playerDir.z) * bulletSpeed;
