@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage
@@ -11,15 +12,16 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] GameObject playerBullet;
     [SerializeField] Transform shootPos;
     [SerializeField] GameObject activeModel;
+    [SerializeField] AudioSource aud;
 
     [Header("Stats")]
     [SerializeField] int health;
     [SerializeField] int originalHealth;
-    [SerializeField] float movementSpeed;
+    [SerializeField] public float movementSpeed;
     [SerializeField] float originalMovementSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] int originalJumpHeight;
-    [SerializeField] int maxJumps;
+    [SerializeField] public int maxJumps;
     [SerializeField] int originalMaxJumps;
     [SerializeField] float gravity;
     [SerializeField] float originalGravity;
@@ -40,11 +42,24 @@ public class playerController : MonoBehaviour, IDamage
     bool isZoomed;
     int zoomedFov;
     bool isMelee;
+    bool isPlayingSteps;
 
     int activeSlot;
     weapon activeWeapon;
     public List<weapon> inv = new List<weapon>();
 
+    [Header("Store")]
+
+
+    [Header("Audio")]
+    [SerializeField] AudioClip[] audSteps;
+    [SerializeField][Range(0, 1)] float audStepsVol;
+    [SerializeField] AudioClip[] audJump;
+    [SerializeField][Range(0, 1)] float audJumpVol;
+    [SerializeField] AudioClip audGrav;
+    [SerializeField][Range(0, 1)] float audGravVol;
+    [SerializeField] AudioClip audPickup;
+    [SerializeField][Range(0, 1)] float audPickupVol;
 
     void start()
     {
@@ -95,15 +110,22 @@ public class playerController : MonoBehaviour, IDamage
 
         isSprinting = Input.GetButton("Sprint");
         groundedPlayer = isGrounded();
-        if (groundedPlayer && !gravityFlipped && playerVelocity.y < 0)
+        if (groundedPlayer)
         {
-            playerVelocity.y = 0;
-            jumpCount = 0;
-        }
-        else if (groundedPlayer && gravityFlipped && playerVelocity.y > 0)
-        {
-            playerVelocity.y = 0;
-            jumpCount = 0;
+            if (!isPlayingSteps && move.normalized.magnitude > 0.5f)
+            {
+                StartCoroutine(playSteps());
+            }
+            if (!gravityFlipped && playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0;
+                jumpCount = 0;
+            }
+            else if (gravityFlipped && playerVelocity.y > 0)
+            {
+                playerVelocity.y = 0;
+                jumpCount = 0;
+            }
         }
 
         // Might implement if-check to prevent/lower air-strafing.
@@ -132,6 +154,17 @@ public class playerController : MonoBehaviour, IDamage
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
+    }
+
+    IEnumerator playSteps()
+    {
+        isPlayingSteps = true;
+        aud.PlayOneShot(audSteps[UnityEngine.Random.Range(0, audSteps.Length)], audStepsVol);
+        if (!isSprinting)
+            yield return new WaitForSeconds(0.45f);
+        else
+            yield return new WaitForSeconds(0.25f);
+        isPlayingSteps = false;
     }
     void inventory()
     {
@@ -246,10 +279,12 @@ public class playerController : MonoBehaviour, IDamage
             if (!gravityFlipped)
             {
                 playerVelocity.y = jumpHeight;
+                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
             }
             else if (gravityFlipped)
             {
                 playerVelocity.y = -jumpHeight;
+                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
             }
         }
     }
@@ -260,6 +295,7 @@ public class playerController : MonoBehaviour, IDamage
 
         controller.transform.Rotate(new Vector3(180, 0, 0));
         playerVelocity.y = 0;
+        aud.PlayOneShot(audGrav, audGravVol);
     }
     bool isGrounded()
     {
@@ -291,6 +327,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (activeWeapon.clipSize > 0)
             {
+                aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
                 // Set flag
                 isShooting = true;
                 // Reduce current ammo
@@ -319,6 +356,7 @@ public class playerController : MonoBehaviour, IDamage
             if (damageable != null)
             {
                 damageable.takeDamage(activeWeapon.damage);
+                aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
             }
         }
 
@@ -373,6 +411,7 @@ public class playerController : MonoBehaviour, IDamage
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;
+                    aud.PlayOneShot(activeWeapon.audReload, activeWeapon.audReloadVol);
                 }
             }
         }
@@ -407,6 +446,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.winCondition();
         }
+        else if (other.CompareTag("Store"))
+            Store();
+            
+            
     }
     void reticleSwap()
     {
@@ -451,6 +494,7 @@ public class playerController : MonoBehaviour, IDamage
     public void addWeapon(weapon gun)
     {
         bool found = false;
+        aud.PlayOneShot(audPickup, audPickupVol);
         gun.ammo = gun.maxAmmo;
         gun.clipSize = gun.maxClip;
         
@@ -488,6 +532,16 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
                     break;
             }
+        }
+    }
+
+    // STORES
+    void Store()
+    {
+        if (gameManager.instance.credits > 5)
+        {
+            movementSpeed *= 1.3f;
+            gameManager.instance.credits -= 5;
         }
     }
 

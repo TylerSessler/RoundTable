@@ -22,6 +22,8 @@ MonoBehaviour:
   maxClip: 1
   canZoom: 0
   reloadTime: 0
-  model: {fileID: 0}
+  model: {fileID: 919132149155446097, guid: 9db2afcf86c94124480b5c4bea340c95, type: 3}
   gunShot: {fileID: 0}
   sprite: {fileID: 0}
+  gunShotAud: {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
+  gunShotAudVol: 0.4

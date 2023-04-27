@@ -11,6 +11,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
+    [SerializeField] AudioSource aud;
+
 
     [Header("----- Enemy Stats -----")]
     [Range(1, 10)][SerializeField] int HP;
@@ -32,6 +34,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject drop1;
     [SerializeField] GameObject drop2;
     [SerializeField] GameObject drop3;
+    [Range(1,3)] [SerializeField] int creditsDropped;
     // End item decided to be dropped by the enemy
     GameObject trueDrop;
 
@@ -43,7 +46,9 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isRoaming;
     float speed;
 
-
+    [Header("Audio")]
+    [SerializeField] AudioClip[] audShoot;
+    [SerializeField][Range(0, 1)] float audShootVol;
 
 
     // Start is called before the first frame update
@@ -142,6 +147,7 @@ public class enemyAI : MonoBehaviour, IDamage
         float vertOffset = Random.Range(vertSpread * -1, vertSpread);
         float horiOffset = Random.Range(HoriSpread * -1, HoriSpread);
 
+        aud.PlayOneShot(audShoot[UnityEngine.Random.Range(0, audShoot.Length)], audShootVol);
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(playerDir.x + horiOffset, playerDir.y + vertOffset, playerDir.z) * bulletSpeed;
@@ -190,7 +196,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            
+            gameManager.instance.credits += creditsDropped;
             gameManager.instance.updateGameGoal(-1);
             Instantiate(trueDrop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1 , gameObject.transform.position.z), trueDrop.transform.rotation);
             Destroy(gameObject);
@@ -209,5 +215,4 @@ public class enemyAI : MonoBehaviour, IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
-
 }

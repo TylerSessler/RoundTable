@@ -8,6 +8,8 @@ using System.Threading;
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioSource music;
 
     [Header("----- Player Stuff -----")]
     public GameObject player;
@@ -18,6 +20,8 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject creditsText;
+    public TextMeshProUGUI creditsValueText;
     public GameObject gunReticle;
     public GameObject meleeReticle;
     public Image HPBar;
@@ -46,9 +50,21 @@ public class gameManager : MonoBehaviour
 
 
     public int enemiesRemaining;
-
+    [SerializeField] public int credits;
     public bool isPaused;
     float timeScaleOrig;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip audWin;
+    [SerializeField][Range(0, 1)] float audWinVol;
+    [SerializeField] AudioClip audLose;
+    [SerializeField][Range(0, 1)] float audLoseVol;
+    [SerializeField] AudioClip audMenuOpen;
+    [SerializeField][Range(0, 1)] float audMenuOpenVol;
+    [SerializeField] AudioClip audMenuClose;
+    [SerializeField][Range(0, 1)] float audMenuCloseVol;
+    [SerializeField] AudioClip audExtractionAppear;
+    [SerializeField][Range(0, 1)] float audExtractionVol;
 
     // Start is called before the first frame update
     void Awake()
@@ -84,6 +100,7 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(timerUpdate(timeValue));
+        creditsValueText.text = credits.ToString();
     }
 
     public void pauseState()
@@ -91,6 +108,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        aud.PlayOneShot(audMenuOpen, audMenuOpenVol);
     }
     public void unpauseState()
     {
@@ -99,12 +117,14 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         activeMenu.SetActive(false);
         activeMenu = null;
+        aud.PlayOneShot(audMenuClose, audMenuCloseVol);
     }
 
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
+        creditsAvailableUIUpdate();
         if (enemiesRemaining <= 0)
         {
             StartCoroutine(startExtraction(extractValue));
@@ -116,7 +136,8 @@ public class gameManager : MonoBehaviour
         pauseState();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
-
+        music.Pause();
+        aud.PlayOneShot(audLose, audLoseVol);
     }
 
 
@@ -125,8 +146,15 @@ public class gameManager : MonoBehaviour
         enemiesRemainingText.text = enemiesRemaining.ToString();
     }
 
+    public void creditsAvailableUIUpdate()
+    {
+        creditsValueText.text = credits.ToString();
+    }
+
     public void winCondition()
     {
+        music.Pause();
+        aud.PlayOneShot(audWin, audWinVol);
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
@@ -150,7 +178,7 @@ public class gameManager : MonoBehaviour
         {
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
-
+            aud.PlayOneShot(audExtractionAppear, audExtractionVol);
             // Time until extraction ends
             extractionText.SetActive(true);
             for (int i = extract; i >= 0; i--)
