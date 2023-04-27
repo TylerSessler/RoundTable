@@ -20,6 +20,8 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject creditsText;
+    public TextMeshProUGUI creditsValueText;
     public GameObject gunReticle;
     public GameObject meleeReticle;
     public Image HPBar;
@@ -48,7 +50,7 @@ public class gameManager : MonoBehaviour
 
 
     public int enemiesRemaining;
-
+    public int credits;
     public bool isPaused;
     float timeScaleOrig;
 
@@ -98,6 +100,8 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(timerUpdate(timeValue));
+        credits = 5;
+        creditsValueText.text = credits.ToString();
     }
 
     public void pauseState()
@@ -121,6 +125,7 @@ public class gameManager : MonoBehaviour
     {
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
+        creditsAvailableUIUpdate();
         if (enemiesRemaining <= 0)
         {
             StartCoroutine(startExtraction(extractValue));
@@ -140,6 +145,11 @@ public class gameManager : MonoBehaviour
     void enemiesRemainingUIUpdate()
     {
         enemiesRemainingText.text = enemiesRemaining.ToString();
+    }
+
+    public void creditsAvailableUIUpdate()
+    {
+        creditsValueText.text = credits.ToString();
     }
 
     public void winCondition()

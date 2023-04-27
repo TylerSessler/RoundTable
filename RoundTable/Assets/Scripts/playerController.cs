@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage
@@ -16,11 +17,11 @@ public class playerController : MonoBehaviour, IDamage
     [Header("Stats")]
     [SerializeField] int health;
     [SerializeField] int originalHealth;
-    [SerializeField] float movementSpeed;
+    [SerializeField] public float movementSpeed;
     [SerializeField] float originalMovementSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] int originalJumpHeight;
-    [SerializeField] int maxJumps;
+    [SerializeField] public int maxJumps;
     [SerializeField] int originalMaxJumps;
     [SerializeField] float gravity;
     [SerializeField] float originalGravity;
@@ -46,6 +47,9 @@ public class playerController : MonoBehaviour, IDamage
     int activeSlot;
     weapon activeWeapon;
     public List<weapon> inv = new List<weapon>();
+
+    [Header("Store")]
+
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audSteps;
@@ -442,6 +446,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.winCondition();
         }
+        else if (other.CompareTag("Store"))
+            Store();
+            
+            
     }
     void reticleSwap()
     {
@@ -524,6 +532,16 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
                     break;
             }
+        }
+    }
+
+    // STORES
+    void Store()
+    {
+        if (gameManager.instance.credits > 5)
+        {
+            movementSpeed *= 1.3f;
+            gameManager.instance.credits -= 5;
         }
     }
 
