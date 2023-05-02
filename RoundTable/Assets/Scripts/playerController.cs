@@ -293,7 +293,7 @@ public class playerController : MonoBehaviour, IDamage
         gravityFlipped = !gravityFlipped;
         gravity = gravity * -1;
 
-        controller.transform.Rotate(new Vector3(180, 0, 0));
+        controller.transform.Rotate(new Vector3(180, 180, 0));
         playerVelocity.y = 0;
         aud.PlayOneShot(audGrav, audGravVol);
     }
