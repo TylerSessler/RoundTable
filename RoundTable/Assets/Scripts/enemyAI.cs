@@ -12,15 +12,18 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
     [SerializeField] AudioSource aud;
-
+    [SerializeField] Transform patrol1;
+    [SerializeField] Transform patrol2;
 
     [Header("----- Enemy Stats -----")]
-    [Range(1, 10)][SerializeField] int HP;
+    [Range(1, 100)][SerializeField] int HP;
     [SerializeField] int playerFaceSpeed;
     [SerializeField] int sightAngle;
     [SerializeField] int roamRange;
     [SerializeField] float roamCooldown;
     [SerializeField] float animTransSpeed;
+    [SerializeField] bool roamAllowed;
+    [SerializeField] bool patrolAllowed;
 
     [Header("----- Enemy Gun -----")]
     [Range(1, 10)][SerializeField] int shootDamage;
@@ -43,7 +46,9 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isShooting;
     float stoppingDistOrig;
     bool isRoaming;
+    bool isPatrol;
     float speed;
+
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audShoot;
@@ -68,21 +73,24 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (playerInRange)
         {
-            if (canSeePlayer())
+            if (!canSeePlayer() && agent.remainingDistance <= agent.stoppingDistance && roamAllowed)
             {
-
-            }
-            else if (!strippedVision() && agent.remainingDistance <= agent.stoppingDistance)
-            {
-
                 StartCoroutine(roam());
             }
+            else
+            {
+                StartCoroutine(patrol());
+            }
+
         }
         // Make sure enemy isn't pathing currently. Both for agro & for current roaming if it is past the cooldown timer while still moving
-        else if (!strippedVision() && agent.remainingDistance <= agent.stoppingDistance)
+        else if (roamAllowed && !strippedVision() && agent.remainingDistance <= agent.stoppingDistance)
         {
-            
-            StartCoroutine(roam());
+                StartCoroutine(roam());
+        }
+        else
+        {
+            StartCoroutine(patrol());
         }
     }
 
@@ -146,17 +154,60 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator roam()
     {
-        isRoaming = true;
-        NavMeshHit hit;
-        Vector3 roamDestination = headPos.position + Random.insideUnitSphere * roamRange;
-        if (NavMesh.SamplePosition(roamDestination, out hit, 2.0f, NavMesh.AllAreas))
+        if (!isRoaming)
         {
-            agent.stoppingDistance = 0;
-            agent.SetDestination(hit.position);
+            
+            isRoaming = true;
+
+            NavMeshHit hit;
+            Vector3 roamDestination = headPos.position + Random.insideUnitSphere * roamRange;
+            if (NavMesh.SamplePosition(roamDestination, out hit, 2.0f, NavMesh.AllAreas))
+            {
+                agent.stoppingDistance = 0;
+                agent.SetDestination(hit.position);
+                yield return new WaitForSeconds(roamCooldown);
+            }
+            
+            isRoaming = false;
+            agent.stoppingDistance = stoppingDistOrig;
         }
-        yield return new WaitForSeconds(roamCooldown);
-        isRoaming = false;
-        agent.stoppingDistance = stoppingDistOrig;
+        else
+        {
+            isRoaming = true;
+        }
+        
+    }
+
+    IEnumerator patrol()
+    {
+        if (patrolAllowed && !isPatrol)
+        {
+            Debug.Log("Patrol attempt");
+            Debug.Log(gameObject.transform.position);
+            isPatrol = true;
+            if (gameObject.transform.position == patrol1.position)
+            {
+                NavMeshHit hit;
+                Vector3 patrolDest = patrol2.position;
+                NavMesh.SamplePosition(patrolDest, out hit, 2.0f, NavMesh.AllAreas);
+                agent.stoppingDistance = 0;
+                agent.SetDestination(patrolDest);
+                Debug.Log("Attempted:" + patrol2.position);
+            }
+            else
+            {
+                NavMeshHit hit;
+                Vector3 patrolDest = patrol1.position;
+                NavMesh.SamplePosition(patrolDest, out hit, 2.0f, NavMesh.AllAreas);
+                agent.stoppingDistance = 0;
+                agent.SetDestination(patrolDest);
+                
+                Debug.Log("Attempted:" + patrol1.position);
+            }
+            yield return new WaitForSeconds(roamCooldown);
+            isPatrol = false;
+        }
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -179,7 +230,11 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         agent.stoppingDistance = 0;
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        if (roamAllowed)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+        }
+        
 
         StartCoroutine(flashColor());
 

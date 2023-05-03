@@ -1802,12 +1802,16 @@ MonoBehaviour:
   headPos: {fileID: 8860091921982226890}
   shootPos: {fileID: 8860091921982226890}
   aud: {fileID: 5256172297106777411}
+  patrol1: {fileID: 0}
+  patrol2: {fileID: 0}
   HP: 10
   playerFaceSpeed: 3
   sightAngle: 180
   roamRange: 10
   roamCooldown: 6
   animTransSpeed: 4
+  roamAllowed: 1
+  patrolAllowed: 0
   shootDamage: 1
   shootRate: 0.33
   shootDist: 1

@@ -839,6 +839,7 @@ MonoBehaviour:
   roamRange: 10
   roamCooldown: 6
   animTransSpeed: 8
+  roamAllowed: 1
   shootDamage: 1
   shootRate: 0.82
   shootDist: 0
