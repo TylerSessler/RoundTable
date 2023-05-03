@@ -730,7 +730,7 @@ MonoBehaviour:
   playerFaceSpeed: 30
   sightAngle: 90
   roamRange: 10
-  roamCooldown: 6
+  roamCooldown: 3
   animTransSpeed: 8
   roamAllowed: 1
   patrolAllowed: 0

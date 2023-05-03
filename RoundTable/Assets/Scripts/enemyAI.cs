@@ -84,7 +84,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         }
         // Make sure enemy isn't pathing currently. Both for agro & for current roaming if it is past the cooldown timer while still moving
-        else if (roamAllowed && !strippedVision() && agent.remainingDistance <= agent.stoppingDistance)
+        else if (!playerInRange && roamAllowed && agent.remainingDistance <= agent.stoppingDistance)
         {
                 StartCoroutine(roam());
         }
@@ -156,16 +156,14 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         if (!isRoaming)
         {
-            
             isRoaming = true;
-
             NavMeshHit hit;
             Vector3 roamDestination = headPos.position + Random.insideUnitSphere * roamRange;
             if (NavMesh.SamplePosition(roamDestination, out hit, 2.0f, NavMesh.AllAreas))
             {
                 agent.stoppingDistance = 0;
                 agent.SetDestination(hit.position);
-                yield return new WaitForSeconds(roamCooldown);
+                yield return new WaitForSeconds(roamCooldown + Random.Range(1, 3));
             }
             
             isRoaming = false;
