@@ -39,6 +39,7 @@ public class enemyAI : MonoBehaviour, IDamage
     GameObject trueDrop;
 
     Vector3 playerDir;
+    Vector3 shootDir;
     bool playerInRange;
     float angleToPlayer;
     bool isShooting;
@@ -102,6 +103,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool canSeePlayer()
     {
         playerDir = (gameManager.instance.player.transform.position - headPos.position);
+        shootDir = (gameManager.instance.player.transform.position - shootPos.position);
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
         RaycastHit hit;
@@ -146,11 +148,12 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         float vertOffset = Random.Range(vertSpread * -1, vertSpread);
         float horiOffset = Random.Range(HoriSpread * -1, HoriSpread);
+        Vector3 offset = new Vector3(horiOffset, vertOffset, 0);
 
         aud.PlayOneShot(audShoot[UnityEngine.Random.Range(0, audShoot.Length)], audShootVol);
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(playerDir.x + horiOffset, playerDir.y + vertOffset, playerDir.z) * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = (shootDir + offset) * bulletSpeed;
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
