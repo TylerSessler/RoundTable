@@ -31,9 +31,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Range(0, 2)][SerializeField] float HoriSpread;
     [SerializeField] GameObject bullet;
     [Header("Drop Table")]
-    [SerializeField] GameObject drop1;
-    [SerializeField] GameObject drop2;
-    [SerializeField] GameObject drop3;
+    [SerializeField] GameObject[] drops;
     [Range(1,3)] [SerializeField] int creditsDropped;
     // End item decided to be dropped by the enemy
     GameObject trueDrop;
@@ -57,20 +55,8 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         gameManager.instance.updateGameGoal(1);
         stoppingDistOrig = agent.stoppingDistance;
-        int dropSelect = Random.Range(1, 3);
-        switch (dropSelect)
-        {
-            case 1:
-                trueDrop = drop1;
-                break;
-            case 2:
-                trueDrop = drop2;
-                break;
-            case 3:
-                trueDrop = drop3;
-                break;
-        }
-
+        int dropSelect = Random.Range(0, drops.Length);
+        trueDrop = drops[dropSelect];
     }
 
     // Update is called once per frame

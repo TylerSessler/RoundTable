@@ -1815,9 +1815,11 @@ MonoBehaviour:
   vertSpread: 1.3
   HoriSpread: 1.3
   bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
-  drop1: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
-  drop2: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
-  drop3: {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
+  drops:
+  - {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
+  - {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
+  - {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
+  - {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
   creditsDropped: 3
   audShoot:
   - {fileID: 8300000, guid: f298dc13eb6a2034791bb170e4de7bb6, type: 3}
