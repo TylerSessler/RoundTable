@@ -472,31 +472,12 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Using -3 to heal instead of creating heal function
             takeDamage(-3);
-
-            // Add ammo to all guns. Could use inv[1], inv[2], inv[3], inv[4] to give different ammo to each gun instead of for loop.
-            // Skip inv[5] since melee doesn't use ammo
-            for (int i = 0; i < 4; i++)
-            {
-                // Make sure player doesn't over-cap ammo.
-                if (activeWeapon.ammo < activeWeapon.maxAmmo)
-                {
-                    // Only adding ammo to backup, not to active clip.
-                    inv[i].ammo += 3;
-                }
-
-            }
-            bulletCountUpdate();
-
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Extraction Zone"))
         {
             gameManager.instance.winCondition();
         }
-        else if (other.CompareTag("Store"))
-            Store();
-
-
     }
     void reticleSwap()
     {
@@ -542,8 +523,6 @@ public class playerController : MonoBehaviour, IDamage
     {
         bool found = false;
         aud.PlayOneShot(audPickup, audPickupVol);
-        gun.ammo = gun.maxAmmo;
-        gun.clipSize = gun.maxClip;
 
         for (int i = 1; i < inv.Count; i++)
         {
@@ -579,16 +558,6 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.item5.GetComponent<RawImage>().texture = gun.sprite;
                     break;
             }
-        }
-    }
-
-    // STORES
-    void Store()
-    {
-        if (gameManager.instance.credits > 5)
-        {
-            movementSpeed *= 1.3f;
-            gameManager.instance.credits -= 5;
         }
     }
 

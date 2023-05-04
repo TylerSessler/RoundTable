@@ -180,8 +180,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         if (patrolAllowed && !isPatrol)
         {
-            Debug.Log("Patrol attempt");
-            Debug.Log(gameObject.transform.position);
+
             isPatrol = true;
             if (gameObject.transform.position == patrol1.position)
             {
@@ -190,7 +189,6 @@ public class enemyAI : MonoBehaviour, IDamage
                 NavMesh.SamplePosition(patrolDest, out hit, 2.0f, NavMesh.AllAreas);
                 agent.stoppingDistance = 0;
                 agent.SetDestination(patrolDest);
-                Debug.Log("Attempted:" + patrol2.position);
             }
             else
             {
