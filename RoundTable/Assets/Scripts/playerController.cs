@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -27,6 +28,10 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float originalGravity;
     [SerializeField] float tempVal;
     [SerializeField] float bulletSpeed;
+    [SerializeField] float rotationDuration;
+
+    bool isRotating;
+    bool canRotate;
 
     public float sprintSpeed;
     private Vector3 playerVelocity;
@@ -61,10 +66,12 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
 
-    void start()
+    void Start()
     {
         activeWeapon = null;
         activeSlot = 0;
+        isRotating = false;
+        canRotate = true;
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
@@ -76,18 +83,21 @@ public class playerController : MonoBehaviour, IDamage
 
         if (!gameManager.instance.isPaused)
         {
-            if (Input.GetButtonDown("Flip Gravity"))
+            movement();
+            inventory();
+            zoom();
+
+            if (Input.GetButtonDown("Flip Gravity") && !isRotating && canRotate)
             {
                 flipGrav();
             }
+
             if (!isReloading && Input.GetButtonDown("Reload"))
             {
                 StartCoroutine(reload());
                 bulletCountUpdate();
             }
-            movement();
-            inventory();
-            zoom();
+
             if (!isShooting && Input.GetButton("Shoot"))
             {
                 StartCoroutine(shoot());
@@ -125,6 +135,11 @@ public class playerController : MonoBehaviour, IDamage
             {
                 playerVelocity.y = 0;
                 jumpCount = 0;
+            }
+
+            if (!canRotate)
+            {
+                canRotate = true;
             }
         }
 
@@ -187,7 +202,7 @@ public class playerController : MonoBehaviour, IDamage
                 // Enable inventory Highlight
                 inventoryUI(2);
             }
-            
+
         }
         else if (Input.GetButtonDown("3"))
         {
@@ -226,7 +241,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
-        
+
     }
     void inventoryUI(int num)
     {
@@ -244,7 +259,7 @@ public class playerController : MonoBehaviour, IDamage
                 break;
             case 2:
                 gameManager.instance.glow2.SetActive(true);
-                break; 
+                break;
             case 3:
                 gameManager.instance.glow3.SetActive(true);
                 break;
@@ -260,9 +275,12 @@ public class playerController : MonoBehaviour, IDamage
         // Make sure proper reticle is active
         reticleSwap();
         // Set gun visual to active gun's texture/model
-        activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-        activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
+        if (activeWeapon != null)
+        {
+            activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+            activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
     }
     void jump()
     {
@@ -290,13 +308,38 @@ public class playerController : MonoBehaviour, IDamage
     }
     void flipGrav()
     {
-        gravityFlipped = !gravityFlipped;
-        gravity = gravity * -1;
+        isRotating = true;
+        canRotate = false;
 
-        controller.transform.Rotate(new Vector3(180, 180, 0));
+        gravityFlipped = !gravityFlipped;
+        gravity *= -1;
+
         playerVelocity.y = 0;
         aud.PlayOneShot(audGrav, audGravVol);
+
+        StartCoroutine(RotatePlayerSmoothly(new Vector3(0, 0, 180), () =>
+        {
+            isRotating = false;
+        }));
     }
+
+    IEnumerator RotatePlayerSmoothly(Vector3 targetRotation, System.Action onComplete)
+    {
+        Vector3 startRotation = controller.transform.eulerAngles;
+        Vector3 endRotation = controller.transform.eulerAngles + targetRotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rotationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / rotationDuration;
+            controller.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, t);
+            yield return null;
+        }
+
+        onComplete?.Invoke();
+    }
+
     bool isGrounded()
     {
         RaycastHit floorCheck;
@@ -378,7 +421,7 @@ public class playerController : MonoBehaviour, IDamage
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
             }
         }
-        
+
 
         if (isSprinting)
         {
@@ -416,7 +459,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
         yield return new WaitForSeconds(activeWeapon.reloadTime);
-        
+
         isReloading = false;
     }
     private void OnTriggerEnter(Collider other)
@@ -436,7 +479,7 @@ public class playerController : MonoBehaviour, IDamage
                     // Only adding ammo to backup, not to active clip.
                     inv[i].ammo += 3;
                 }
-               
+
             }
             bulletCountUpdate();
 
@@ -448,8 +491,8 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (other.CompareTag("Store"))
             Store();
-            
-            
+
+
     }
     void reticleSwap()
     {
@@ -497,7 +540,7 @@ public class playerController : MonoBehaviour, IDamage
         aud.PlayOneShot(audPickup, audPickupVol);
         gun.ammo = gun.maxAmmo;
         gun.clipSize = gun.maxClip;
-        
+
         for (int i = 1; i < inv.Count; i++)
         {
             if (!found)
