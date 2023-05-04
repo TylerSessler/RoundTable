@@ -16,6 +16,7 @@ public class weapon : ScriptableObject
     public bool canZoom;
     public float reloadTime;
     public GameObject model;
+    public GameObject barrelPos;
     public AudioClip gunShot;
     public Texture sprite;
     public AudioClip gunShotAud;
