@@ -385,7 +385,11 @@ public class playerController : MonoBehaviour, IDamage
         // Player is melee
         else if (activeSlot == 1)
         {
-            StartCoroutine(melee());
+            if (!isMelee)
+            {
+                StartCoroutine(melee());
+            }
+           
         }
     }
 
