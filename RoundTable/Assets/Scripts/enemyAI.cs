@@ -197,8 +197,6 @@ public class enemyAI : MonoBehaviour, IDamage
                 NavMesh.SamplePosition(patrolDest, out hit, 2.0f, NavMesh.AllAreas);
                 agent.stoppingDistance = 0;
                 agent.SetDestination(patrolDest);
-                
-                Debug.Log("Attempted:" + patrol1.position);
             }
             yield return new WaitForSeconds(roamCooldown);
             isPatrol = false;

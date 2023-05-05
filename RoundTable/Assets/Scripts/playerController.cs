@@ -31,7 +31,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float rotationDuration;
 
     bool isRotating;
-    bool canRotate;
+    public bool canRotate;
 
     public float sprintSpeed;
     private Vector3 playerVelocity;
@@ -71,7 +71,7 @@ public class playerController : MonoBehaviour, IDamage
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
-        canRotate = true;
+        canRotate = false;
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
@@ -137,10 +137,6 @@ public class playerController : MonoBehaviour, IDamage
                 jumpCount = 0;
             }
 
-            if (!canRotate)
-            {
-                canRotate = true;
-            }
         }
 
         // Might implement if-check to prevent/lower air-strafing.
@@ -322,7 +318,6 @@ public class playerController : MonoBehaviour, IDamage
             isRotating = false;
         }));
     }
-
     IEnumerator RotatePlayerSmoothly(Vector3 targetRotation, System.Action onComplete)
     {
         Vector3 startRotation = controller.transform.eulerAngles;
@@ -339,13 +334,12 @@ public class playerController : MonoBehaviour, IDamage
 
         onComplete?.Invoke();
     }
-
     bool isGrounded()
     {
         RaycastHit floorCheck;
         if (!gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.09f))
+            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f))
             {
                 Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 return true;
@@ -354,7 +348,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.09f))
+            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f))
             {
                 Debug.DrawRay(transform.position, Vector3.up, Color.red);
                 return true;
@@ -392,7 +386,6 @@ public class playerController : MonoBehaviour, IDamage
            
         }
     }
-
     IEnumerator melee()
     {
         isMelee = true;
@@ -410,7 +403,6 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
-
     void zoom()
     {
         if (activeWeapon != null)
@@ -474,9 +466,22 @@ public class playerController : MonoBehaviour, IDamage
             takeDamage(-3);
             Destroy(other.gameObject);
         }
+        else if (other.CompareTag("FlipControl"))
+        {
+            // Makes it so the player can flip gravity when they are inside the tagged area
+            canRotate = true;
+        }
         else if (other.CompareTag("Extraction Zone"))
         {
             gameManager.instance.winCondition();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("FlipControl"))
+        {
+            // Defaults the player to be unable to flip gravity
+            canRotate = false;
         }
     }
     void reticleSwap()

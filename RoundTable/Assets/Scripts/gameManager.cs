@@ -99,7 +99,10 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(timerUpdate(timeValue));
+        if (gameManager.instance.extractionZone != null)
+        {
+            StartCoroutine(timerUpdate(timeValue));
+        }
         creditsValueText.text = credits.ToString();
     }
 
