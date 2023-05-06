@@ -10,6 +10,7 @@ Material:
   m_Name: M_AdvancedCombatDroid_Commando
   m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
+  - _METALLICGLOSSMAP
   - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 6
@@ -22,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f0db24d8fdedaa84bbe0c2feca8fdcde, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7f52af3795fb14448a287a6339ea143d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -42,15 +43,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f7a9bc59d25ebd94aa7c1f6fb60de52b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 171afc646da6ded4d9e2462ae8073c1c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 56421ca7723b8bc4aa0beafe242e9bc6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 059b8364e4b601348a08d6fb2fde0280, type: 3}
+        m_Texture: {fileID: 2800000, guid: 49bed27a4c2b1424e800e75895d36cf1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
