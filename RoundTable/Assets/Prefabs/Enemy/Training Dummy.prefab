@@ -651,7 +651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2856026111308996812}
   - component: {fileID: 2856026111295828090}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SK_SciFiJuggernaut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,7 +693,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 95ca5c6aaf77da94a9e6ee3a75d7f382, type: 2}
+  - {fileID: 2100000, guid: 28deb2cb79d8724469bc824918ddd9a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -718,7 +718,7 @@ SkinnedMeshRenderer:
   m_Quality: 4
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 8288792365b694a49ab08fe3e40c82d7, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 115dcf1941a66cc48aca8a1465eac6cd, type: 3}
   m_Bones:
   - {fileID: 2856026111308996916}
   - {fileID: 2856026111308996958}
@@ -808,7 +808,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2856026111309495534}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.24387366, y: 0, z: 46.881233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
