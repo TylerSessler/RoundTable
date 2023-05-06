@@ -276,18 +276,19 @@ MonoBehaviour:
   aud: {fileID: 1121122952}
   health: 10
   originalHealth: 10
-  movementSpeed: 10
-  originalMovementSpeed: 10
-  jumpHeight: 10
-  originalJumpHeight: 10
-  maxJumps: 2
-  originalMaxJumps: 2
-  gravity: 9.81
-  originalGravity: 9.81
+  movementSpeed: 6
+  originalMovementSpeed: 6
+  jumpHeight: 9
+  originalJumpHeight: 9
+  maxJumps: 1
+  originalMaxJumps: 1
+  gravity: 20
+  originalGravity: 20
   tempVal: 0
   bulletSpeed: 20
   rotationDuration: 0.5
-  sprintSpeed: 15
+  canRotate: 0
+  sprintSpeed: 8
   jumpCount: 0
   groundedPlayer: 0
   inv: []
