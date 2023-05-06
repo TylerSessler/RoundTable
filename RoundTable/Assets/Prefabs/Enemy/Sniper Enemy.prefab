@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272a9c59bfbb04a4898073743b6040ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 3138364276568764939}
+  model: {fileID: -4225873374743711247, guid: bd03a9e72c778ce4d8fb22995c3a0138, type: 3}
   agent: {fileID: 7050962673733381989}
   anim: {fileID: 4592983915592302187}
   headPos: {fileID: 1879610418959690932}
