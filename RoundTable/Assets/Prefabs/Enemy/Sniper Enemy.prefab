@@ -702,7 +702,7 @@ MonoBehaviour:
   sightAngle: 120
   roamRange: 5
   roamCooldown: 1000
-  animTransSpeed: 2
+  animTransSpeed: 3
   roamAllowed: 1
   patrolAllowed: 0
   shootDamage: 5
