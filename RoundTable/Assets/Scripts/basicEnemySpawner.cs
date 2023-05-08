@@ -3,27 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class basicEnemySpawner : MonoBehaviour
 {
-    [Header("Basic Enemy Spawner Specs")]
-    [SerializeField] int basicEnemiesAtStart = 5;
-    [SerializeField] float basicrange = 30.0f;
-    [SerializeField] float basicspawnTime = 6.0f;
-    [SerializeField] GameObject basic_enemyPrefab;
-    [Header("Mid Enemy Spawner Specs")]
-    [SerializeField] int midEnemiesAtStart = 3;
-    [SerializeField] float midrange = 20.0f;
-    [SerializeField] float midspawnTime = 10.0f;
-    [SerializeField] GameObject mid_enemyPrefab;
-    [Header("Boss Enemy Spawner Specs")]
-    [SerializeField] int bossEnemiesAtStart = 1;
-    [SerializeField] float bossrange = 10.0f;
-    [SerializeField] float bossspawnTime = 15.0f;
-    [SerializeField] GameObject boss_enemyPrefab;
+    [System.Serializable]
+    public struct enemyType
+    {
+        public int EnemiesAtStart;
+        public float range;
+        public float spawnTime;
+        public bool spawn;
+        public GameObject _enemyPrefab;
 
-    private bool basicspawner;
-    private bool midspawner;
-    private bool bossspawner;
+        public enemyType(int start, float r, float t, bool s, GameObject enemy)
+        {
+            this.EnemiesAtStart = start;
+            this.range = r;
+            this.spawnTime = t;
+            this.spawn = s;
+            this._enemyPrefab = enemy;
+        }
+    }
+
+    [SerializeField] private enemyType[] enemyList;
+
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
@@ -41,53 +44,34 @@ public class basicEnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < basicEnemiesAtStart; i++)
+        for(int i = 0; i < enemyList.Length; i++)
         {
-            spawns(basic_enemyPrefab, basicrange);
-        }
-        for (int i = 0; i < midEnemiesAtStart; i++)
-        {
-            spawns(mid_enemyPrefab, midrange);
-        }
-        for (int i = 0; i < bossEnemiesAtStart; i++)
-        {
-            spawns(boss_enemyPrefab, bossrange);
+            for(int j = 0; j < enemyList[i].EnemiesAtStart; j++)
+            {
+                spawns(enemyList[i]._enemyPrefab, enemyList[i].range);
+            }
+            enemyType enemy = enemyList[i];
+            enemy.spawn = false;
+            enemyList[i] = enemy;
         }
     }
 
     void Update()
     {
-        if(!basicspawner)
-            StartCoroutine(basicspawn());
-
-        if (!midspawner)
-            StartCoroutine(midspawn());
-
-        if (!bossspawner)
-            StartCoroutine(bossspawn());
+        for(int i = 0; i < enemyList.Length; i++) 
+        {
+            StartCoroutine(cspawn(enemyList[i]));
+        }
     }
 
-    IEnumerator basicspawn()
+    IEnumerator cspawn(enemyType e)
     {
-        basicspawner = true;
-        yield return new WaitForSeconds(basicspawnTime);
-        spawns(basic_enemyPrefab, basicrange);
-        basicspawner = false;
+        e.spawn = true;
+        yield return new WaitForSeconds(e.spawnTime);
+        spawns(e._enemyPrefab, e.range);
+        e.spawn = false;
     }
-    IEnumerator midspawn()
-    {
-        midspawner = true;
-        yield return new WaitForSeconds(midspawnTime);
-        spawns(mid_enemyPrefab, midrange);
-        midspawner = false;
-    }
-    IEnumerator bossspawn()
-    {
-        bossspawner = true;
-        yield return new WaitForSeconds(bossspawnTime);
-        spawns(boss_enemyPrefab, bossrange);
-        bossspawner = false;
-    }
+    
 
     void spawns(GameObject g, float r)
     {

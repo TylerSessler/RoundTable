@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294626769331504933}
-  - component: {fileID: 294626769331504938}
+  - component: {fileID: 1941026676040580474}
   m_Layer: 0
   m_Name: Basic Enemy Spawner
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294626769331504938
+--- !u!114 &1941026676040580474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8969381774b5dde49af24ff54522fde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemiesAtStart: 5
-  basicrange: 100
-  basicspawnTime: 20
-  basic_enemyPrefab: {fileID: 6402736061975867633, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
-  midEnemiesAtStart: 4
-  midrange: 100
-  midspawnTime: 30
-  mid_enemyPrefab: {fileID: 3946821624309934124, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
-  bossEnemiesAtStart: 1
-  bossrange: 100
-  bossspawnTime: 40
-  boss_enemyPrefab: {fileID: 8503887633382848540, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+  enemyList:
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 6402736061975867633, guid: b9ef978e7a2d0064aa588eaf0d485827, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 3946821624309934124, guid: 690da5a408b49a344aa2cc922152fed5, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 8503887633382848540, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 1383529418638485863, guid: cb6cfcf7aabfe7543b84209153d8bbf3, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 7067963045762023083, guid: a24fdba4d6c43cd4093313fade253bd2, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 1448220318251342393, guid: 9a5c3780ec3a9ea479b52f86f46d20c6, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 5336611790063948087, guid: 81437610c8199d141a0dde681eb6e0d4, type: 3}
