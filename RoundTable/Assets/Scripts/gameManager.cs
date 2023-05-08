@@ -48,6 +48,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI extractionTimerText;
     public GameObject extractionZone;
 
+    [Header("----- Conditional UI -----")]
+    public GameObject interactPromptText;
 
     public int enemiesRemaining;
     [SerializeField] public int credits;

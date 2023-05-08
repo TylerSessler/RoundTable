@@ -16,8 +16,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioSource aud;
 
     [Header("Stats")]
-    [SerializeField] int health;
-    [SerializeField] int originalHealth;
+    [SerializeField] public int health;
+    [SerializeField] public int originalHealth;
     [SerializeField] public float movementSpeed;
     [SerializeField] float originalMovementSpeed;
     [SerializeField] int jumpHeight;
@@ -513,7 +513,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerDead();
         }
     }
-    void playerUIUpdate()
+    public void playerUIUpdate()
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
     }
