@@ -80,3 +80,8 @@ MonoBehaviour:
     spawnTime: 100
     spawn: 0
     _enemyPrefab: {fileID: 5336611790063948087, guid: 81437610c8199d141a0dde681eb6e0d4, type: 3}
+  - EnemiesAtStart: 5
+    range: 10
+    spawnTime: 100
+    spawn: 0
+    _enemyPrefab: {fileID: 1767124228544737621, guid: 8bb794e4f174d3f478926140c4ab43a7, type: 3}
