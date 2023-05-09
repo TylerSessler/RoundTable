@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: d88d4f01f4955484fab8a6fe9fd96a95, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3e39623ccebdf3048ac67da98cba7e22, type: 2}
 --- !u!1001 &1588193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10211,6 +10211,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 818448491}
     m_Modifications:
+    - target: {fileID: 1427015129430846442, guid: 8bb794e4f174d3f478926140c4ab43a7, type: 3}
+      propertyPath: roamAllowed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1427015129430846447, guid: 8bb794e4f174d3f478926140c4ab43a7, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -22085,6 +22089,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 494626, guid: 812c9b36537fa8146bed44183a36cf7a, type: 3}
   m_PrefabInstance: {fileID: 585319276}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &591452249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 83964556, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+  m_PrefabInstance: {fileID: 1888793498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &591452251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 83964546, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+  m_PrefabInstance: {fileID: 1888793498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591452249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &591632095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45713,6 +45733,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 818448491}
     m_Modifications:
+    - target: {fileID: 1448220318251342387, guid: 9a5c3780ec3a9ea479b52f86f46d20c6, type: 3}
+      propertyPath: roamAllowed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1448220318251342393, guid: 9a5c3780ec3a9ea479b52f86f46d20c6, type: 3}
       propertyPath: m_Name
       value: Melee Enemy
@@ -50806,6 +50830,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 818448491}
     m_Modifications:
+    - target: {fileID: 3815457707330543825, guid: 81437610c8199d141a0dde681eb6e0d4, type: 3}
+      propertyPath: roamAllowed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5336611790063948087, guid: 81437610c8199d141a0dde681eb6e0d4, type: 3}
       propertyPath: m_Name
       value: Exploding Enemy
@@ -70854,6 +70882,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7159330025367608157, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: fillBar
+      value: 
+      objectReference: {fileID: 591452251}
+    - target: {fileID: 7159330025367608157, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: loadMenu
+      value: 
+      objectReference: {fileID: 1917342723}
+    - target: {fileID: 8215388737358715861, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: fillBar
+      value: 
+      objectReference: {fileID: 591452249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
 --- !u!1001 &1890070234
@@ -71901,6 +71941,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 416178, guid: fe546dac68b4ae943a161dec60c98fed, type: 3}
   m_PrefabInstance: {fileID: 1914359396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1917342723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 206857641, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+  m_PrefabInstance: {fileID: 1888793498}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1917545475
 PrefabInstance:

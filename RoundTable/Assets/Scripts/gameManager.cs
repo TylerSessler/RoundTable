@@ -27,6 +27,9 @@ public class gameManager : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
+    public GameObject loadMenu;
+    public Image fillBar;
+    public GameObject skipText;
     // Hotbar selected slot
     public GameObject glow1;
     public GameObject glow2;
