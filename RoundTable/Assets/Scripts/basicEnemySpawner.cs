@@ -60,7 +60,11 @@ public class basicEnemySpawner : MonoBehaviour
     {
         for(int i = 0; i < enemyList.Length; i++) 
         {
-            StartCoroutine(cspawn(enemyList[i]));
+            if (!enemyList[i].spawn)
+            {
+                StartCoroutine(cspawn(enemyList[i]));
+            }
+            
         }
     }
 
@@ -78,7 +82,6 @@ public class basicEnemySpawner : MonoBehaviour
         Vector3 point;
         if (RandomPoint(transform.position, r, out point))
         {
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
             Instantiate(g, point, g.transform.rotation);
         }
         else
