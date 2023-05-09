@@ -13,6 +13,7 @@ public class creditStore : MonoBehaviour
     bool isInShop;
 
     [Header("Audio")]
+    [SerializeField] AudioSource aud;
     [SerializeField] AudioClip[] audPurchase;
     [SerializeField][Range(0, 1)] float audPurchaseVol;
 
@@ -122,5 +123,6 @@ public class creditStore : MonoBehaviour
             Debug.Log("Player Health Refilled");
 
         }
+        aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
     }
 }
