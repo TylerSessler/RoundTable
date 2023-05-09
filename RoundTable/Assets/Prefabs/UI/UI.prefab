@@ -3811,8 +3811,10 @@ GameObject:
   - component: {fileID: 7159330025367608158}
   - component: {fileID: 7159330025367608157}
   - component: {fileID: 7159330025367608156}
+  - component: {fileID: 5966317399052045373}
   - component: {fileID: 6076398}
   - component: {fileID: 6076399}
+  - component: {fileID: 5153549488287136907}
   m_Layer: 5
   m_Name: Gamemanager
   m_TagString: Untagged
@@ -3883,6 +3885,7 @@ MonoBehaviour:
   extractionText: {fileID: 1374620648}
   extractionTimerText: {fileID: 2055203174}
   extractionZone: {fileID: 0}
+  interactPromptText: {fileID: 0}
   enemiesRemaining: 0
   credits: 5
   isPaused: 0
@@ -3906,6 +3909,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1ed77cd0c6ea5e44a86902e6fd48086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5966317399052045373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159330025367608159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163816f60db7812429ad9c2084ddc1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &6076398
@@ -4100,6 +4115,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5153549488287136907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159330025367608159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163816f60db7812429ad9c2084ddc1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7159330025377841814
 GameObject:
   m_ObjectHideFlags: 0
