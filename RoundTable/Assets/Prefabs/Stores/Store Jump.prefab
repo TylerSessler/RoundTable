@@ -153,6 +153,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f577b0ce700816c408e0b3c8224abf58, type: 3}
   - {fileID: 8300000, guid: d88972916e943d74d8be093cb2c2a3cb, type: 3}
   audPurchaseVol: 0.5
+  audPurchaseFail: {fileID: 8300000, guid: bdad3426a544fc1428f8e1df5eca17a1, type: 3}
+  audPurchaseFailVol: 0.5
 --- !u!136 &1314830412
 CapsuleCollider:
   m_ObjectHideFlags: 0
