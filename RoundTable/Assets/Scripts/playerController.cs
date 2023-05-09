@@ -48,6 +48,7 @@ public class playerController : MonoBehaviour, IDamage
     int zoomedFov;
     bool isMelee;
     bool isPlayingSteps;
+    private static bool created = false;
 
     int activeSlot;
     weapon activeWeapon;
@@ -66,6 +67,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
 
+    void Awake()
+    {
+        if (!created)
+        {
+            DontDestroyOnLoad(gameObject);
+            created = true;
+        }
+    }
     void Start()
     {
         activeWeapon = null;
