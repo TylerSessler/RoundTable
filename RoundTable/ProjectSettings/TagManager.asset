@@ -8,6 +8,7 @@ TagManager:
   - Extraction Zone
   - Store
   - FlipControl
+  - Player Spawn Pos
   layers:
   - Default
   - TransparentFX

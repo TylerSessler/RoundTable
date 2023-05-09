@@ -84,6 +84,7 @@ public class playerController : MonoBehaviour, IDamage
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
+        setPlayerPos();
     }
 
     // Update is called once per frame
@@ -114,6 +115,12 @@ public class playerController : MonoBehaviour, IDamage
                 bulletCountUpdate();
             }
         }
+    }
+    public void setPlayerPos()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
 
     void resetStats()
