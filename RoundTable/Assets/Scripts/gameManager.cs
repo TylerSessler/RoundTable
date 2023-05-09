@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
     [Header("----- Player Stuff -----")]
     public GameObject player;
     public playerController playerScript;
+    public GameObject playerSpawnPos;
 
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu;
@@ -78,7 +79,9 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
         playerScript = player.GetComponent<playerController>();
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
+        playerScript.setPlayerPos();
     }
 
     // Update is called once per frame

@@ -48,6 +48,7 @@ public class playerController : MonoBehaviour, IDamage
     int zoomedFov;
     bool isMelee;
     bool isPlayingSteps;
+    private static bool created = false;
 
     int activeSlot;
     weapon activeWeapon;
@@ -66,6 +67,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
 
+    void Awake()
+    {
+        if (!created)
+        {
+            DontDestroyOnLoad(gameObject);
+            created = true;
+        }
+    }
     void Start()
     {
         activeWeapon = null;
@@ -75,6 +84,7 @@ public class playerController : MonoBehaviour, IDamage
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
+        setPlayerPos();
     }
 
     // Update is called once per frame
@@ -105,6 +115,12 @@ public class playerController : MonoBehaviour, IDamage
                 bulletCountUpdate();
             }
         }
+    }
+    public void setPlayerPos()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
 
     void resetStats()
