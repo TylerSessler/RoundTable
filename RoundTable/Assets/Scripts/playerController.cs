@@ -532,6 +532,7 @@ public class playerController : MonoBehaviour, IDamage
     public void playerUIUpdate()
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
+        inventory();
     }
     void bulletCountUpdate()
     {

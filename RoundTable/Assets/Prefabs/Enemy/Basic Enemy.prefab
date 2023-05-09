@@ -827,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272a9c59bfbb04a4898073743b6040ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 13700000, guid: 115dcf1941a66cc48aca8a1465eac6cd, type: 3}
+  model: {fileID: 6402736061972692069}
   agent: {fileID: 9073310060922086766}
   anim: {fileID: 6402736061968466597}
   headPos: {fileID: 6402736061975375175}

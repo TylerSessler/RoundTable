@@ -82,6 +82,7 @@ public class gameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         playerScript.setPlayerPos();
+        playerScript.playerUIUpdate();
     }
 
     // Update is called once per frame
@@ -103,6 +104,7 @@ public class gameManager : MonoBehaviour
             }
                 
         }
+        playerScript.playerUIUpdate();
     }
 
     private void Start()
