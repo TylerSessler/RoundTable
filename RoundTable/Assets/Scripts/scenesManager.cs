@@ -15,10 +15,11 @@ public class scenesManager : MonoBehaviour
     {
         MainMenu,
         TutorialLevel,
-        ShopLevel,
+        ItemShopLevel,
         Level01,
         Level02,
         Level03,
+        Debug,
     }
 
     public void LoadScene(Scene s)
