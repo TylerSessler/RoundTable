@@ -213,6 +213,7 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
+        extractionZone.SetActive(false);
         if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
         {
             startTimer();
@@ -294,12 +295,12 @@ public class gameManager : MonoBehaviour
 
     IEnumerator startExtraction(int extract)
     {
-        if (timeUntilText.activeSelf == true) // Since there are multiple win conditions, check if one is already active
+        if (timeUntilText.activeSelf == true) 
         {
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
             aud.PlayOneShot(audExtractionAppear, audExtractionVol);
-            // Time until extraction ends
+            /* Time until extraction ends
             extractionText.SetActive(true);
             for (int i = extract; i >= 0; i--)
             {
@@ -307,6 +308,8 @@ public class gameManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
             playerDead();
+            */
+            yield return new WaitForEndOfFrame();
         }
     }
     public void saveCredits()

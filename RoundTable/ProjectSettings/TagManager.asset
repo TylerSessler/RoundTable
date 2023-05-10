@@ -9,6 +9,9 @@ TagManager:
   - Store
   - FlipControl
   - Player Spawn Pos
+  - Pistol
+  - Rifle
+  - Sniper
   layers:
   - Default
   - TransparentFX
