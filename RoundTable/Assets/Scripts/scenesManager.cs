@@ -8,12 +8,16 @@ public class scenesManager : MonoBehaviour
 {
     public static scenesManager instance;
     [SerializeField] GameObject mainMenuCheck;
-    bool spacePressed;
+    // True while cutscene/loading is active
+    private bool CS;
+    // Artificial timer
+    private float timer;
 
     private void Awake()
     {
         instance = this;
     }
+
     public enum Scene
     {
         MainMenu,
@@ -28,6 +32,7 @@ public class scenesManager : MonoBehaviour
     public void LoadScene(Scene s)
     {
         gameManager.instance.loadMenu.SetActive(true);
+        CS = true;
         if (mainMenuCheck != null)
         {
             mainMenuCheck.SetActive(false);
@@ -48,8 +53,20 @@ public class scenesManager : MonoBehaviour
         }
         gameManager.instance.fillBar.fillAmount = 1;
         gameManager.instance.skipText.SetActive(true);
-        yield return new WaitForSeconds(3);
+        
+        while (CS && timer < 3f)
+        {
+            timer += Time.deltaTime;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                CS = false;
+                timer = 0;
+                operation.allowSceneActivation = true;
+            }
+        }
+        
         operation.allowSceneActivation = true;
+        
     }
 
     public void LoadNewGame()
