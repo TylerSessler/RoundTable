@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: Unarmed
   damage: 2
-  rate: 1
-  range: 1.25
+  rate: 0.75
+  range: 1.5
   ammo: 1
   maxAmmo: 1
   clipSize: 1

@@ -48,11 +48,10 @@ public class objective : MonoBehaviour
     {
         gameManager.instance.playerScript.hasObjective = true;
         gameManager.instance.artifactPromptText.SetActive(false);
-        gameManager.instance.updateGameGoal(0);
         gameManager.instance.startTimer();
         Destroy(gameObject);
         
-        // Play audio?
+        // Audio controlled by exit spawning
         yield return new WaitForEndOfFrame();
     }
 }

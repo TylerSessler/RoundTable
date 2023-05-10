@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 105782503}
   - component: {fileID: 105782502}
   m_Layer: 5
-  m_Name: interactiveText
+  m_Name: Artifact Interact Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3780,7 +3780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7159330024671064894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5406,14 +5406,14 @@ MonoBehaviour:
   item3: {fileID: 7655571535546771820}
   item4: {fileID: 7655571536250772493}
   item5: {fileID: 7655571535746754352}
-  timeValue: 60
+  timeValue: 15
   extractValue: 30
   timeUntilText: {fileID: 812395658}
   timerText: {fileID: 1282318537}
   extractionText: {fileID: 1374620648}
   extractionTimerText: {fileID: 2055203174}
   extractionZone: {fileID: 0}
-  interactPromptText: {fileID: 1549543885}
+  shopPromptText: {fileID: 0}
   artifactPromptText: {fileID: 105782500}
   creditsUI: {fileID: 154977395}
   extractionUI: {fileID: 812395658}

@@ -471,20 +471,16 @@ public class playerController : MonoBehaviour, IDamage
     }
     IEnumerator reload()
     {
-        Debug.Log("Reload Called");
         isReloading = true;
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
         {
-            Debug.Log("Need Bullet");
             // Prevent overloading
             if (activeWeapon.clipSize < activeWeapon.maxClip)
             {
-                Debug.Log("Not overloading");
                 // Prevent free-loading
                 if (activeWeapon.ammo > 0)
                 {
-                    Debug.Log("Not free-loading");
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;
