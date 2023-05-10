@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,7 +50,6 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
     bool isPlayingSteps;
     public bool hasObjective;
-    private static bool created = false;
 
     int activeSlot;
     weapon activeWeapon;
@@ -70,11 +70,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void Awake()
     {
-        if (!created)
-        {
-            DontDestroyOnLoad(gameObject);
-            created = true;
-        }
+        
     }
     void Start()
     {
@@ -123,7 +119,27 @@ public class playerController : MonoBehaviour, IDamage
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
     }
-
+    public void SavePlayerData()
+    {
+        PlayerPrefs.SetInt("Health", health);
+        PlayerPrefs.SetFloat("SprintSpeed", sprintSpeed);
+        PlayerPrefs.SetInt("maxJumps", maxJumps);
+        for (int i = 0; i < inv.Count; i++)
+        {
+            PlayerPrefs.SetString("Gun" + i, JsonConvert.SerializeObject(inv[i]));
+        }
+        PlayerPrefs.Save();
+    }
+    public void LoadPlayerData()
+    {
+        health = PlayerPrefs.GetInt("Health");
+        sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
+        maxJumps = PlayerPrefs.GetInt("maxJumps");
+        for (int i = 0; i < inv.Count; i++)
+        {
+            inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
+        }
+    }
     void resetStats()
     {
         health = originalHealth;
