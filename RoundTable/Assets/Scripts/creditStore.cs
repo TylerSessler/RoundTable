@@ -37,10 +37,15 @@ public class creditStore : MonoBehaviour
                 Purchase();
             }
         }
+
         if (gameManager.instance.isPaused)
         {
             gameManager.instance.shopPromptText.SetActive(false);
         }
+        //else
+        //{
+        //    gameManager.instance.shopPromptText.SetActive(true);
+        //}
     }
     
     private void OnTriggerEnter(Collider other)

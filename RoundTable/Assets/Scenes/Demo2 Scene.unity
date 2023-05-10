@@ -952,6 +952,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1810961342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1810961344}
+  - component: {fileID: 1810961343}
+  m_Layer: 0
+  m_Name: Player Spawn Pos
+  m_TagString: Player Spawn Pos
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1810961343
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810961342}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1810961344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810961342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.47, y: 21.32, z: -12.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1942719584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1300,23 +1345,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponAnimator: {fileID: 2729075800578323671}
-  settings:
-    swayAmount: 0.01
-    swayAmountADS: 0.005
-    swaySmoothing: 0.1
-    swayResetSmoothing: 0.1
-    swayClampX: 4
-    swayClampY: 4
-    swayLeanAmount: 2
+  weaponSettings:
+    swayAmount: 0
+    swayAmountADS: 0
+    swaySmoothing: 0
+    swayResetSmoothing: 0
+    swayClampX: 0
+    swayClampY: 0
+    swayLeanAmount: 0
     swayYInverted: 0
     swayXInverted: 0
-    swayMovementX: 10
-    swayMovementY: 2
-    swayMovementXADS: 4
-    swayMovementYADS: 1
-    swayMovementYInverted: 1
+    swayMovementX: 0
+    swayMovementY: 0
+    swayMovementXADS: 0
+    swayMovementYADS: 0
+    swayMovementYInverted: 0
     swayMovementXInverted: 0
-    swayMovementSmoothing: 0.4
+    swayMovementSmoothing: 0
   fallingDelay: 0
   weaponSway: {fileID: 822136286560182999}
   weaponBreathing: {fileID: 5516902609275489952}
@@ -1537,7 +1582,7 @@ MonoBehaviour:
   aud: {fileID: 1416548200}
   health: 10
   originalHealth: 10
-  originalMovementSpeed: 6
+  originalMovementSpeed: {x: 0, y: 0, z: 0}
   jumpHeight: 10
   originalJumpHeight: 9
   maxJumps: 1
@@ -1559,6 +1604,8 @@ MonoBehaviour:
   shootEffect: {fileID: 0}
   currentWeapon: {fileID: 3502398010805704049}
   weaponAnimSpeed: 0
+  activeWeapon: {fileID: 0}
+  hasObjective: 0
   weaponHolderPos: {fileID: 8106361072179574833}
   weaponPos: {fileID: 1414835459358672518}
   weaponSightsPos: {fileID: 8565802443271220898}

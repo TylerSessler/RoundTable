@@ -9,8 +9,8 @@ public class weaponController : MonoBehaviour
     [Header("---References---")]
     public Animator weaponAnimator;
 
-    [Header("---Settings---")]
-    public gameManager.WeaponSettings settings;
+    [Header("---weapon---")]
+    public gameManager.WeaponSettings weaponSettings;
 
     bool isInitialized;
 
@@ -110,21 +110,21 @@ public class weaponController : MonoBehaviour
 
     void WeaponRotation()
     {
-        targetWeaponRotation.y += (isAiming ? settings.swayAmountADS : settings.swayAmount) * (settings.swayXInverted ? -controller.inputCamera.x : controller.inputCamera.x); // Horizontal Rotation
-        targetWeaponRotation.x += (isAiming ? settings.swayAmountADS : settings.swayAmount) * (settings.swayYInverted ? controller.inputCamera.y : -controller.inputCamera.y); // Vertical Rotation
+        targetWeaponRotation.y += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayXInverted ? -controller.inputCamera.x : controller.inputCamera.x); // Horizontal Rotation
+        targetWeaponRotation.x += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayYInverted ? controller.inputCamera.y : -controller.inputCamera.y); // Vertical Rotation
 
-        targetWeaponRotation.x = Mathf.Clamp(targetWeaponRotation.x, -settings.swayClampX, settings.swayClampX);
-        targetWeaponRotation.y = Mathf.Clamp(targetWeaponRotation.y, -settings.swayClampY, settings.swayClampY);
-        targetWeaponRotation.z = isAiming ? 0 : targetWeaponRotation.y * settings.swayLeanAmount;
+        targetWeaponRotation.x = Mathf.Clamp(targetWeaponRotation.x, -weaponSettings.swayClampX, weaponSettings.swayClampX);
+        targetWeaponRotation.y = Mathf.Clamp(targetWeaponRotation.y, -weaponSettings.swayClampY, weaponSettings.swayClampY);
+        targetWeaponRotation.z = isAiming ? 0 : targetWeaponRotation.y * weaponSettings.swayLeanAmount;
 
-        targetWeaponRotation = Vector3.SmoothDamp(targetWeaponRotation, Vector3.zero, ref targetWeaponRotationVelocity, settings.swayResetSmoothing);
-        weaponRotation = Vector3.SmoothDamp(weaponRotation, targetWeaponRotation, ref weaponRotationVelocity, settings.swaySmoothing);
+        targetWeaponRotation = Vector3.SmoothDamp(targetWeaponRotation, Vector3.zero, ref targetWeaponRotationVelocity, weaponSettings.swayResetSmoothing);
+        weaponRotation = Vector3.SmoothDamp(weaponRotation, targetWeaponRotation, ref weaponRotationVelocity, weaponSettings.swaySmoothing);
 
-        targetWeaponMovementRotation.z = (isAiming ? settings.swayMovementXADS : settings.swayMovementX) * (settings.swayMovementXInverted ? -controller.inputMovement.x : controller.inputMovement.x);
-        targetWeaponMovementRotation.x = (isAiming ? settings.swayMovementYADS : settings.swayMovementY) * (settings.swayMovementYInverted ? -controller.inputMovement.y : controller.inputMovement.y);
+        targetWeaponMovementRotation.z = (isAiming ? weaponSettings.swayMovementXADS : weaponSettings.swayMovementX) * (weaponSettings.swayMovementXInverted ? -controller.inputMovement.x : controller.inputMovement.x);
+        targetWeaponMovementRotation.x = (isAiming ? weaponSettings.swayMovementYADS : weaponSettings.swayMovementY) * (weaponSettings.swayMovementYInverted ? -controller.inputMovement.y : controller.inputMovement.y);
 
-        targetWeaponMovementRotation = Vector3.SmoothDamp(targetWeaponMovementRotation, Vector3.zero, ref targetWeaponMovementRotationVelocity, settings.swayMovementSmoothing);
-        weaponMovementRotation = Vector3.SmoothDamp(weaponMovementRotation, targetWeaponMovementRotation, ref weaponMovementRotationVelocity, settings.swayMovementSmoothing);
+        targetWeaponMovementRotation = Vector3.SmoothDamp(targetWeaponMovementRotation, Vector3.zero, ref targetWeaponMovementRotationVelocity, weaponSettings.swayMovementSmoothing);
+        weaponMovementRotation = Vector3.SmoothDamp(weaponMovementRotation, targetWeaponMovementRotation, ref weaponMovementRotationVelocity, weaponSettings.swayMovementSmoothing);
 
         transform.localRotation = Quaternion.Euler(weaponRotation + weaponMovementRotation);
     }
