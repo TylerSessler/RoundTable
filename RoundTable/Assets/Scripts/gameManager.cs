@@ -87,16 +87,16 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (player != null)
+        instance = this;
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
             playerScript = player.GetComponent<playerController>();
             playerScript.setPlayerPos();
             playerScript.playerUIUpdate();
         }
-        instance = this;
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
 
     }
@@ -126,6 +126,10 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
+        if(PlayerPrefs.HasKey("Credits"))
+        {
+            loadCredits();
+        }
         if (gameManager.instance.extractionZone != null)
         {
             StartCoroutine(timerUpdate(timeValue));
