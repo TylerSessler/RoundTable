@@ -130,8 +130,8 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("maxJumps", maxJumps);
         for (int i = 1; i < inv.Count; i++)
         {
-            PlayerPrefs.SetString("Gun" + i, inv[i].label);
-            PlayerPrefs.SetInt("GunAmmo" + i, inv[i].ammo);
+            PlayerPrefs.SetString(inv[i].label, inv[i].label);
+            PlayerPrefs.SetInt(inv[i].label+"Ammo", inv[i].ammo);
         }
         PlayerPrefs.Save();
     }
@@ -140,10 +140,20 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
-        for (int i = 0; i < inv.Count; i++)
+        if(PlayerPrefs.HasKey("Pistol"))
         {
-            inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
+            //add pistol to inventory
+            
         }
+        if (PlayerPrefs.HasKey("Rifle"))
+        {
+            //add rifle to inventory
+        }
+        if (PlayerPrefs.HasKey("Sniper"))
+        {
+            //add Sniper to inventory
+        }
+
     }
     void resetStats()
     {
