@@ -10,6 +10,10 @@ public class bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (gameObject.layer == 8)
+        {
+            damage = gameManager.instance.playerScript.activeWeapon.damage;
+        }
         Destroy(gameObject, timer);
     }
 

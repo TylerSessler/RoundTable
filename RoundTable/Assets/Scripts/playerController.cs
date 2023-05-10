@@ -52,7 +52,7 @@ public class playerController : MonoBehaviour, IDamage
     public bool hasObjective;
 
     int activeSlot;
-    weapon activeWeapon;
+    public weapon activeWeapon;
     public List<weapon> inv = new List<weapon>();
 
     [Header("Store")]

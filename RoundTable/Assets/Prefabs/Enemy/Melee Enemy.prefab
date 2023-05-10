@@ -357,7 +357,7 @@ MonoBehaviour:
   animTransSpeed: 10
   roamAllowed: 1
   patrolAllowed: 0
-  shootDamage: 1
+  shootDamage: 2
   shootRate: 1
   shootDist: 2
   bulletSpeed: 1

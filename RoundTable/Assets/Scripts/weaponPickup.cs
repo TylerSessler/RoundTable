@@ -19,6 +19,8 @@ public class weaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            gun.ammo = gun.maxAmmo;
+            gun.clipSize = gun.maxClip;
             gameManager.instance.playerScript.addWeapon(gun);
             Destroy(gameObject);
         }

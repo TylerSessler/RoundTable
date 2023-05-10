@@ -726,7 +726,7 @@ MonoBehaviour:
   aud: {fileID: -7010582173322812728}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 5
+  HP: 11
   playerFaceSpeed: 30
   sightAngle: 90
   roamRange: 10

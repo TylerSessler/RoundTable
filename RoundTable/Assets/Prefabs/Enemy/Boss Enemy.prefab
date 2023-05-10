@@ -1804,7 +1804,7 @@ MonoBehaviour:
   aud: {fileID: 5256172297106777411}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 10
+  HP: 20
   playerFaceSpeed: 3
   sightAngle: 180
   roamRange: 10
@@ -1879,7 +1879,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 3
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!136 &2594307651607242292
 CapsuleCollider:
