@@ -61,10 +61,12 @@ public class scenesManager : MonoBehaviour
             {
                 CS = false;
                 timer = 0;
+                gameManager.instance.loadMenu.SetActive(false);
                 operation.allowSceneActivation = true;
             }
             yield return new WaitForEndOfFrame();
         }
+        gameManager.instance.loadMenu.SetActive(false);
         operation.allowSceneActivation = true;
     }
 

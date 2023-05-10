@@ -19,7 +19,12 @@ public class buttonFunctions : MonoBehaviour
     public void mainMenu()
     {
         gameManager.instance.unpauseState();
+        Cursor.visible = true;
         scenesManager.instance.LoadScene(scenesManager.Scene.MainMenu);
+    }
+    public void options()
+    {
+        
     }
     public void quit()
     {
