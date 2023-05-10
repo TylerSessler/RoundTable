@@ -32,17 +32,11 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 playerRotation;
 
     [Header("Stats")]
-<<<<<<< Updated upstream
-    [SerializeField] public int health;
-    [SerializeField] public int originalHealth;
-    [SerializeField] public float movementSpeed;
-    [SerializeField] float originalMovementSpeed;
-=======
-    [SerializeField] int health;
-    [SerializeField] int originalHealth;
-    //[SerializeField] public float movementSpeed;
+    public int health;
+    public int originalHealth;
+    //[SerializeField] float originalMovementSpeed;
+    //public float movementSpeed;
     [SerializeField] Vector3 originalMovementSpeed;
->>>>>>> Stashed changes
     [SerializeField] int jumpHeight;
     [SerializeField] int originalJumpHeight;
     [SerializeField] public int maxJumps;
@@ -64,7 +58,6 @@ public class playerController : MonoBehaviour, IDamage
     bool isRotating;
     public bool canRotate;
     float playerRotationOffset;
-
 
     [Header("Weapon Stats")]
     public List<weapon> inv = new List<weapon>();
@@ -88,11 +81,6 @@ public class playerController : MonoBehaviour, IDamage
     bool isPlayingSteps;
     public bool hasObjective;
 
-<<<<<<< Updated upstream
-    int activeSlot;
-    public weapon activeWeapon;
-    public List<weapon> inv = new List<weapon>();
-=======
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
     public Transform weaponPos;
@@ -146,7 +134,6 @@ public class playerController : MonoBehaviour, IDamage
     float playerStanceHeightVelocity;
     Vector3 playerStanceCenterVelocity;
     float camerHeightOrig;
->>>>>>> Stashed changes
 
     [Header("Store")]
 
@@ -159,13 +146,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audGravVol;
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
-
-<<<<<<< Updated upstream
-    void Awake()
-    {
-        
-    }
-=======
     private void SetupInputActions()
     {
         input.Player.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();
@@ -215,7 +195,6 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
->>>>>>> Stashed changes
     void Start()
     {
         activeWeapon = null;
@@ -276,6 +255,12 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
+
+    void LateUpdate()
+    {
+        Cam();
+    }
+
     public void setPlayerPos()
     {
         controller.enabled = false;
@@ -313,15 +298,9 @@ public class playerController : MonoBehaviour, IDamage
             //add Sniper to inventory
         }
 
-<<<<<<< Updated upstream
     }
-=======
-    void LateUpdate()
-    {
-        Cam();
-    }
+    
 
->>>>>>> Stashed changes
     void resetStats()
     {
         health = originalHealth;
@@ -1089,12 +1068,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerDead();
         }
     }
-<<<<<<< Updated upstream
     public void playerUIUpdate()
-=======
-
-    void playerUIUpdate()
->>>>>>> Stashed changes
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
     }
