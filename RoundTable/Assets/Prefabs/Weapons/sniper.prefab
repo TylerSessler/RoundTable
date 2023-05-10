@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4792187280947327852}
   m_Layer: 0
   m_Name: sniper
-  m_TagString: Untagged
+  m_TagString: Sniper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
