@@ -73,7 +73,7 @@ public class playerController : MonoBehaviour, IDamage
     bool isShooting;
     bool canShoot;
     int activeSlot;
-    weapon activeWeapon;
+    public weapon activeWeapon;
     bool isReloading;
     bool isAiming;
     int zoomedFov;
