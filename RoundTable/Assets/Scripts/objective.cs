@@ -32,7 +32,7 @@ public class objective : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inRange = true;
-            gameManager.instance.interactPromptText.SetActive(true);
+            gameManager.instance.artifactPromptText.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -40,14 +40,14 @@ public class objective : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inRange = false;
-            gameManager.instance.interactPromptText.SetActive(false);
+            gameManager.instance.artifactPromptText.SetActive(false);
         }
     }
 
     IEnumerator pickUp()
     {
         gameManager.instance.playerScript.hasObjective = true;
-        gameManager.instance.interactPromptText.SetActive(false);
+        gameManager.instance.artifactPromptText.SetActive(false);
         gameManager.instance.updateGameGoal(0);
         gameManager.instance.startTimer();
         Destroy(gameObject);

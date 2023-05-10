@@ -54,7 +54,8 @@ public class gameManager : MonoBehaviour
     public GameObject extractionZone;
 
     [Header("----- Conditional UI -----")]
-    public GameObject interactPromptText;
+    public GameObject shopPromptText;
+    public GameObject artifactPromptText;
 
     [Header("----- Main Menu UI -----")]
     [SerializeField] public GameObject creditsUI;
@@ -208,7 +209,7 @@ public class gameManager : MonoBehaviour
 
     IEnumerator startExtraction(int extract)
     {
-        if (timeUntilText.active == true) // Since there are multiple win conditions, check if one is already active
+        if (timeUntilText.activeSelf == true) // Since there are multiple win conditions, check if one is already active
         {
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
