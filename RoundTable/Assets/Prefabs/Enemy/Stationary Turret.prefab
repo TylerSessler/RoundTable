@@ -764,7 +764,7 @@ MonoBehaviour:
   roamAllowed: 0
   patrolAllowed: 0
   shootDamage: 1
-  shootRate: 0.1
+  shootRate: 0.3
   shootDist: 45
   bulletSpeed: 5
   vertSpread: 2
@@ -807,7 +807,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 3.75
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!82 &1383529418645740238
 AudioSource:

@@ -726,7 +726,7 @@ MonoBehaviour:
   aud: {fileID: -7010582173322812728}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 5
+  HP: 11
   playerFaceSpeed: 30
   sightAngle: 90
   roamRange: 10
@@ -770,7 +770,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3946821624309934124}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e26e70556bd52af468dffcaa626b3d35, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 46c6e470186095a41b808a91be42b0d5, type: 3}
   m_Controller: {fileID: 9100000, guid: 6195e7dd4d9ecf2429842f533f4c2053, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0

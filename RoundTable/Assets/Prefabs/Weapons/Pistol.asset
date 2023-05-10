@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   label: Pistol
-  damage: 2
+  damage: 1
   rate: 0.5
   range: 20
-  ammo: 11
+  ammo: 30
   maxAmmo: 30
   clipSize: 11
   maxClip: 11
   canZoom: 0
   reloadTime: 2.5
   model: {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}
+  barrelPos: {fileID: 0}
   gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: 1f4a699323f61ca42a222a26afaa9aee, type: 3}
   gunShotAud: {fileID: 8300000, guid: d602dc3578ad95b47bcd92e0664499ca, type: 3}

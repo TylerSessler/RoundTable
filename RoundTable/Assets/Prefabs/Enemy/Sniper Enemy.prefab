@@ -697,7 +697,7 @@ MonoBehaviour:
   aud: {fileID: 7107391977744036222}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 2
+  HP: 3
   playerFaceSpeed: 10
   sightAngle: 120
   roamRange: 5
@@ -750,7 +750,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!82 &7107391977744036222
 AudioSource:

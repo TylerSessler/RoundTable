@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Threading;
+using JetBrains.Annotations;
+using System;
 
 public class gameManager : MonoBehaviour
 {
@@ -54,7 +56,8 @@ public class gameManager : MonoBehaviour
     public GameObject extractionZone;
 
     [Header("----- Conditional UI -----")]
-    public GameObject interactPromptText;
+    public GameObject shopPromptText;
+    public GameObject artifactPromptText;
 
     [Header("----- Main Menu UI -----")]
     [SerializeField] public GameObject creditsUI;
@@ -64,9 +67,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject bulletCountUI;
     [SerializeField] public GameObject hpBarUI;
     [SerializeField] public GameObject reticleUI;
-
-
-
 
     public int enemiesRemaining;
     [SerializeField] public int credits;
@@ -85,19 +85,106 @@ public class gameManager : MonoBehaviour
     [SerializeField] AudioClip audExtractionAppear;
     [SerializeField][Range(0, 1)] float audExtractionVol;
 
+    public enum PlayerPose
+    {
+        Stand,
+        Crouch,
+        Prone
+    }
+
+    [Serializable]
+    public class PlayerSettings
+    {
+        [Header("---Camera Settings---")]
+        public float cameraSensHor;
+        public float cameraSensVer;
+        public float cameraSmoothSpeed;
+
+        public float ADSSensEffector;
+
+        public bool invertX;
+        public bool invertY;
+
+        [Header("---Movement---")]
+        public bool holdSprint; //----- Used for Toggle to Sprint or Hold to Sprint - True = Hold, False = Toggle.
+        public float movementSmoothing;
+
+        [Header("---Walking---")]
+        public float forwardWalkSpeed;
+        public float backwardWalkSpeed;
+        public float strafeWalkSpeed;
+
+        [Header("---Sprinting---")]
+        public float forwardSprintSpeed;
+        public float strafeSprintSpeed;
+
+        [Header("---Jumping---")]
+        public bool isJumping;
+        public Vector3 jumpDirection;
+        public float jumpingHeight;
+        public float jumpingFalloff;
+        public float fallingSmoothing;
+        public float backwardJumpFactor;
+        public float angleThreshold;
+        public float jumpTimeWindow;
+
+        [Header("---Speed Effectors---")]
+        public float speedEffector;
+        public float crouchSpeedEffector;
+        public float proneSpeedEffector;
+        public float fallingSpeedEffector;
+        public float aimSpeedEffector;
+
+        [Header("---Is Grounded / Falling---")]
+        public float isGroundedRadius;
+        public float isFallingSpeed;
+        public float groundDistance;
+    }
+
+    [Serializable]
+    public class PlayerStance
+    {
+        public float cameraHeight;
+        public CapsuleCollider stanceCollider;
+    }
+
+    [Serializable]
+    public class WeaponSettings
+    {
+        [Header("---Weapon Sway---")]
+        public float swayAmount;
+        public float swayAmountADS;
+        public float swaySmoothing;
+        public float swayResetSmoothing;
+        public float swayClampX;
+        public float swayClampY;
+        public float swayLeanAmount;
+        public bool swayYInverted;
+        public bool swayXInverted;
+
+        [Header("---Weapon Movement---")]
+        public float swayMovementX;
+        public float swayMovementY;
+        public float swayMovementXADS;
+        public float swayMovementYADS;
+        public bool swayMovementYInverted;
+        public bool swayMovementXInverted;
+        public float swayMovementSmoothing;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
-        if (player != null)
+        instance = this;
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
             playerScript = player.GetComponent<playerController>();
             playerScript.setPlayerPos();
             playerScript.playerUIUpdate();
         }
-        instance = this;
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
 
     }
@@ -127,9 +214,10 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        if (gameManager.instance.extractionZone != null)
+        extractionZone.SetActive(false);
+        if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
         {
-            StartCoroutine(timerUpdate(timeValue));
+            startTimer();
         }
         creditsValueText.text = credits.ToString();
     }
@@ -171,7 +259,10 @@ public class gameManager : MonoBehaviour
         aud.PlayOneShot(audLose, audLoseVol);
     }
 
-
+    public void startTimer()
+    {
+        StartCoroutine(timerUpdate(timeValue));
+    }
     void enemiesRemainingUIUpdate()
     {
         enemiesRemainingText.text = enemiesRemaining.ToString();
@@ -205,12 +296,12 @@ public class gameManager : MonoBehaviour
 
     IEnumerator startExtraction(int extract)
     {
-        if (timeUntilText.active == true) // Since there are multiple win conditions, check if one is already active
+        if (timeUntilText.activeSelf == true) 
         {
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
             aud.PlayOneShot(audExtractionAppear, audExtractionVol);
-            // Time until extraction ends
+            /* Time until extraction ends
             extractionText.SetActive(true);
             for (int i = extract; i >= 0; i--)
             {
@@ -218,6 +309,8 @@ public class gameManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
             playerDead();
+            */
+            yield return new WaitForEndOfFrame();
         }
     }
     public void saveCredits()

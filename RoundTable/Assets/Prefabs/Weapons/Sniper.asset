@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: 
   label: Sniper
-  damage: 7
+  damage: 18
   rate: 2.25
   range: 90
-  ammo: 11
+  ammo: 15
   maxAmmo: 15
-  clipSize: 2
+  clipSize: 4
   maxClip: 4
   canZoom: 1
   reloadTime: 5
   model: {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
+  barrelPos: {fileID: 0}
   gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: c48a313122fe93f4fbb5c58ee801ebd0, type: 3}
   gunShotAud: {fileID: 8300000, guid: a8bee23cb250ebe4f8ed328b85583455, type: 3}

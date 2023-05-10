@@ -39,7 +39,7 @@ public class creditStore : MonoBehaviour
         }
         if (gameManager.instance.isPaused)
         {
-            gameManager.instance.interactPromptText.SetActive(false);
+            gameManager.instance.shopPromptText.SetActive(false);
         }
     }
     
@@ -48,7 +48,7 @@ public class creditStore : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInShop = true;
-            gameManager.instance.interactPromptText.SetActive(true);
+            gameManager.instance.shopPromptText.SetActive(true);
         }
     }
 
@@ -57,7 +57,7 @@ public class creditStore : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInShop = false;
-            gameManager.instance.interactPromptText.SetActive(false);
+            gameManager.instance.shopPromptText.SetActive(false);
         }
     }
 

@@ -1804,7 +1804,7 @@ MonoBehaviour:
   aud: {fileID: 5256172297106777411}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 10
+  HP: 20
   playerFaceSpeed: 3
   sightAngle: 180
   roamRange: 10
@@ -1848,7 +1848,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8503887633382848540}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5dc307859adf2db48a0decb69a59f7d8, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 28c784b1ac016ed46ac00fa511a40415, type: 3}
   m_Controller: {fileID: 9100000, guid: 3a7a0dea777cf974c8d2d11c3b5086ce, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1879,7 +1879,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 3
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!136 &2594307651607242292
 CapsuleCollider:
