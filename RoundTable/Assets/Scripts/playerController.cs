@@ -1,4 +1,3 @@
-//using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -126,7 +125,8 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("maxJumps", maxJumps);
         for (int i = 0; i < inv.Count; i++)
         {
-        //    PlayerPrefs.SetString("Gun" + i, JsonConvert.SerializeObject(inv[i]));
+            PlayerPrefs.SetString(inv[i].label, inv[i].label);
+            PlayerPrefs.SetInt(inv[i].label+"Ammo", inv[i].ammo);
         }
         PlayerPrefs.Save();
     }
@@ -135,10 +135,19 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
-        for (int i = 0; i < inv.Count; i++)
+        if(PlayerPrefs.HasKey("Pistol"))
         {
-        //    inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
+            //add pistol to inventory
         }
+        if (PlayerPrefs.HasKey("Rifle"))
+        {
+            //add pistol to inventory
+        }
+        if (PlayerPrefs.HasKey("Sniper"))
+        {
+            //add pistol to inventory
+        }
+
     }
     void resetStats()
     {
