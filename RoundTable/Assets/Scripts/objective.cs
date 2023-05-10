@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class objective : MonoBehaviour
 {
@@ -47,7 +48,10 @@ public class objective : MonoBehaviour
     {
         gameManager.instance.playerScript.hasObjective = true;
         gameManager.instance.interactPromptText.SetActive(false);
+        gameManager.instance.updateGameGoal(0);
+        gameManager.instance.startTimer();
         Destroy(gameObject);
+        
         // Play audio?
         yield return new WaitForEndOfFrame();
     }

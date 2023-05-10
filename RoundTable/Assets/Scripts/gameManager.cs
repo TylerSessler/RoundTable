@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Threading;
+using JetBrains.Annotations;
 
 public class gameManager : MonoBehaviour
 {
@@ -126,13 +127,9 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        if(PlayerPrefs.HasKey("Credits"))
+        if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
         {
-            loadCredits();
-        }
-        if (gameManager.instance.extractionZone != null)
-        {
-            StartCoroutine(timerUpdate(timeValue));
+            startTimer();
         }
         creditsValueText.text = credits.ToString();
     }
@@ -174,7 +171,10 @@ public class gameManager : MonoBehaviour
         aud.PlayOneShot(audLose, audLoseVol);
     }
 
-
+    public void startTimer()
+    {
+        StartCoroutine(timerUpdate(timeValue));
+    }
     void enemiesRemainingUIUpdate()
     {
         enemiesRemainingText.text = enemiesRemaining.ToString();
