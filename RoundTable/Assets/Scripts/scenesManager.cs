@@ -63,10 +63,9 @@ public class scenesManager : MonoBehaviour
                 timer = 0;
                 operation.allowSceneActivation = true;
             }
+            yield return new WaitForEndOfFrame();
         }
-        
         operation.allowSceneActivation = true;
-        
     }
 
     public void LoadNewGame()
