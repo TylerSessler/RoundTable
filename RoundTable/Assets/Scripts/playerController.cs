@@ -48,6 +48,7 @@ public class playerController : MonoBehaviour, IDamage
     int zoomedFov;
     bool isMelee;
     bool isPlayingSteps;
+    public bool hasObjective;
     private static bool created = false;
 
     int activeSlot;
