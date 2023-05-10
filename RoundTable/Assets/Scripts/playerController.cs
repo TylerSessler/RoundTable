@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -126,7 +126,7 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("maxJumps", maxJumps);
         for (int i = 0; i < inv.Count; i++)
         {
-            PlayerPrefs.SetString("Gun" + i, JsonConvert.SerializeObject(inv[i]));
+        //    PlayerPrefs.SetString("Gun" + i, JsonConvert.SerializeObject(inv[i]));
         }
         PlayerPrefs.Save();
     }
@@ -137,7 +137,7 @@ public class playerController : MonoBehaviour, IDamage
         maxJumps = PlayerPrefs.GetInt("maxJumps");
         for (int i = 0; i < inv.Count; i++)
         {
-            inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
+        //    inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
         }
     }
     void resetStats()

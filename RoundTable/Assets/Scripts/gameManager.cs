@@ -21,6 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject optionsMenu;
     public GameObject creditsText;
     public TextMeshProUGUI creditsValueText;
     public GameObject gunReticle;

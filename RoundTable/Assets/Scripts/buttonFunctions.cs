@@ -24,7 +24,13 @@ public class buttonFunctions : MonoBehaviour
     }
     public void options()
     {
-        
+        gameManager.instance.pauseMenu.SetActive(false);
+        gameManager.instance.optionsMenu.SetActive(true);
+    }
+    public void back()
+    {
+        gameManager.instance.optionsMenu.SetActive(false);
+        gameManager.instance.pauseMenu.SetActive(true);
     }
     public void quit()
     {
