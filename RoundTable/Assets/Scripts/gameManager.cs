@@ -219,4 +219,13 @@ public class gameManager : MonoBehaviour
             playerDead();
         }
     }
+    public void saveCredits()
+    {
+        PlayerPrefs.SetInt("Credits", credits);
+        PlayerPrefs.Save();
+    }
+    public void loadCredits()
+    {
+        credits = PlayerPrefs.GetInt("Credits");
+    }
 }
