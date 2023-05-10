@@ -69,7 +69,7 @@ public class creditStore : MonoBehaviour
             gameManager.instance.playerScript.sprintSpeed *= 1.3f;
             gameManager.instance.credits -= 5;
             gameManager.instance.creditsAvailableUIUpdate();
-            aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
+            aud.PlayOneShot(audPurchase[Random.Range(0, audPurchase.Length)], audPurchaseVol);
             Debug.Log("Speed Given");
         }
         // MAX JUMPS UPGRADE
@@ -78,7 +78,7 @@ public class creditStore : MonoBehaviour
             gameManager.instance.playerScript.maxJumps += 1;
             gameManager.instance.credits -= 3;
             gameManager.instance.creditsAvailableUIUpdate();
-            aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
+            aud.PlayOneShot(audPurchase[Random.Range(0, audPurchase.Length)], audPurchaseVol);
             Debug.Log("Jump Given");
         }
         //WEAPON SHOP PISTOL
@@ -106,7 +106,7 @@ public class creditStore : MonoBehaviour
             Instantiate(rifle, new Vector3(gameManager.instance.player.transform.position.x, gameManager.instance.player.transform.position.y + 1, gameManager.instance.player.transform.position.z), gameManager.instance.player.transform.rotation);
             gameManager.instance.credits -= 4;
             gameManager.instance.creditsAvailableUIUpdate();
-            aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
+            aud.PlayOneShot(audPurchase[Random.Range(0, audPurchase.Length)], audPurchaseVol);
             Debug.Log("Rifle Given");
 
         }
@@ -117,7 +117,7 @@ public class creditStore : MonoBehaviour
             gameManager.instance.credits -= 5;
             gameManager.instance.playerScript.playerUIUpdate();
             gameManager.instance.creditsAvailableUIUpdate();
-            aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
+            aud.PlayOneShot(audPurchase[Random.Range(0, audPurchase.Length)], audPurchaseVol);
             Debug.Log("Max Health Upgrade");
 
         }
@@ -128,7 +128,7 @@ public class creditStore : MonoBehaviour
             gameManager.instance.credits -= 4;
             gameManager.instance.playerScript.playerUIUpdate();
             gameManager.instance.creditsAvailableUIUpdate();
-            aud.PlayOneShot(audPurchase[UnityEngine.Random.Range(0, audPurchase.Length)], audPurchaseVol);
+            aud.PlayOneShot(audPurchase[Random.Range(0, audPurchase.Length)], audPurchaseVol);
             Debug.Log("Player Health Refilled");
 
         }

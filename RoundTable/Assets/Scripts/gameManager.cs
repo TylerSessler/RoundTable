@@ -138,7 +138,7 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
         creditsAvailableUIUpdate();
-        if (enemiesRemaining <= 0)
+        if (gameManager.instance.playerScript.hasObjective)
         {
             StartCoroutine(startExtraction(extractValue));
         }
