@@ -12,7 +12,7 @@ public class basicEnemySpawner : MonoBehaviour
         public int EnemiesAtStart;
         public float range;
         public float spawnTime;
-        public bool spawn;
+        public bool spawn { get; set; }
         public GameObject _enemyPrefab;
 
         public enemyType(int start, float r, float t, bool s, GameObject enemy)
@@ -62,18 +62,17 @@ public class basicEnemySpawner : MonoBehaviour
         {
             if (!enemyList[i].spawn)
             {
-                StartCoroutine(cspawn(enemyList[i]));
-            }
-            
+                StartCoroutine(cspawn(i));
+            }  
         }
     }
 
-    IEnumerator cspawn(enemyType e)
+    IEnumerator cspawn(int i)
     {
-        e.spawn = true;
-        yield return new WaitForSeconds(e.spawnTime);
-        spawns(e._enemyPrefab, e.range);
-        e.spawn = false;
+        enemyList[i].spawn = true;
+        yield return new WaitForSeconds(enemyList[i].spawnTime);
+        spawns(enemyList[i]._enemyPrefab, enemyList[i].range);
+        enemyList[i].spawn = false;
     }
     
 
