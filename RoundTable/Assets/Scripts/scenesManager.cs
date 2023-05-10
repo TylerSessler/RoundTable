@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class scenesManager : MonoBehaviour
 {
     public static scenesManager instance;
+    [SerializeField] GameObject mainMenuCheck;
     bool spacePressed;
 
     private void Awake()
@@ -27,11 +28,14 @@ public class scenesManager : MonoBehaviour
     public void LoadScene(Scene s)
     {
         gameManager.instance.loadMenu.SetActive(true);
-        
+        if (mainMenuCheck != null)
+        {
+            mainMenuCheck.SetActive(false);
+        }
         StartCoroutine(LoadSceneAsync(s));
     }
 
-    IEnumerator LoadSceneAsync(Scene s)
+    public IEnumerator LoadSceneAsync(Scene s)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(s.ToString());
         operation.allowSceneActivation = false;

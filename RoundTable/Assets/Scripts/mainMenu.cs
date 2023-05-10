@@ -7,24 +7,24 @@ public class mainMenu : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene("TutorialLevel");
+        scenesManager.instance.LoadScene(scenesManager.Scene.TutorialLevel);
     }
 
     public void TutorialLoad()
     {
-        SceneManager.LoadScene("TutorialLevel");
+        scenesManager.instance.LoadScene(scenesManager.Scene.TutorialLevel);
     }
     public void Level1Load()
     {
-        SceneManager.LoadScene("Level01");
+        scenesManager.instance.LoadScene(scenesManager.Scene.Level01);
     }
     public void Level2Load()
     {
-        SceneManager.LoadScene("Level02");
+        scenesManager.instance.LoadScene(scenesManager.Scene.Level02);
     }
     public void Level3Load()
     {
-        SceneManager.LoadScene("Level03");
+        scenesManager.instance.LoadScene(scenesManager.Scene.Level03);
     }
 
 
