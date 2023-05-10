@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class scenesManager : MonoBehaviour
 {
     public static scenesManager instance;
-    [SerializeField] GameObject mainMenuCheck;
+    [SerializeField] public GameObject mainMenuCheck;
     // True while cutscene/loading is active
     private bool CS;
     // Artificial timer
