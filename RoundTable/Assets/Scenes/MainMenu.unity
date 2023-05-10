@@ -400,25 +400,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1411774071724936160, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
-      propertyPath: aud
-      value: 
-      objectReference: {fileID: 980753465}
-    - target: {fileID: 1411774071724936160, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
-      propertyPath: click
-      value: 
-      objectReference: {fileID: 8300000, guid: 3a0d6b766a7fb3940adabd5c109d8729, type: 3}
-    - target: {fileID: 1411774071724936160, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
-      propertyPath: clickVol
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 7159330024671064890, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7159330024671064890, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7159330024671064894, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
       propertyPath: m_Pivot.x
@@ -508,8 +492,7 @@ PrefabInstance:
       propertyPath: mainMenuCheck
       value: 
       objectReference: {fileID: 1045584776}
-    m_RemovedComponents:
-    - {fileID: 1411774071724936160, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
 --- !u!1 &197148248
 GameObject:
@@ -2378,11 +2361,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!82 &980753465 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6076398, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
-  m_PrefabInstance: {fileID: 102031283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1005111014
 GameObject:
   m_ObjectHideFlags: 0

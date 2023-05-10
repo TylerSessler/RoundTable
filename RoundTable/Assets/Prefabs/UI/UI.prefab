@@ -3390,7 +3390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7159330024596765505
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5028,7 +5028,6 @@ GameObject:
   - component: {fileID: 7159330025367608158}
   - component: {fileID: 7159330025367608157}
   - component: {fileID: 7159330025367608156}
-  - component: {fileID: 1411774071724936160}
   - component: {fileID: 6076398}
   - component: {fileID: 8215388737358715861}
   m_Layer: 5
@@ -5106,6 +5105,13 @@ MonoBehaviour:
   extractionTimerText: {fileID: 2055203174}
   extractionZone: {fileID: 0}
   interactPromptText: {fileID: 0}
+  creditsUI: {fileID: 154977395}
+  extractionUI: {fileID: 812395658}
+  hotbarSquaresUI: {fileID: 6582523833958845546}
+  enemiesRemainingUI: {fileID: 7159330023618550254}
+  bulletCountUI: {fileID: 7159330025377841814}
+  hpBarUI: {fileID: 7159330025309527391}
+  reticleUI: {fileID: 7159330023504026813}
   enemiesRemaining: 0
   credits: 5
   isPaused: 0
@@ -5131,21 +5137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ed77cd0c6ea5e44a86902e6fd48086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1411774071724936160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7159330025367608159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aud: {fileID: 0}
-  click: {fileID: 0}
-  clickVol: 0
 --- !u!82 &6076398
 AudioSource:
   m_ObjectHideFlags: 0

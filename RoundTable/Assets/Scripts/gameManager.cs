@@ -55,6 +55,18 @@ public class gameManager : MonoBehaviour
     [Header("----- Conditional UI -----")]
     public GameObject interactPromptText;
 
+    [Header("----- Main Menu UI -----")]
+    [SerializeField] public GameObject creditsUI;
+    [SerializeField] public GameObject extractionUI;
+    [SerializeField] public GameObject hotbarSquaresUI;
+    [SerializeField] public GameObject enemiesRemainingUI;
+    [SerializeField] public GameObject bulletCountUI;
+    [SerializeField] public GameObject hpBarUI;
+    [SerializeField] public GameObject reticleUI;
+
+
+
+
     public int enemiesRemaining;
     [SerializeField] public int credits;
     public bool isPaused;
@@ -75,14 +87,18 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (player != null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerScript = player.GetComponent<playerController>();
+            playerScript.setPlayerPos();
+            playerScript.playerUIUpdate();
+        }
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
-        playerScript = player.GetComponent<playerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
-        playerScript.setPlayerPos();
-        playerScript.playerUIUpdate();
+
     }
 
     // Update is called once per frame
@@ -104,7 +120,8 @@ public class gameManager : MonoBehaviour
             }
                 
         }
-        playerScript.playerUIUpdate();
+        if (playerScript != null)
+            playerScript.playerUIUpdate();
     }
 
     private void Start()
