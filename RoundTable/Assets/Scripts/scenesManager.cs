@@ -16,6 +16,22 @@ public class scenesManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+    }
+    private void Start()
+    {
+
+        if (mainMenuCheck != null)
+        {
+            Debug.Log("mainMenuCheck");
+            gameManager.instance.creditsUI.SetActive(false);
+            gameManager.instance.extractionUI.SetActive(false);
+            gameManager.instance.hotbarSquaresUI.SetActive(false);
+            gameManager.instance.enemiesRemainingUI.SetActive(false);
+            gameManager.instance.bulletCountUI.SetActive(false);
+            gameManager.instance.hpBarUI.SetActive(false);
+            gameManager.instance.reticleUI.SetActive(false);
+        }
     }
 
     public enum Scene
