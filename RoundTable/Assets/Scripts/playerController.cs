@@ -3,60 +3,152 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    public static playerController instance;
+
     [Header("Components")]
     [SerializeField] CharacterController controller;
+    public Transform mainCamera;
+    public Transform cam;
+    public Transform playerTransform;
+    DefaultInput input;
+    public Vector2 inputMovement;
+    public Vector2 inputCamera;
+    public float mouseScroll;
+    [SerializeField] float lockVerMin;
+    [SerializeField] float lockVerMax;
     [SerializeField] GameObject playerBullet;
-    [SerializeField] Transform shootPos;
     [SerializeField] GameObject activeModel;
     [SerializeField] AudioSource aud;
 
+    Vector3 cameraRotation;
+    Vector3 playerRotation;
+
     [Header("Stats")]
+<<<<<<< Updated upstream
     [SerializeField] public int health;
     [SerializeField] public int originalHealth;
     [SerializeField] public float movementSpeed;
     [SerializeField] float originalMovementSpeed;
+=======
+    [SerializeField] int health;
+    [SerializeField] int originalHealth;
+    //[SerializeField] public float movementSpeed;
+    [SerializeField] Vector3 originalMovementSpeed;
+>>>>>>> Stashed changes
     [SerializeField] int jumpHeight;
     [SerializeField] int originalJumpHeight;
     [SerializeField] public int maxJumps;
     [SerializeField] int originalMaxJumps;
-    [SerializeField] float gravity;
+    //[SerializeField] float gravity;
     [SerializeField] float originalGravity;
     [SerializeField] float tempVal;
     [SerializeField] float bulletSpeed;
     [SerializeField] float rotationDuration;
 
-    bool isRotating;
-    public bool canRotate;
-
-    public float sprintSpeed;
-    private Vector3 playerVelocity;
-    Vector3 move;
     // Used for jump & sprint logic
     public int jumpCount;
     public bool groundedPlayer;
-    bool isSprinting;
+    //bool isSprinting;
+    public float sprintSpeed;
+    private Vector3 playerVelocity;
+    Vector3 move;
     bool gravityFlipped;
-    // Used for shooting & zoom logic
+    bool isRotating;
+    public bool canRotate;
+    float playerRotationOffset;
+
+
+    [Header("Weapon Stats")]
+    public List<weapon> inv = new List<weapon>();
+    [Range(0, 10)][SerializeField] float shootRate;
+    [Range(0, 500)][SerializeField] int shootDist;
+    [Range(0, 250)][SerializeField] int shootDmg;
+    [SerializeField] MeshFilter weaponMesh;
+    [SerializeField] MeshRenderer weaponMaterial;
+    [SerializeField] GameObject shootEffect;
+    public weaponController currentWeapon;
+    public float weaponAnimSpeed;
+    int selectedGun;
     bool isShooting;
+    bool canShoot;
+    int activeSlot;
+    weapon activeWeapon;
     bool isReloading;
-    bool isZoomed;
+    bool isAiming;
     int zoomedFov;
     bool isMelee;
     bool isPlayingSteps;
     public bool hasObjective;
 
+<<<<<<< Updated upstream
     int activeSlot;
     public weapon activeWeapon;
     public List<weapon> inv = new List<weapon>();
+=======
+    [Header("--- Weapon Transformations---")]
+    public Transform weaponHolderPos;
+    public Transform weaponPos;
+    public Transform weaponSightsPos;
+    [SerializeField] Transform shootPos;
+
+    [Header("----- Weapon ADS Stats -----")]
+    public float zoomMax;
+    public int zoomInSpeed;
+    public int zoomOutSpeed;
+
+    [Header("Leaning")]
+    public Transform cameraLeanPivot;
+    public float leanAngle;
+    public float leanSmoothing;
+    float currentLean;
+    float targetLean;
+    float leanVelocity;
+
+    bool isLeaningLeft;
+    bool isLeaningRight;
+
+    [Header("---Settings---")]
+    public LayerMask playerMask;
+    public LayerMask groundMask;
+    public gameManager.PlayerSettings playerSettings;
+    [SerializeField] float gravity;
+    [SerializeField] Vector3 jumpForce;
+    public float playerGravity;
+    Vector3 jumpSpeed;
+    //public bool isGrounded;
+    public bool isFalling;
+
+    public float timeSinceLastJump;
+    Vector3 previousJumpDirection;
+
+    public bool isSprinting;
+    public bool isWalking;
+    Vector3 movementSpeed;
+    Vector3 velocitySpeed;
+
+    [Header("---Preferences---")]
+    [SerializeField] gameManager.PlayerPose playerPose;
+    [SerializeField] float playerPoseSmooth;
+    [SerializeField] float cameraHeight;
+    [SerializeField] float cameraHeightSpeed;
+    [SerializeField] float stanceCheck;
+    [SerializeField] gameManager.PlayerStance playerStandStance;
+    [SerializeField] gameManager.PlayerStance playerCrouchStance;
+    [SerializeField] gameManager.PlayerStance playerProneStance;
+    float playerStanceHeightVelocity;
+    Vector3 playerStanceCenterVelocity;
+    float camerHeightOrig;
+>>>>>>> Stashed changes
 
     [Header("Store")]
-
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audSteps;
@@ -68,16 +160,72 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
 
+<<<<<<< Updated upstream
     void Awake()
     {
         
     }
+=======
+    private void SetupInputActions()
+    {
+        input.Player.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();
+        input.Player.Camera.performed += e => inputCamera = e.ReadValue<Vector2>();
+        input.Player.Jump.performed += e => Jump();
+        input.Player.Crouch.performed += e => Crouch();
+        input.Player.Prone.performed += e => Prone();
+
+        input.Player.Sprint.performed += e => ToggleSprint();
+        input.Player.SprintReleased.performed += e => StopSprint();
+
+        input.Player.MouseScrollWheel.performed += e => mouseScroll = e.ReadValue<float>();
+
+        input.Weapon.AimPressed.performed += e => AimPressed();
+        input.Weapon.AimReleased.performed += e => AimReleased();
+
+
+        input.Weapon.Shoot.performed += e => shoot();
+        //input.Weapon.Shoot.performed += e => isShooting = true;
+        //input.Weapon.Shoot.canceled += e => isShooting = false;
+
+        input.Player.LeanLeftPressed.performed += e => isLeaningLeft = true;
+        input.Player.LeanLeftReleased.performed += e => isLeaningLeft = false;
+
+        input.Player.LeanRightPressed.performed += e => isLeaningRight = true;
+        input.Player.LeanRightReleased.performed += e => isLeaningRight = false;
+    }
+
+    void Awake()
+    {
+        instance = this;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        input = new();
+
+        SetupInputActions();
+
+        cameraRotation = mainCamera.localRotation.eulerAngles;
+        playerRotation = transform.localRotation.eulerAngles;
+
+        //cameraHeight = mainCamera.localPosition.y;
+
+        if (currentWeapon)
+        {
+            currentWeapon.Initialize(this);
+        }
+    }
+
+>>>>>>> Stashed changes
     void Start()
     {
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
+        canShoot = true;
         canRotate = false;
+        camerHeightOrig = cameraHeight;
+        playerRotationOffset = 0f;
+
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
@@ -88,15 +236,33 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
+
     void Update()
     {
-
-        if (!gameManager.instance.isPaused)
+        if (Time.timeScale != 0)
         {
+            RotatePlayer();
             movement();
+            PlayerStance();
             inventory();
-            zoom();
+            Leaning();
+            Aiming();
+            //zoom();
+            //selectGun();
+            SetIsFalling();
+
+            Jumping();
+            JumpTimer();
+            ShootMouseClick();
 
             if (Input.GetButtonDown("Flip Gravity") && !isRotating && canRotate)
             {
@@ -106,13 +272,6 @@ public class playerController : MonoBehaviour, IDamage
             if (!isReloading && Input.GetButtonDown("Reload"))
             {
                 StartCoroutine(reload());
-                bulletCountUpdate();
-            }
-
-            if (!isShooting && Input.GetButton("Shoot"))
-            {
-                StartCoroutine(shoot());
-                // Update UI for bullet count
                 bulletCountUpdate();
             }
         }
@@ -130,8 +289,8 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("maxJumps", maxJumps);
         for (int i = 1; i < inv.Count; i++)
         {
-            PlayerPrefs.SetString("Gun" + i, inv[i].label);
-            PlayerPrefs.SetInt("GunAmmo" + i, inv[i].ammo);
+            PlayerPrefs.SetString(inv[i].label, inv[i].label);
+            PlayerPrefs.SetInt(inv[i].label+"Ammo", inv[i].ammo);
         }
         PlayerPrefs.Save();
     }
@@ -140,11 +299,29 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
-        for (int i = 0; i < inv.Count; i++)
+        if(PlayerPrefs.HasKey("Pistol"))
         {
-            inv[i] = JsonConvert.DeserializeObject<weapon>(PlayerPrefs.GetString("Gun" + i));
+            //add pistol to inventory
+            
         }
+        if (PlayerPrefs.HasKey("Rifle"))
+        {
+            //add rifle to inventory
+        }
+        if (PlayerPrefs.HasKey("Sniper"))
+        {
+            //add Sniper to inventory
+        }
+
+<<<<<<< Updated upstream
     }
+=======
+    void LateUpdate()
+    {
+        Cam();
+    }
+
+>>>>>>> Stashed changes
     void resetStats()
     {
         health = originalHealth;
@@ -153,56 +330,204 @@ public class playerController : MonoBehaviour, IDamage
         maxJumps = originalMaxJumps;
         gravity = originalGravity;
     }
+
+    void RotatePlayer()
+    {
+        // Player Rotation
+        if (!isRotating)
+        {
+            if (!gravityFlipped)
+            {
+                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+            }
+            else
+            {
+                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+            }
+
+            playerRotation.z = playerRotationOffset;
+            transform.localRotation = Quaternion.Euler(playerRotation);
+        }
+    }
+
+    void Cam()
+    {
+        // Camera Rotation
+        cameraRotation.x += (isAiming ? playerSettings.cameraSensVer * playerSettings.aimSpeedEffector : playerSettings.cameraSensVer) * (playerSettings.invertY ? inputCamera.y : -inputCamera.y) * Time.deltaTime;
+        cameraRotation.x = Mathf.Clamp(cameraRotation.x, lockVerMin, lockVerMax);
+        mainCamera.localRotation = Quaternion.Euler(cameraRotation);
+    }
+
     void movement()
     {
-
-        isSprinting = Input.GetButton("Sprint");
-        groundedPlayer = isGrounded();
-        if (groundedPlayer)
+        if (!isGrounded())
         {
-            if (!isPlayingSteps && move.normalized.magnitude > 0.5f)
+            playerGravity -= gravity * Time.deltaTime;
+        }
+        else
+        {
+            //if (playerGravity < -0.1f)
+            //{
+            //    playerGravity = -0.1f;
+            //}
+
+            if (!isPlayingSteps && movementSpeed.normalized.magnitude > 0.5f)
             {
                 StartCoroutine(playSteps());
             }
-            if (!gravityFlipped && playerVelocity.y < 0)
-            {
-                playerVelocity.y = 0;
-                jumpCount = 0;
-            }
-            else if (gravityFlipped && playerVelocity.y > 0)
-            {
-                playerVelocity.y = 0;
-                jumpCount = 0;
-            }
 
+            if (!gravityFlipped && playerGravity < -0.1f)
+            {
+                playerGravity = -0.1f;
+                jumpCount = 0;
+            }
+            else if (gravityFlipped && playerGravity > 0.1f)
+            {
+                playerGravity = 0.1f;
+                jumpCount = 0;
+            }
         }
 
-        // Might implement if-check to prevent/lower air-strafing.
-        move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
-
-
-        // If sprint is held
-        if (isSprinting)
+        if (inputMovement.y <= 0.1f || isAiming)
         {
-            movementSpeed = sprintSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
+            isSprinting = false;
         }
-        // Reset function
+
+        if (Mathf.Abs(inputMovement.y) <= 0.1f && Mathf.Abs(inputMovement.x) <= 0.1f || isSprinting)
+        {
+            isWalking = false;
+        }
         else
         {
-            movementSpeed = originalMovementSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+            isWalking = true;
         }
-        controller.Move(move * Time.deltaTime * movementSpeed);
 
-        if (Input.GetButtonDown("Jump"))
+        float verticalSpeed;
+        float horizontalSpeed;
+
+        if (!isSprinting)
         {
-            jump();
+            canShoot = true;
+            verticalSpeed = playerSettings.forwardWalkSpeed;
+            horizontalSpeed = playerSettings.strafeWalkSpeed;
+        }
+        else
+        {
+            verticalSpeed = playerSettings.forwardSprintSpeed;
+            horizontalSpeed = playerSettings.strafeSprintSpeed;
         }
 
-        playerVelocity.y -= gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        if (canShoot && isShooting)
+        {
+            isSprinting = false;
+        }
 
+        float speedEffector = GetSpeedEffector();
+        verticalSpeed *= speedEffector;
+        horizontalSpeed *= speedEffector;
+
+        weaponAnimSpeed = controller.velocity.magnitude / (playerSettings.forwardWalkSpeed * speedEffector);
+        weaponAnimSpeed = Mathf.Clamp(weaponAnimSpeed, 0, 1);
+
+        Vector3 moveDirection = CalculateMoveDirection();
+        Vector3 newMovementSpeed = CalculateNewMovement(moveDirection, verticalSpeed, horizontalSpeed);
+
+        controller.Move(newMovementSpeed);
+    }
+
+    float GetSpeedEffector()
+    {
+        if (!isGrounded())
+        {
+            return playerSettings.fallingSpeedEffector;
+        }
+        else if (playerPose == gameManager.PlayerPose.Crouch)
+        {
+            return playerSettings.crouchSpeedEffector;
+        }
+        else if (playerPose == gameManager.PlayerPose.Prone)
+        {
+            return playerSettings.proneSpeedEffector;
+        }
+        else if (isAiming)
+        {
+            return playerSettings.aimSpeedEffector;
+        }
+
+        return 1;
+    }
+
+    Vector3 CalculateMoveDirection()
+    {
+        Vector3 transformForward = transform.forward.normalized;
+        Vector3 transformRight = transform.right.normalized;
+
+        transformForward.y = 0f;
+        transformRight.y = 0f;
+
+        Vector3 moveDirection = (inputMovement.y * transformForward) + (inputMovement.x * transformRight);
+
+        if (moveDirection.magnitude > 1f)
+        {
+            moveDirection.Normalize();
+        }
+        else if (Mathf.Abs(inputMovement.x) < 0.1f && Mathf.Abs(inputMovement.y) < 0.1f)
+        {
+            moveDirection = Vector3.zero;
+        }
+
+        return moveDirection;
+    }
+
+    Vector3 CalculateNewMovement(Vector3 moveDirection, float verticalSpeed, float horizontalSpeed)
+    {
+        if (isGrounded())
+        {
+            playerSettings.isJumping = false;
+
+            float forwardSpeed = verticalSpeed * inputMovement.y * Time.deltaTime;
+            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.deltaTime;
+
+            movementSpeed = Vector3.SmoothDamp(movementSpeed, new Vector3(strafeSpeed, 0, forwardSpeed), ref velocitySpeed, isGrounded() ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
+
+            float backwardJumpingFactor = inputMovement.y < 0 ? 0.75f : 1f;
+            playerSettings.jumpDirection = backwardJumpingFactor * movementSpeed.magnitude * moveDirection;
+        }
+        else
+        {
+            if (playerSettings.isJumping)
+            {
+                moveDirection.x = 0;
+                moveDirection.z = 0;
+            }
+        }
+
+        Vector3 newMovementSpeed;
+
+        if (isGrounded() || !playerSettings.isJumping)
+        {
+            newMovementSpeed = moveDirection * movementSpeed.magnitude;
+        }
+        else
+        {
+            float angleBetweenJumps = Vector3.Angle(previousJumpDirection, playerSettings.jumpDirection); // Calculate the angle between previous jump direction and current jump direction
+
+            if (angleBetweenJumps >= playerSettings.angleThreshold && timeSinceLastJump <= playerSettings.jumpTimeWindow)
+            {
+                float speedReductionFactor = Mathf.Clamp(angleBetweenJumps / 180f, 0.25f, 0.5f);
+                playerSettings.jumpDirection *= speedReductionFactor;
+            }
+
+            timeSinceLastJump = 0f;
+            previousJumpDirection = playerSettings.jumpDirection; // Update previousJumpDirection
+
+            newMovementSpeed = playerSettings.jumpDirection;
+        }
+
+        newMovementSpeed.y += playerGravity;
+        newMovementSpeed += jumpForce * Time.deltaTime;
+
+        return newMovementSpeed;
     }
 
     IEnumerator playSteps()
@@ -215,6 +540,7 @@ public class playerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.25f);
         isPlayingSteps = false;
     }
+
     void inventory()
     {
         if (Input.GetButtonDown("1"))
@@ -274,9 +600,8 @@ public class playerController : MonoBehaviour, IDamage
                 inventoryUI(5);
             }
         }
-
-
     }
+
     void inventoryUI(int num)
     {
         // Disable all hightlights
@@ -316,30 +641,192 @@ public class playerController : MonoBehaviour, IDamage
             activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
         }
     }
-    void jump()
+
+    void PlayerStance()
     {
-        // If player is not grounded and didn't jump to enter the state effectively disable double/extra jumps
-        if (groundedPlayer == false && jumpCount == 0)
+        gameManager.PlayerStance currentStance = playerStandStance;
+
+        if (playerPose == gameManager.PlayerPose.Crouch)
+        {
+            currentStance = playerCrouchStance;
+        }
+        else if (playerPose == gameManager.PlayerPose.Prone)
+        {
+            currentStance = playerProneStance;
+        }
+
+        cameraHeight = Mathf.SmoothDamp(mainCamera.localPosition.y, currentStance.cameraHeight, ref cameraHeightSpeed, playerPoseSmooth);
+        mainCamera.localPosition = new Vector3(mainCamera.localPosition.x, cameraHeight, mainCamera.localPosition.z);
+
+        controller.height = Mathf.SmoothDamp(controller.height, currentStance.stanceCollider.height, ref playerStanceHeightVelocity, playerPoseSmooth);
+        controller.center = Vector3.SmoothDamp(controller.center, currentStance.stanceCollider.center, ref playerStanceCenterVelocity, playerPoseSmooth);
+    }
+
+    void Jump()
+    {
+        if (!isGrounded() || playerPose == gameManager.PlayerPose.Prone)
+        {
+            return;
+        }
+
+        if (playerPose == gameManager.PlayerPose.Crouch)
+        {
+            if (StanceCheck(playerStandStance.stanceCollider.height))
+            {
+                return;
+            }
+
+            playerPose = gameManager.PlayerPose.Stand;
+            //return; --------------------------- This can be used to make the player stand up only and not jump at the same time.
+        }
+
+        if (!isGrounded() && jumpCount == 0)
         {
             jumpCount = maxJumps;
         }
-        // Compare number of jumps preformed & max number of jumps to check if player can jump.
+
         if (jumpCount < maxJumps)
         {
             jumpCount++;
-            // Check state of gravity to determine direction to jump the player
+        }
+
+        if (isGrounded())
+        {
+            playerGravity = 0;
+
             if (!gravityFlipped)
             {
-                playerVelocity.y = jumpHeight;
-                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+                jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
             }
             else if (gravityFlipped)
             {
-                playerVelocity.y = -jumpHeight;
-                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+                jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
+            }
+
+            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+            currentWeapon.TriggerJump();
+        }
+    }
+
+    void Jumping()
+    {
+        if (!isGrounded())
+        {
+            isSprinting = false; // Can comment this out if you want to always sprint
+            playerSettings.isJumping = true;
+            jumpForce = Vector3.SmoothDamp(jumpForce, Vector3.zero, ref jumpSpeed, playerSettings.jumpingFalloff);
+            //StartCoroutine(ResetJump());
+        }
+    }
+
+    IEnumerator ResetJump()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (isGrounded())
+        {
+            playerSettings.isJumping = false;
+        }
+    }
+
+    void JumpTimer()
+    {
+        if (!playerSettings.isJumping)
+        {
+            timeSinceLastJump += Time.deltaTime;
+
+            if (timeSinceLastJump > playerSettings.jumpTimeWindow)
+            {
+                timeSinceLastJump = playerSettings.jumpTimeWindow + 1f;
             }
         }
     }
+
+    void SetIsFalling()
+    {
+        isFalling = !isGrounded() && controller.velocity.magnitude >= playerSettings.isFallingSpeed;
+    }
+
+    void Leaning()
+    {
+        if (isLeaningLeft)
+        {
+            targetLean = leanAngle;
+        }
+        else if (isLeaningRight)
+        {
+            targetLean = -leanAngle;
+        }
+        else
+        {
+            targetLean = 0;
+        }
+
+        currentLean = Mathf.SmoothDamp(currentLean, targetLean, ref leanVelocity, leanSmoothing);
+        cameraLeanPivot.localRotation = Quaternion.Euler(new Vector3(0, 0, currentLean));
+    }
+
+    void Crouch()
+    {
+        if (playerPose == gameManager.PlayerPose.Crouch)
+        {
+            if (StanceCheck(playerStandStance.stanceCollider.height))
+            {
+                return;
+            }
+
+            playerPose = gameManager.PlayerPose.Stand;
+            return;
+        }
+
+        if (StanceCheck(playerCrouchStance.stanceCollider.height))
+        {
+            return;
+        }
+
+        playerPose = gameManager.PlayerPose.Crouch;
+    }
+
+    void Prone()
+    {
+        if (playerPose == gameManager.PlayerPose.Prone)
+        {
+            if (StanceCheck(playerStandStance.stanceCollider.height))
+            {
+                if (StanceCheck(playerCrouchStance.stanceCollider.height))
+                {
+                    return;
+                }
+
+                playerPose = gameManager.PlayerPose.Crouch;
+                return;
+            }
+
+            playerPose = gameManager.PlayerPose.Stand;
+            return;
+        }
+
+        playerPose = gameManager.PlayerPose.Prone;
+    }
+
+    bool StanceCheck(float stanceCheckHeight)
+    {
+        Vector3 start;
+        Vector3 end;
+
+        if (!gravityFlipped)
+        {
+            start = playerTransform.position + Vector3.up * (controller.radius + stanceCheck);
+            end = playerTransform.position + Vector3.up * (stanceCheckHeight - controller.radius - stanceCheck);
+        }
+        else
+        {
+            start = playerTransform.position + Vector3.down * (controller.radius + stanceCheck);
+            end = playerTransform.position + Vector3.down * (stanceCheckHeight - controller.radius - stanceCheck);
+        }
+
+        return Physics.CheckCapsule(start, end, controller.radius, playerMask);
+    }
+
     void flipGrav()
     {
         isRotating = true;
@@ -348,14 +835,25 @@ public class playerController : MonoBehaviour, IDamage
         gravityFlipped = !gravityFlipped;
         gravity *= -1;
 
-        playerVelocity.y = 0;
+        //playerVelocity.y = 0;
+        playerGravity = 0;
         aud.PlayOneShot(audGrav, audGravVol);
+
+        if (gravityFlipped)
+        {
+            playerRotationOffset = 180;
+        }
+        else
+        {
+            playerRotationOffset = 0;
+        }
 
         StartCoroutine(RotatePlayerSmoothly(new Vector3(0, 0, 180), () =>
         {
             isRotating = false;
         }));
     }
+
     IEnumerator RotatePlayerSmoothly(Vector3 targetRotation, System.Action onComplete)
     {
         Vector3 startRotation = controller.transform.eulerAngles;
@@ -365,19 +863,39 @@ public class playerController : MonoBehaviour, IDamage
         while (elapsedTime < rotationDuration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / rotationDuration;
-            controller.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, t);
+            float time = elapsedTime / rotationDuration;
+            controller.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
+            //playerStandStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
+            //playerCrouchStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
+            //playerProneStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
+
+            // Apply input-based rotation directly during the coroutine
+            if (!gravityFlipped)
+            {
+                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+            }
+            else
+            {
+                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+            }
+
+            // Apply Z rotation
+            playerRotation.z = Mathf.Lerp(startRotation.z, endRotation.z, time);
+
+            transform.localRotation = Quaternion.Euler(playerRotation);
+
             yield return null;
         }
 
         onComplete?.Invoke();
     }
-    bool isGrounded()
+
+    public bool isGrounded()
     {
         RaycastHit floorCheck;
         if (!gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f))
+            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) || controller.isGrounded)
             {
                 Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 return true;
@@ -386,7 +904,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f))
+            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) || controller.isGrounded)
             {
                 Debug.DrawRay(transform.position, Vector3.up, Color.red);
                 return true;
@@ -395,6 +913,21 @@ public class playerController : MonoBehaviour, IDamage
         }
         return false;
     }
+
+    void ShootMouseClick()
+    {
+        if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot)
+        {
+            StartCoroutine(shoot());
+            //Update UI for bullet count
+            bulletCountUpdate();
+        }
+        else
+        {
+            StopCoroutine(shoot());
+        }
+    }
+
     IEnumerator shoot()
     {
         // If player isn't melee
@@ -421,9 +954,29 @@ public class playerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(melee());
             }
-           
         }
     }
+
+    void AimPressed()
+    {
+        isAiming = true;
+    }
+
+    void AimReleased()
+    {
+        isAiming = false;
+    }
+
+    void Aiming()
+    {
+        if (!currentWeapon)
+        {
+            return;
+        }
+
+        currentWeapon.isAiming = isAiming;
+    }
+
     IEnumerator melee()
     {
         isMelee = true;
@@ -441,34 +994,7 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
-    void zoom()
-    {
-        if (activeWeapon != null)
-        {
-            isZoomed = Input.GetButton("Zoom");
-            if (isZoomed && activeWeapon.canZoom == true)
-            {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
-            }
-            else
-            {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-            }
-        }
 
-
-        if (isSprinting)
-        {
-            movementSpeed = sprintSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
-        }
-        // Reset function
-        else
-        {
-            movementSpeed = originalMovementSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-        }
-    }
     IEnumerator reload()
     {
         isReloading = true;
@@ -492,6 +1018,7 @@ public class playerController : MonoBehaviour, IDamage
 
         isReloading = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Drop"))
@@ -510,6 +1037,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.winCondition();
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("FlipControl"))
@@ -518,13 +1046,22 @@ public class playerController : MonoBehaviour, IDamage
             canRotate = false;
         }
     }
+
     void reticleSwap()
     {
         // Exclusively used to swap reticle without code bloat.
         if (activeSlot != 1)
         {
-            gameManager.instance.gunReticle.SetActive(true);
             gameManager.instance.meleeReticle.SetActive(false);
+
+            if (isAiming)
+            {
+                gameManager.instance.gunReticle.SetActive(false);
+            }
+            else
+            {
+                gameManager.instance.gunReticle.SetActive(true);
+            }
         }
         else
         {
@@ -532,6 +1069,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.meleeReticle.SetActive(true);
         }
     }
+
     public void takeDamage(int dmg)
     {
         health -= dmg;
@@ -547,10 +1085,16 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.playerDead();
         }
     }
+<<<<<<< Updated upstream
     public void playerUIUpdate()
+=======
+
+    void playerUIUpdate()
+>>>>>>> Stashed changes
     {
         gameManager.instance.HPBar.fillAmount = ((float)health / (float)originalHealth);
     }
+
     void bulletCountUpdate()
     {
         if (activeWeapon != null)
@@ -558,6 +1102,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
         }
     }
+
     public void addWeapon(weapon gun)
     {
         bool found = false;
@@ -600,4 +1145,166 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    void ToggleSprint()
+    {
+        if (inputMovement.y <= 0.2f || isAiming || playerPose == gameManager.PlayerPose.Prone)
+        {
+            isSprinting = false;
+            return;
+        }
+
+        if (playerPose == gameManager.PlayerPose.Crouch)
+        {
+            if (StanceCheck(playerStandStance.stanceCollider.height))
+            {
+                return;
+            }
+
+            playerPose = gameManager.PlayerPose.Stand;
+        }
+
+        isSprinting = !isSprinting;
+    }
+
+    void StopSprint()
+    {
+        if (playerSettings.holdSprint)
+        {
+            isSprinting = false;
+        }
+    }
+
+    // Update is called once per frame
+    //void Update()
+    //{
+    //    if (!gameManager.instance.isPaused)
+    //    {
+    //        movement();
+    //        inventory();
+    //        //zoom();
+
+    //        if (Input.GetButtonDown("Flip Gravity") && !isRotating && canRotate)
+    //        {
+    //            flipGrav();
+    //        }
+
+    //        if (!isReloading && Input.GetButtonDown("Reload"))
+    //        {
+    //            StartCoroutine(reload());
+    //            bulletCountUpdate();
+    //        }
+
+    //        if (!isShooting && Input.GetButton("Shoot"))
+    //        {
+    //            StartCoroutine(shoot());
+    //            // Update UI for bullet count
+    //            bulletCountUpdate();
+    //        }
+    //    }
+    //}
+
+    //void jump()
+    //{
+    //    // If player is not grounded and didn't jump to enter the state effectively disable double/extra jumps
+    //    if (groundedPlayer == false && jumpCount == 0)
+    //    {
+    //        jumpCount = maxJumps;
+    //    }
+    //    // Compare number of jumps preformed & max number of jumps to check if player can jump.
+    //    if (jumpCount < maxJumps)
+    //    {
+    //        jumpCount++;
+    //        // Check state of gravity to determine direction to jump the player
+    //        if (!gravityFlipped)
+    //        {
+    //            playerVelocity.y = jumpHeight;
+    //            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+    //        }
+    //        else if (gravityFlipped)
+    //        {
+    //            playerVelocity.y = -jumpHeight;
+    //            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+    //        }
+    //    }
+    //}
+
+    //void zoom()
+    //{
+    //    if (activeWeapon != null)
+    //    {
+    //        isAiming = Input.GetButton("Zoom");
+    //        if (isAiming && activeWeapon.canZoom == true)
+    //        {
+    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+    //        }
+    //        else
+    //        {
+    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+    //        }
+    //    }
+
+
+    //    if (isSprinting)
+    //    {
+    //        movementSpeed = sprintSpeed;
+    //        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
+    //    }
+    //    // Reset function
+    //    else
+    //    {
+    //        movementSpeed = originalMovementSpeed;
+    //        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+    //    }
+    //}
+
+    //void movement()
+    //{
+    //    isSprinting = Input.GetButton("Sprint");
+    //    groundedPlayer = isGrounded();
+    //    if (groundedPlayer)
+    //    {
+    //        if (!isPlayingSteps && move.normalized.magnitude > 0.5f)
+    //        {
+    //            StartCoroutine(playSteps());
+    //        }
+    //        if (!gravityFlipped && playerVelocity.y < 0)
+    //        {
+    //            playerVelocity.y = 0;
+    //            jumpCount = 0;
+    //        }
+    //        else if (gravityFlipped && playerVelocity.y > 0)
+    //        {
+    //            playerVelocity.y = 0;
+    //            jumpCount = 0;
+    //        }
+
+    //    }
+
+    //    // Might implement if-check to prevent/lower air-strafing.
+    //    move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
+
+
+    //    // If sprint is held
+    //    if (isSprinting)
+    //    {
+    //        movementSpeed = sprintSpeed;
+    //        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
+    //    }
+    //    // Reset function
+    //    else
+    //    {
+    //        movementSpeed = originalMovementSpeed;
+    //        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+    //    }
+    //    controller.Move(movementSpeed * Time.deltaTime * move);
+
+    //    if (Input.GetButtonDown("Jump"))
+    //    {
+    //        jump();
+    //    }
+
+    //    playerVelocity.y -= gravity * Time.deltaTime;
+    //    controller.Move(playerVelocity * Time.deltaTime);
+
+    //}
 }
