@@ -104,6 +104,7 @@ public class scenesManager : MonoBehaviour
     }
     public void LoadItemShop()
     {
-        scenesManager.instance.LoadScene(Scene.ItemShopLevel);
+        SceneManager.LoadSceneAsync(Scene.ItemShopLevel.ToString());
+        gameManager.instance.unpauseState();
     }
 }
