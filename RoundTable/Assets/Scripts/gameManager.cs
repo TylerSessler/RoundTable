@@ -98,7 +98,6 @@ public class gameManager : MonoBehaviour
         [Header("---Camera Settings---")]
         public float cameraSensHor;
         public float cameraSensVer;
-        public float cameraSmoothSpeed;
 
         public float ADSSensEffector;
 
