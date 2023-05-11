@@ -213,7 +213,10 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        extractionZone.SetActive(false);
+        if (extractionZone)
+        {
+            extractionZone.SetActive(false);
+        }
         if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
         {
             startTimer();
