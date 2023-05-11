@@ -45,7 +45,7 @@ public class mainMenu : MonoBehaviour
     }
     public void Level2Load()
     {
-        StartCoroutine(delay(scenesManager.Scene.Level02));
+        //StartCoroutine(delay(scenesManager.Scene.Level02));
     }
     public void Level3Load()
     {
