@@ -42,10 +42,6 @@ public class creditStore : MonoBehaviour
         {
             gameManager.instance.shopPromptText.SetActive(false);
         }
-        //else
-        //{
-        //    gameManager.instance.shopPromptText.SetActive(true);
-        //}
     }
     
     private void OnTriggerEnter(Collider other)

@@ -1072,7 +1072,17 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int dmg)
     {
         health -= dmg;
-        gameManager.instance.playerDead();
+        // Prevent overhealing
+        if (health > originalHealth)
+        {
+            health = originalHealth;
+        }
+        playerUIUpdate();
+        // Player dies
+        if (health <= 0)
+        {
+            gameManager.instance.playerDead();
+        }
     }
 
     public void playerUIUpdate()
