@@ -306,7 +306,7 @@ public class playerController : MonoBehaviour, IDamage
     public void LoadPlayerData()
     {
         Debug.Log("Load");
-        health = PlayerPrefs.GetInt("Health");
+        health = PlayerPrefs.GetInt("CurrentHealth");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         playerSettings.forwardWalkSpeed = PlayerPrefs.GetFloat("ForwardWalkSpeed");
