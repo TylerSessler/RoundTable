@@ -137,7 +137,10 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 playerStanceCenterVelocity;
     float camerHeightOrig;
 
-    [Header("Store")]
+    [Header("Weapons")]
+    [SerializeField] GameObject pistol;
+    [SerializeField] GameObject rifle;
+    [SerializeField] GameObject sniper;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audSteps;

@@ -347,6 +347,9 @@ MonoBehaviour:
   playerProneStance:
     cameraHeight: -0.5
     stanceCollider: {fileID: 2951036484387420603}
+  pistol: {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}
+  rifle: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
+  sniper: {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
   audSteps:
   - {fileID: 8300000, guid: b96b49e4f7314094283513970b623cfc, type: 3}
   - {fileID: 8300000, guid: 2830c68acfd3c3b419ac638bf19c6d25, type: 3}
