@@ -16,7 +16,6 @@ public class scenesManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
     }
     private void Start()
     {

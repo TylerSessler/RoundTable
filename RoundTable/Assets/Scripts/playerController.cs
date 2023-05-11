@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static gameManager;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -110,7 +111,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] Vector3 jumpForce;
     public float playerGravity;
     Vector3 jumpSpeed;
-    //public bool isGrounded;
     public bool isFalling;
 
     public float timeSinceLastJump;
@@ -201,7 +201,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void Start()
     {
-
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
@@ -288,6 +287,10 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("CurrentHealth", health);
         PlayerPrefs.SetInt("MaxHealth", originalHealth);
         PlayerPrefs.SetFloat("SprintSpeed", sprintSpeed);
+        PlayerPrefs.SetFloat("ForwardWalkSpeed", playerSettings.forwardWalkSpeed);
+        PlayerPrefs.SetFloat("StrafeWalkSpeed", playerSettings.strafeWalkSpeed);
+        PlayerPrefs.SetFloat("ForwardSprintSpeed", playerSettings.forwardSprintSpeed);
+        PlayerPrefs.SetFloat("StrafeSprintSpeed", playerSettings.strafeSprintSpeed);
         PlayerPrefs.SetInt("maxJumps", maxJumps);
 
         for (int i = 1; i < inv.Count; i++)
@@ -304,6 +307,10 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
+        playerSettings.forwardWalkSpeed = PlayerPrefs.GetFloat("ForwardWalkSpeed");
+        playerSettings.strafeWalkSpeed = PlayerPrefs.GetFloat("StrafeWalkSpeed");
+        playerSettings.forwardSprintSpeed = PlayerPrefs.GetFloat("ForwardSprintSpeed");
+        playerSettings.strafeSprintSpeed = PlayerPrefs.GetFloat("StrafeSprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
 
         if (PlayerPrefs.HasKey("Pistol") && PlayerPrefs.GetInt("Pistol") == 1)
@@ -414,7 +421,7 @@ public class playerController : MonoBehaviour, IDamage
             isSprinting = false;
         }
 
-        float speedEffector = GetSpeedEffector();
+        float speedEffector = 1 + GetSpeedEffector();
         verticalSpeed *= speedEffector;
         horizontalSpeed *= speedEffector;
 
@@ -464,13 +471,11 @@ public class playerController : MonoBehaviour, IDamage
         }
         else
         {
-            
             if (playerSettings.isJumping)
             {
                 moveDirection.x = 0;
                 moveDirection.z = 0;
             }
-            
         }
 
         Vector3 newMovementSpeed;
@@ -704,7 +709,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (!isGrounded())
         {
-            isSprinting = false; // Can comment this out if you want to always sprint
+            //isSprinting = false; // Can comment this out if you want to always sprint
             playerSettings.isJumping = true;
             jumpForce = Vector3.SmoothDamp(jumpForce, Vector3.zero, ref jumpSpeed, playerSettings.jumpingFalloff);
             //StartCoroutine(ResetJump());
@@ -857,9 +862,6 @@ public class playerController : MonoBehaviour, IDamage
             controller.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, t);
             float time = elapsedTime / rotationDuration;
             controller.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
-            //playerStandStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
-            //playerCrouchStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
-            //playerProneStance.stanceCollider.transform.eulerAngles = Vector3.Lerp(startRotation, endRotation, time);
 
             // Apply input-based rotation directly during the coroutine
             if (!gravityFlipped)
@@ -983,16 +985,12 @@ public class playerController : MonoBehaviour, IDamage
                     aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
                 }
             }
-            
+
         }
 
         yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
-
-
-    
-
 
     void zoom()
     {
