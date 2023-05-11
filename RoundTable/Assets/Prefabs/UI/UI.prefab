@@ -6855,13 +6855,14 @@ MonoBehaviour:
   item4: {fileID: 7655571536250772493}
   item5: {fileID: 7655571535746754352}
   timeValue: 60
-  extractValue: 30
+  extractValue: 60
   timeUntilText: {fileID: 812395658}
   timerText: {fileID: 1282318537}
   extractionText: {fileID: 1374620648}
   extractionTimerText: {fileID: 2055203174}
   extractionZone: {fileID: 0}
-  interactPromptText: {fileID: 1549543885}
+  shopPromptText: {fileID: 1549543885}
+  artifactPromptText: {fileID: 0}
   creditsUI: {fileID: 154977395}
   extractionUI: {fileID: 812395658}
   hotbarSquaresUI: {fileID: 6582523833958845546}
