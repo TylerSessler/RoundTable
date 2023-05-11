@@ -432,8 +432,6 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 transformForward = transform.forward.normalized;
         Vector3 transformRight = transform.right.normalized;
 
-        playerVelocity.y -= gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
         transformForward.y = 0f;
         transformRight.y = 0f;
 
