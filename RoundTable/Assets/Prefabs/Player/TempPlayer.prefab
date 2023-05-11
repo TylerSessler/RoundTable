@@ -302,9 +302,9 @@ MonoBehaviour:
     invertY: 0
     holdSprint: 1
     movementSmoothing: 0.05
-    forwardWalkSpeed: 60
+    forwardWalkSpeed: 50
     backwardWalkSpeed: 5
-    strafeWalkSpeed: 60
+    strafeWalkSpeed: 50
     forwardSprintSpeed: 7.5
     strafeSprintSpeed: 7.5
     isJumping: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
     isGroundedRadius: 0.25
     isFallingSpeed: 3
     groundDistance: 0.5
-  gravity: 0.08
+  gravity: 0.1
   jumpForce: {x: 0, y: 0, z: 0}
   playerGravity: 0
   isFalling: 0
