@@ -9407,20 +9407,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5520502456987949597, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: playerSettings.strafeSprintSpeed
-      value: 15
+      propertyPath: gravity
+      value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 5520502456987949598, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
+    - target: {fileID: 5520502456987949597, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
+      propertyPath: playerSettings.speedEffector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520502456987949597, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
+      propertyPath: playerSettings.strafeWalkSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520502456987949597, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
+      propertyPath: playerSettings.forwardWalkSpeed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5520502456987949666, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
       propertyPath: m_Name
       value: TempPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5520502457072740063, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: m_ClearFlags
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
