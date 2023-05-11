@@ -280,7 +280,6 @@ public class playerController : MonoBehaviour, IDamage
         health = originalHealth;
         movementSpeed = originalMovementSpeed;
         jumpHeight = originalJumpHeight;
-        maxJumps = originalMaxJumps;
         gravity = originalGravity;
     }
 
@@ -308,21 +307,21 @@ public class playerController : MonoBehaviour, IDamage
         if (PlayerPrefs.HasKey("Pistol") && PlayerPrefs.GetInt("Pistol") == 1)
         {
             //add pistol to inventory
-            inv.Add(pistol);
+            addWeapon(pistol);
             inv[1].ammo = PlayerPrefs.GetInt("PistolAmmo");
         }
 
         if (PlayerPrefs.HasKey("Rifle") && PlayerPrefs.GetInt("Rifle") == 1)
         {
             //add rifle to inventory
-            inv.Add(rifle);
+            addWeapon(rifle);
             inv[2].ammo = PlayerPrefs.GetInt("RifleAmmo");
         }
 
         if (PlayerPrefs.HasKey("Sniper") && PlayerPrefs.GetInt("Sniper") == 1)
         {
             //add sniper to inventory
-            inv.Add(sniper);
+            addWeapon(sniper);
             inv[3].ammo = PlayerPrefs.GetInt("SniperAmmo");
         }
     }
