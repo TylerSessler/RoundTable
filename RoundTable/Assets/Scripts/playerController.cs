@@ -305,16 +305,22 @@ public class playerController : MonoBehaviour, IDamage
         if (PlayerPrefs.HasKey("Pistol"))
         {
             //add pistol to inventory
+            Instantiate(pistol, gameObject.transform.position, Quaternion.identity);
+            inv[1].ammo = PlayerPrefs.GetInt("PistolAmmo");
         }
 
         if (PlayerPrefs.HasKey("Rifle"))
         {
-            //add pistol to inventory
+            //add rifle to inventory
+            Instantiate(rifle, gameObject.transform.position, Quaternion.identity);
+            inv[2].ammo = PlayerPrefs.GetInt("RifleAmmo");
         }
 
         if (PlayerPrefs.HasKey("Sniper"))
         {
-            //add pistol to inventory
+            //add sniper to inventory
+            Instantiate(sniper, gameObject.transform.position, Quaternion.identity);
+            inv[3].ammo = PlayerPrefs.GetInt("SniperAmmo");
         }
     }
 
