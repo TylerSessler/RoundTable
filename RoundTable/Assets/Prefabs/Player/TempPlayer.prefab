@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1272312315160648212}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shoot Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,6 +228,7 @@ Transform:
   m_Children:
   - {fileID: 1272312314555148745}
   - {fileID: 4026744073735230992}
+  - {fileID: 8254119171830463902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,9 +272,6 @@ MonoBehaviour:
   jumpCount: 0
   groundedPlayer: 0
   inv: []
-  shootRate: 0
-  shootDist: 0
-  shootDmg: 0
   weaponMesh: {fileID: 7592210385115916627}
   weaponMaterial: {fileID: 5672288503770996121}
   shootEffect: {fileID: 0}
@@ -326,7 +324,7 @@ MonoBehaviour:
     isGroundedRadius: 0.25
     isFallingSpeed: 3
     groundDistance: 0.5
-  gravity: 0.03
+  gravity: 1
   jumpForce: {x: 0, y: 0, z: 0}
   playerGravity: 0
   isFalling: 0
@@ -700,7 +698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7455707805739662757}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Sights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +731,7 @@ GameObject:
   - component: {fileID: 6841856840646698742}
   - component: {fileID: 7592210385115916627}
   - component: {fileID: 5672288503770996121}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +868,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6841856840646698742}
-  - {fileID: 8254119171830463902}
   m_Father: {fileID: 1927815345750569424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1036,12 +1033,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8775075904822077220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7782825757473003447}
-  m_RootOrder: 1
+  m_Father: {fileID: 5520502456987949596}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4981929185212445252
 MonoBehaviour:
