@@ -349,7 +349,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (!isGrounded())
         {
-            playerGravity -= gravity * Time.fixedDeltaTime;
+            playerGravity -= gravity * Time.deltaTime;
         }
         else
         {
