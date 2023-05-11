@@ -138,9 +138,9 @@ public class playerController : MonoBehaviour, IDamage
     float camerHeightOrig;
 
     [Header("Weapons")]
-    [SerializeField] GameObject pistol;
-    [SerializeField] GameObject rifle;
-    [SerializeField] GameObject sniper;
+    [SerializeField] weapon pistol;
+    [SerializeField] weapon rifle;
+    [SerializeField] weapon sniper;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audSteps;
@@ -293,7 +293,7 @@ public class playerController : MonoBehaviour, IDamage
 
         for (int i = 1; i < inv.Count; i++)
         {
-            PlayerPrefs.SetString(inv[i].label, inv[i].label);
+            PlayerPrefs.SetInt(inv[i].label, 1);
             PlayerPrefs.SetInt(inv[i].label + "Ammo", inv[i].ammo);
         }
 
@@ -305,25 +305,25 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
-
-        if (PlayerPrefs.HasKey("Pistol"))
+        
+        if (PlayerPrefs.HasKey("Pistol") && PlayerPrefs.GetInt("Pistol") == 1)
         {
             //add pistol to inventory
-            Instantiate(pistol, gameObject.transform.position, Quaternion.identity);
+            inv.Add(pistol);
             inv[1].ammo = PlayerPrefs.GetInt("PistolAmmo");
         }
 
-        if (PlayerPrefs.HasKey("Rifle"))
+        if (PlayerPrefs.HasKey("Rifle") && PlayerPrefs.GetInt("Rifle") == 1)
         {
             //add rifle to inventory
-            Instantiate(rifle, gameObject.transform.position, Quaternion.identity);
+            inv.Add(rifle);
             inv[2].ammo = PlayerPrefs.GetInt("RifleAmmo");
         }
 
-        if (PlayerPrefs.HasKey("Sniper"))
+        if (PlayerPrefs.HasKey("Sniper") && PlayerPrefs.GetInt("Sniper") == 1)
         {
             //add sniper to inventory
-            Instantiate(sniper, gameObject.transform.position, Quaternion.identity);
+            inv.Add(sniper);
             inv[3].ammo = PlayerPrefs.GetInt("SniperAmmo");
         }
     }
