@@ -8642,7 +8642,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8215388737358715861}
         m_TargetAssemblyTypeName: scenesManager, Assembly-CSharp
-        m_MethodName: LoadNextScene
+        m_MethodName: LoadItemShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
