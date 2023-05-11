@@ -222,6 +222,10 @@ public class gameManager : MonoBehaviour
             startTimer();
         }
         creditsValueText.text = credits.ToString();
+        if(PlayerPrefs.HasKey("Credits"))
+        {
+            loadCredits();
+        }
     }
 
     public void pauseState()

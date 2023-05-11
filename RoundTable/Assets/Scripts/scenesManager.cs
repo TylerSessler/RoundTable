@@ -47,8 +47,11 @@ public class scenesManager : MonoBehaviour
 
     public void LoadScene(Scene s)
     {
-        gameManager.instance.playerScript.SavePlayerData();
-        gameManager.instance.saveCredits();
+        if (s != Scene.MainMenu)
+        {
+            gameManager.instance.playerScript.SavePlayerData();
+            gameManager.instance.saveCredits();
+        }
         gameManager.instance.loadMenu.SetActive(true);
         CS = true;
         if (mainMenuCheck != null)
