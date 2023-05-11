@@ -214,7 +214,7 @@ public class playerController : MonoBehaviour, IDamage
         reticleSwap();
         setPlayerPos();
         inv.Add(meleeweapon);
-        if (PlayerPrefs.HasKey("Health"))
+        if (PlayerPrefs.HasKey("CurrentHealth"))
         {
             LoadPlayerData();
         }
@@ -284,6 +284,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void SavePlayerData()
     {
+        Debug.Log("Save");
         PlayerPrefs.SetInt("CurrentHealth", health);
         PlayerPrefs.SetInt("MaxHealth", originalHealth);
         PlayerPrefs.SetFloat("SprintSpeed", sprintSpeed);
@@ -304,6 +305,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void LoadPlayerData()
     {
+        Debug.Log("Load");
         health = PlayerPrefs.GetInt("Health");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
