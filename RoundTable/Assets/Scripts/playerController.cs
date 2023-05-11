@@ -461,11 +461,13 @@ public class playerController : MonoBehaviour, IDamage
         }
         else
         {
+            
             if (playerSettings.isJumping)
             {
                 moveDirection.x = 0;
                 moveDirection.z = 0;
             }
+            
         }
 
         Vector3 newMovementSpeed;
@@ -881,7 +883,7 @@ public class playerController : MonoBehaviour, IDamage
         RaycastHit floorCheck;
         if (!gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) || controller.isGrounded)
+            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) /*|| controller.isGrounded*/)
             {
                 Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 return true;
@@ -890,7 +892,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) || controller.isGrounded)
+            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) /*|| controller.isGrounded*/)
             {
                 Debug.DrawRay(transform.position, Vector3.up, Color.red);
                 return true;
