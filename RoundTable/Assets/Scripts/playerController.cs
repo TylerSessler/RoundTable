@@ -342,7 +342,6 @@ public class playerController : MonoBehaviour, IDamage
         mainCamera.localRotation = Quaternion.Euler(cameraRotation);
     }
 
-
     void movement()
     {
         if (!isGrounded())
