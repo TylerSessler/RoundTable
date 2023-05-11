@@ -104,6 +104,8 @@ public class scenesManager : MonoBehaviour
     }
     public void LoadItemShop()
     {
+        gameManager.instance.playerScript.SavePlayerData();
+        gameManager.instance.saveCredits();
         SceneManager.LoadSceneAsync(Scene.ItemShopLevel.ToString());
         gameManager.instance.unpauseState();
     }
