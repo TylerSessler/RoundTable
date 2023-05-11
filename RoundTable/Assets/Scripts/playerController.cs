@@ -61,9 +61,6 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Weapon Stats")]
     public List<weapon> inv = new List<weapon>();
-    [Range(0, 10)][SerializeField] float shootRate;
-    [Range(0, 500)][SerializeField] int shootDist;
-    [Range(0, 250)][SerializeField] int shootDmg;
     [SerializeField] MeshFilter weaponMesh;
     [SerializeField] MeshRenderer weaponMaterial;
     [SerializeField] GameObject shootEffect;
@@ -942,6 +939,7 @@ public class playerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(melee());
             }
+
         }
     }
 
@@ -968,9 +966,29 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator melee()
     {
         isMelee = true;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, activeWeapon.range))
+        {
+            if (!hit.collider.CompareTag("Player"))
+            {
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(activeWeapon.damage);
+                    aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
+                }
+            }
+            
+        }
+
         yield return new WaitForSeconds(activeWeapon.rate);
         isMelee = false;
     }
+
+
+    
+
+
     void zoom()
     {
         if (activeWeapon != null)
