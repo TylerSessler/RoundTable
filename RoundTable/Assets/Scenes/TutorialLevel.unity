@@ -65799,6 +65799,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.025
       objectReference: {fileID: 0}
+    - target: {fileID: 13600000, guid: 60ea8a8ee79fc564294d0a35f8b0ae4a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4862660142209417590, guid: 60ea8a8ee79fc564294d0a35f8b0ae4a, type: 3}
       propertyPath: dest
       value: 4
