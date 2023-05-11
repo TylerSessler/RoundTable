@@ -285,7 +285,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public void SavePlayerData()
     {
-        PlayerPrefs.SetInt("Health", health);
+        PlayerPrefs.SetInt("CurrentHealth", health);
+        PlayerPrefs.SetInt("MaxHealth", originalHealth);
         PlayerPrefs.SetFloat("SprintSpeed", sprintSpeed);
         PlayerPrefs.SetInt("maxJumps", maxJumps);
 
@@ -301,6 +302,7 @@ public class playerController : MonoBehaviour, IDamage
     public void LoadPlayerData()
     {
         health = PlayerPrefs.GetInt("Health");
+        originalHealth = PlayerPrefs.GetInt("MaxHealth");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
 
