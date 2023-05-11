@@ -102,5 +102,8 @@ public class scenesManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(Scene.MainMenu.ToString());
     }
-
+    public void LoadItemShop()
+    {
+        scenesManager.instance.LoadScene(Scene.ItemShopLevel);
+    }
 }
