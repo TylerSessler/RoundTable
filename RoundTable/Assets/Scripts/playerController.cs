@@ -135,6 +135,7 @@ public class playerController : MonoBehaviour, IDamage
     float camerHeightOrig;
 
     [Header("Weapons")]
+    [SerializeField] weapon meleeweapon;
     [SerializeField] weapon pistol;
     [SerializeField] weapon rifle;
     [SerializeField] weapon sniper;
@@ -213,7 +214,8 @@ public class playerController : MonoBehaviour, IDamage
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
         setPlayerPos();
-        if(PlayerPrefs.HasKey("Health"))
+        inv.Add(meleeweapon);
+        if (PlayerPrefs.HasKey("Health"))
         {
             LoadPlayerData();
         }
@@ -302,7 +304,7 @@ public class playerController : MonoBehaviour, IDamage
         health = PlayerPrefs.GetInt("Health");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
         maxJumps = PlayerPrefs.GetInt("maxJumps");
-        
+
         if (PlayerPrefs.HasKey("Pistol") && PlayerPrefs.GetInt("Pistol") == 1)
         {
             //add pistol to inventory
