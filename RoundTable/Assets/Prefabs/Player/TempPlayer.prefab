@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1272312315160648212}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shoot Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7455707805739662757}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Sights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 6841856840646698742}
   - component: {fileID: 7592210385115916627}
   - component: {fileID: 5672288503770996121}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
