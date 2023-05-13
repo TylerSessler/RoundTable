@@ -11,6 +11,7 @@ using static gameManager;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    #region variables
     public static playerController instance;
 
     [Header("Components")]
@@ -150,6 +151,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
 
+    #endregion variables
+
     private void SetupInputActions()
     {
         input.Player.Movement.performed += e => inputMovement = e.ReadValue<Vector2>();
@@ -201,6 +204,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void Start()
     {
+        trajectoryRender.instance.trajectoryLine.enabled = false;
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
@@ -557,6 +561,7 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[1];
                 activeSlot = 2;
+                
                 // Enable inventory Highlight
                 inventoryUI(2);
             }
@@ -598,6 +603,11 @@ public class playerController : MonoBehaviour, IDamage
                 inventoryUI(5);
             }
         }
+        if (shootPos.position != activeWeapon.shootPos && activeWeapon != null)
+        {
+            shootPos.position = activeWeapon.shootPos;
+        }
+        
     }
 
     void inventoryUI(int num)
@@ -928,7 +938,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         // If player isn't melee
-        if (activeSlot != 1 && activeWeapon != null)
+        if (activeWeapon.label != "Unarmed" && activeWeapon.label != "Grenade" && activeWeapon != null)
         {
             if (activeWeapon.clipSize > 0)
             {
@@ -945,7 +955,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
         // Player is melee
-        else if (activeSlot == 1)
+        else if (activeWeapon.label == "Unarmed")
         {
             if (!isMelee)
             {
@@ -953,6 +963,34 @@ public class playerController : MonoBehaviour, IDamage
             }
 
         }
+        // Player has grenade selected
+        else if (activeWeapon.label == "Grenade")
+        {
+            trajectoryRender.instance.trajectoryLine.enabled = true;
+            StartCoroutine(throwGrenade());
+        }
+    }
+
+    IEnumerator throwGrenade()
+    {
+        isShooting = true;
+        // Enter loop while player is **holding** left click, leave when player releases
+        while (Input.GetButton("Shoot"))
+        {
+            
+            trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * 2);
+            yield return new WaitForEndOfFrame();
+        }
+        // Loop has cancelled, meaning player let go of left click.
+        // Throw grenade
+        GameObject grenadeClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
+        grenadeClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * 1;
+        // Reduce current ammo
+        activeWeapon.clipSize--;
+        trajectoryRender.instance.trajectoryLine.enabled = false;
+        yield return new WaitForSeconds(activeWeapon.rate);
+        isShooting = false;
+        
     }
 
     void AimPressed()
