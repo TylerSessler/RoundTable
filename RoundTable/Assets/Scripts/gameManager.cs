@@ -225,6 +225,12 @@ public class gameManager : MonoBehaviour
         if(PlayerPrefs.HasKey("Credits"))
         {
             loadCredits();
+            creditsAvailableUIUpdate();
+        }
+        if(PlayerPrefs.HasKey("MasterVolume"))
+        {
+            //Load audio settings here
+            volumeController.instance.updateVolume();
         }
     }
 
