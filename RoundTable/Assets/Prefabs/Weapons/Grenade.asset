@@ -35,5 +35,5 @@ MonoBehaviour:
   sprite: {fileID: 2800000, guid: be084087035856745973edaed758d3ba, type: 3}
   weaponShootAud: {fileID: 0}
   weaponReloadAud: {fileID: 0}
-  weaponShotVol: 0
+  weaponShotVol: 1
   weaponReloadVol: 0

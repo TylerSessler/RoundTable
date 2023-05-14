@@ -249,6 +249,7 @@ public class playerController : MonoBehaviour, IDamage
             movement();
             PlayerStance();
             inventory();
+            reticleSwap();
             zoom();
             Leaning();
             Aiming();
@@ -643,24 +644,17 @@ public class playerController : MonoBehaviour, IDamage
             case 5:
                 gameManager.instance.glow5.SetActive(true);
                 break;
-        }
-
-        // Update UI for ammo to match current weapon
-        bulletCountUpdate();
-        // Make sure proper reticle is active
-        reticleSwap();
-        // Set gun visual to active gun's texture/model
+        }   
 
         if (activeWeapon != null)
         {
             ChangeWeapon();
-        }
+            // Update UI for ammo to match current weapon
+            bulletCountUpdate();
 
-        //if (activeWeapon != null)
-        //{
-        //    activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-        //    activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
-        //}
+            // Make sure proper reticle is active
+            //reticleSwap(); <--------------------- Calling in Update() now!
+        }
     }
 
     void PlayerStance()
@@ -1007,7 +1001,6 @@ public class playerController : MonoBehaviour, IDamage
         // Enter loop while player is **holding** left click, leave when player releases
         while (Input.GetButton("Shoot"))
         {
-
             trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * 2);
             yield return new WaitForEndOfFrame();
         }
@@ -1152,7 +1145,7 @@ public class playerController : MonoBehaviour, IDamage
     void reticleSwap()
     {
         // Exclusively used to swap reticle without code bloat.
-        if (activeSlot != 1)
+        if (activeSlot != 1 && activeWeapon != null)
         {
             gameManager.instance.gunReticle.SetActive(true);
             gameManager.instance.meleeReticle.SetActive(false);
@@ -1240,6 +1233,7 @@ public class playerController : MonoBehaviour, IDamage
         weaponShootAud = activeWeapon.weaponShootAud;
         weaponShootVol = activeWeapon.weaponShotVol;
         weaponReloadAud = activeWeapon.weaponReloadAud;
+        weaponReloadVol = activeWeapon.weaponReloadVol;
 
         weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;

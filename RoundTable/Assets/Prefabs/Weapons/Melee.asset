@@ -36,4 +36,4 @@ MonoBehaviour:
   weaponShootAud: {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
   weaponReloadAud: {fileID: 0}
   weaponShotVol: 1
-  weaponReloadVol: 0
+  weaponReloadVol: 1
