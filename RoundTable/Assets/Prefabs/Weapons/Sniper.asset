@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolderPos: {x: 0, y: 0, z: 0}
   weaponRot: {x: 0, y: 0, z: 0}
-  weaponScale: {x: 0, y: 0, z: 0}
+  weaponScale: {x: 0.4, y: 0.4, z: 0.4}
   weaponSightsPos: {x: 0, y: 0, z: 0}
   shootPos: {x: 0, y: 0, z: 0}
   zoomMaxFov: 30

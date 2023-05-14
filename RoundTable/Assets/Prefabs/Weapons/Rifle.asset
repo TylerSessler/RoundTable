@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  weaponHolderPos: {x: 0.275, y: 0.15, z: 0.6}
+  weaponHolderPos: {x: 0.275, y: 0.15, z: 0.7}
   weaponRot: {x: 0, y: 0, z: 0}
   weaponScale: {x: 0.4, y: 0.4, z: 0.4}
   weaponSightsPos: {x: 0, y: 0.8, z: -0.725}

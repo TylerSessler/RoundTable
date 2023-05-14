@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Grenade
   m_EditorClassIdentifier: 
-  gunPosition: {x: 0, y: 0, z: 0}
-  gunRotation: {x: 0, y: 0, z: 0}
-  gunScale: {x: 0, y: 0, z: 0}
-  gunModeSightsPos: {x: 0, y: 0, z: 0}
+  weaponHolderPos: {x: 0, y: 0, z: 0}
+  weaponRot: {x: 0, y: 0, z: 0}
+  weaponScale: {x: 0, y: 0, z: 0}
+  weaponSightsPos: {x: 0, y: 0, z: 0}
   shootPos: {x: 0, y: 0, z: 0}
   zoomMaxFov: 0
-  zoomInFovSpeed: 0
-  zoomOutFovSpeed: 0
-  adsSpeed: 0
-  nonADSSpeed: 0
+  zoomInFOVSpeed: 0
+  zoomOutFOVSpeed: 0
+  ADSSpeed: 0
   label: Grenade
   damage: 10
   rate: 6
@@ -33,9 +32,8 @@ MonoBehaviour:
   canZoom: 0
   reloadTime: 6
   model: {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
-  gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: be084087035856745973edaed758d3ba, type: 3}
-  gunShotAud: {fileID: 0}
-  audReload: {fileID: 0}
-  gunShotAudVol: 0
-  audReloadVol: 0
+  weaponShootAud: {fileID: 0}
+  weaponReloadAud: {fileID: 0}
+  weaponShotVol: 0
+  weaponReloadVol: 0

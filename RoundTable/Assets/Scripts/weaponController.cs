@@ -98,7 +98,7 @@ public class weaponController : MonoBehaviour
         }
 
         weaponSwayPosition = weaponSway.position;
-        weaponSwayPosition = Vector3.SmoothDamp(weaponSwayPosition, targetPosition, ref weaponSwayPositionVelocity, ADSSpeed * Time.deltaTime);
+        weaponSwayPosition = Vector3.SmoothDamp(weaponSwayPosition, targetPosition, ref weaponSwayPositionVelocity, ADSSpeed);
         weaponSway.position = weaponSwayPosition;
     }
 

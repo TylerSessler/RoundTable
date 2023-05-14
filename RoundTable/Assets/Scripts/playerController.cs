@@ -556,9 +556,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon & slot for shoot()
             activeWeapon = inv[0];
-            activeSlot = 1;
-
-            ChangeWeapon();
+            activeSlot = 1;          
 
             // Enable inventory Highlight
             inventoryUI(1);
@@ -571,8 +569,6 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[1];
                 activeSlot = 2;
-
-                ChangeWeapon();
 
                 // Enable inventory Highlight
                 inventoryUI(2);
@@ -588,8 +584,6 @@ public class playerController : MonoBehaviour, IDamage
                 activeWeapon = inv[2];
                 activeSlot = 3;
 
-                ChangeWeapon();
-
                 // Enable inventory Highlight
                 inventoryUI(3);
             }
@@ -603,8 +597,6 @@ public class playerController : MonoBehaviour, IDamage
                 activeWeapon = inv[3];
                 activeSlot = 4;
 
-                ChangeWeapon();
-
                 // Enable inventory Highlight
                 inventoryUI(4);
             }
@@ -617,8 +609,6 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[4];
                 activeSlot = 5;
-
-                ChangeWeapon();
 
                 // Enable inventory Highlight
                 inventoryUI(5);
@@ -634,6 +624,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.glow3.SetActive(false);
         gameManager.instance.glow4.SetActive(false);
         gameManager.instance.glow5.SetActive(false);
+
         // Enable specific hightlight
         switch (num)
         {
@@ -653,13 +644,17 @@ public class playerController : MonoBehaviour, IDamage
                 gameManager.instance.glow5.SetActive(true);
                 break;
         }
+
         // Update UI for ammo to match current weapon
         bulletCountUpdate();
         // Make sure proper reticle is active
         reticleSwap();
         // Set gun visual to active gun's texture/model
 
-
+        if (activeWeapon != null)
+        {
+            ChangeWeapon();
+        }
 
         //if (activeWeapon != null)
         //{
@@ -1071,30 +1066,30 @@ public class playerController : MonoBehaviour, IDamage
 
     void zoom()
     {
-        if (activeWeapon != null)
-        {
-            isZoomed = Input.GetButton("Zoom");
-            if (isZoomed && activeWeapon.canZoom == true)
-            {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
-            }
-            else
-            {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-            }
-        }
+    //    if (activeWeapon != null)
+    //    {
+    //        isZoomed = Input.GetButton("Zoom");
+    //        if (isZoomed && activeWeapon.canZoom == true)
+    //        {
+    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+    //        }
+    //        else
+    //        {
+    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 10f * Time.deltaTime);
+    //        }
+    //    }
 
 
         if (isSprinting)
         {
             //movementSpeed = sprintSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
         }
         // Reset function
         else
         {
             movementSpeed = originalMovementSpeed;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 10f * Time.deltaTime);
         }
     }
 
@@ -1209,7 +1204,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public void ResetWeapon()
     {
-        Camera.main.fieldOfView = currentWeapon.fovOrig;
+        //
+        //Camera.main.fieldOfView = currentWeapon.fovOrig;
         //weaponPos.transform.localPosition = new Vector3(0, 0, 0);
         //weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
         //weaponPos.transform.localScale = new Vector3(0, 0, 0);
@@ -1235,7 +1231,7 @@ public class playerController : MonoBehaviour, IDamage
         currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
         currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
         currentWeapon.zoomInFOVSpeed = activeWeapon.zoomOutFOVSpeed;
-        currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
+        //currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
 
         weaponDamage = activeWeapon.damage;
         shootRate = activeWeapon.rate;
