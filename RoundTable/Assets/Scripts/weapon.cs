@@ -5,21 +5,20 @@ using UnityEngine;
 [CreateAssetMenu]
 public class weapon : ScriptableObject
 {
-    [Header("Gun Transforms")]
-    public Vector3 gunPosition;
-    public Vector3 gunRotation;
-    public Vector3 gunScale;
-    public Vector3 gunModeSightsPos;
+    [Header("Weapon Transforms")]
+    public Vector3 weaponHolderPos;
+    public Vector3 weaponRot;
+    public Vector3 weaponScale;
+    public Vector3 weaponSightsPos;
     public Vector3 shootPos;
 
-    [Header("Gun Aiming")]
+    [Header("Weapon Aiming")]
     public float zoomMaxFov;
-    public int zoomInFovSpeed;
-    public int zoomOutFovSpeed;
-    public int adsSpeed;
-    public int nonADSSpeed;
+    public int zoomInFOVSpeed;
+    public int zoomOutFOVSpeed;
+    public int ADSSpeed;
 
-    [Header("Gun Stats")]
+    [Header("Weapon Stats")]
     public string label;
     public int damage;
     public float rate;
@@ -31,10 +30,9 @@ public class weapon : ScriptableObject
     public bool canZoom;
     public float reloadTime;
     public GameObject model;
-    public AudioClip gunShot;
     public Texture sprite;
-    public AudioClip gunShotAud;
-    public AudioClip audReload;
-    [Range(0, 1)] public float gunShotAudVol;
-    [Range(0, 1)] public float audReloadVol;
+    public AudioClip weaponShootAud;
+    public AudioClip weaponReloadAud;
+    [Range(0, 1)] public float weaponShotVol;
+    [Range(0, 1)] public float weaponReloadVol;
 }

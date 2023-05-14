@@ -12,7 +12,7 @@ public class bullet : MonoBehaviour
     {
         if (gameObject.layer == 8)
         {
-            damage = gameManager.instance.playerScript.activeWeapon.damage;
+            damage = gameManager.instance.playerScript.weaponDamage;
         }
         Destroy(gameObject, timer);
     }

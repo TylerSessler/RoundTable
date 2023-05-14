@@ -50,9 +50,9 @@ public class weaponController : MonoBehaviour
     public float sightOffset;
     public float ADSSpeed;
     public float fovOrig;
-    public float fovZoomMax;
-    public int fovZoomInSpd;
-    public int fovZoomOutSpd;
+    public float zoomMaxFov;
+    public int zoomInFOVSpeed;
+    public int zoomOutFOVSpeed;
     Vector3 weaponSwayPosition;
     Vector3 weaponSwayPositionVelocity;
 
@@ -88,17 +88,17 @@ public class weaponController : MonoBehaviour
         if (isAiming)
         {
             targetPosition = controller.cam.position + (weaponSway.position - weaponSight.position) + (controller.cam.forward * sightOffset);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fovZoomMax, Time.deltaTime * fovZoomInSpd);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMaxFov, zoomInFOVSpeed * Time.deltaTime);
             //cameraSwayADS.localEulerAngles = swayPosition; Needs work. Trying to rotate camera with gun ADS sway.
         }
         else
         {
             cameraSwayADS.localPosition = cameraOriginalPosition;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fovOrig, Time.deltaTime * fovZoomOutSpd);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fovOrig, zoomOutFOVSpeed * Time.deltaTime);
         }
 
         weaponSwayPosition = weaponSway.position;
-        weaponSwayPosition = Vector3.SmoothDamp(weaponSwayPosition, targetPosition, ref weaponSwayPositionVelocity, ADSSpeed);
+        weaponSwayPosition = Vector3.SmoothDamp(weaponSwayPosition, targetPosition, ref weaponSwayPositionVelocity, ADSSpeed * Time.deltaTime);
         weaponSway.position = weaponSwayPosition;
     }
 

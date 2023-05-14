@@ -72,6 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1272312315160648212}
+  - component: {fileID: 1413721449}
   m_Layer: 3
   m_Name: Shoot Position
   m_TagString: Untagged
@@ -86,7 +87,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272312315160648213}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -95,6 +96,19 @@ Transform:
   m_Father: {fileID: 6841856840646698742}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1413721449
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272312315160648213}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1900952725576778939
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,8 +407,8 @@ MonoBehaviour:
   originalMovementSpeed: {x: 0, y: 0, z: 0}
   jumpHeight: 10
   originalJumpHeight: 9
-  maxJumps: 1
-  originalMaxJumps: 1
+  maxJumps: 3
+  originalMaxJumps: 3
   originalGravity: 20
   tempVal: 0
   bulletSpeed: 20
@@ -411,6 +425,9 @@ MonoBehaviour:
   weaponAnimSpeed: 0
   activeWeapon: {fileID: 0}
   hasObjective: 0
+  shootRate: 0
+  shootRange: 0
+  weaponDamage: 0
   weaponHolderPos: {fileID: 7050311812053723958}
   weaponPos: {fileID: 147114748739179905}
   weaponSightsPos: {fileID: 7455707805739662757}
@@ -434,15 +451,15 @@ MonoBehaviour:
     invertX: 0
     invertY: 0
     holdSprint: 1
-    movementSmoothing: 0.05
-    forwardWalkSpeed: 50
+    movementSmoothing: 0.01
+    forwardWalkSpeed: 7.5
     backwardWalkSpeed: 5
-    strafeWalkSpeed: 50
-    forwardSprintSpeed: 7.5
-    strafeSprintSpeed: 7.5
+    strafeWalkSpeed: 7.5
+    forwardSprintSpeed: 5
+    strafeSprintSpeed: 5
     isJumping: 0
     jumpDirection: {x: 0, y: 0, z: 0}
-    jumpingHeight: 8
+    jumpingHeight: 6
     jumpingFalloff: 0.4
     fallingSmoothing: 0.01
     backwardJumpFactor: 0.3
@@ -456,7 +473,7 @@ MonoBehaviour:
     isGroundedRadius: 0.25
     isFallingSpeed: 3
     groundDistance: 0.5
-  gravity: 0.1
+  gravity: 8
   jumpForce: {x: 0, y: 0, z: 0}
   playerGravity: 0
   isFalling: 0
@@ -514,6 +531,10 @@ MonoBehaviour:
   audGravVol: 0.5
   audPickup: {fileID: 8300000, guid: e2455abb71c979e478e3abe096eba5fc, type: 3}
   audPickupVol: 0.5
+  weaponShootAud: {fileID: 0}
+  weaponReloadAud: {fileID: 0}
+  weaponShootVol: 0
+  weaponReloadVol: 0
 --- !u!114 &7655903087687769168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,6 +867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7455707805739662757}
+  - component: {fileID: 1017502897}
   m_Layer: 3
   m_Name: Weapon Sights
   m_TagString: Untagged
@@ -860,7 +882,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5725679944833716286}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -868,6 +890,19 @@ Transform:
   m_Father: {fileID: 6841856840646698742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1017502897
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725679944833716286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6176959737010256972
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,10 +928,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6176959737010256972}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.296, y: 0.3029995, z: 0.56900024}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7455707805739662757}
   - {fileID: 1272312315160648212}
@@ -1150,6 +1185,6 @@ MonoBehaviour:
   sightOffset: 0.11
   ADSSpeed: 0.1
   fovOrig: 0
-  fovZoomMax: 0
-  fovZoomInSpd: 0
-  fovZoomOutSpd: 0
+  zoomMaxFov: 0
+  zoomInFOVSpeed: 0
+  zoomOutFOVSpeed: 0

@@ -80,6 +80,9 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
     bool isPlayingSteps;
     public bool hasObjective;
+    public float shootRate;
+    public float shootRange;
+    public int weaponDamage;
 
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
@@ -150,6 +153,10 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audGravVol;
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
+    public AudioClip weaponShootAud;
+    public AudioClip weaponReloadAud;
+    public float weaponShootVol;
+    public float weaponReloadVol;
 
     #endregion variables
 
@@ -340,7 +347,7 @@ public class playerController : MonoBehaviour, IDamage
         if (PlayerPrefs.HasKey("Grenade") && PlayerPrefs.GetInt("Grenade") == 1)
         {
             //add Grenade to inventory
-            
+
         }
     }
 
@@ -430,7 +437,7 @@ public class playerController : MonoBehaviour, IDamage
             isSprinting = false;
         }
 
-        float speedEffector = 1 + GetSpeedEffector();
+        float speedEffector = GetSpeedEffector();
         verticalSpeed *= speedEffector;
         horizontalSpeed *= speedEffector;
 
@@ -440,7 +447,7 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 moveDirection = CalculateMoveDirection();
         Vector3 newMovementSpeed = CalculateNewMovement(moveDirection, verticalSpeed, horizontalSpeed);
 
-        controller.Move(newMovementSpeed);
+        controller.Move(newMovementSpeed * Time.deltaTime);
     }
 
     Vector3 CalculateMoveDirection()
@@ -471,8 +478,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             playerSettings.isJumping = false;
 
-            float forwardSpeed = verticalSpeed * inputMovement.y * Time.deltaTime;
-            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.deltaTime;
+            float forwardSpeed = verticalSpeed * inputMovement.y;
+            float strafeSpeed = horizontalSpeed * inputMovement.x;
             movementSpeed = Vector3.SmoothDamp(movementSpeed, new Vector3(strafeSpeed, 0, forwardSpeed), ref velocitySpeed, isGrounded() ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
 
             float backwardJumpingFactor = inputMovement.y < 0 ? 0.75f : 1f;
@@ -510,7 +517,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         newMovementSpeed.y += playerGravity;
-        newMovementSpeed += jumpForce * Time.deltaTime;
+        newMovementSpeed += jumpForce;
 
         return newMovementSpeed;
     }
@@ -550,6 +557,9 @@ public class playerController : MonoBehaviour, IDamage
             // Set active weapon & slot for shoot()
             activeWeapon = inv[0];
             activeSlot = 1;
+
+            ChangeWeapon();
+
             // Enable inventory Highlight
             inventoryUI(1);
         }
@@ -561,7 +571,9 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[1];
                 activeSlot = 2;
-                
+
+                ChangeWeapon();
+
                 // Enable inventory Highlight
                 inventoryUI(2);
             }
@@ -575,6 +587,9 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[2];
                 activeSlot = 3;
+
+                ChangeWeapon();
+
                 // Enable inventory Highlight
                 inventoryUI(3);
             }
@@ -587,6 +602,9 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[3];
                 activeSlot = 4;
+
+                ChangeWeapon();
+
                 // Enable inventory Highlight
                 inventoryUI(4);
             }
@@ -599,15 +617,13 @@ public class playerController : MonoBehaviour, IDamage
                 // Set active weapon for shoot()
                 activeWeapon = inv[4];
                 activeSlot = 5;
+
+                ChangeWeapon();
+
                 // Enable inventory Highlight
                 inventoryUI(5);
             }
         }
-        if (shootPos.position != activeWeapon.shootPos && activeWeapon != null)
-        {
-            shootPos.position = activeWeapon.shootPos;
-        }
-        
     }
 
     void inventoryUI(int num)
@@ -643,11 +659,13 @@ public class playerController : MonoBehaviour, IDamage
         reticleSwap();
         // Set gun visual to active gun's texture/model
 
-        if (activeWeapon != null)
-        {
-            activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-            activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
+
+
+        //if (activeWeapon != null)
+        //{
+        //    activeModel.GetComponent<MeshFilter>().mesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+        //    activeModel.GetComponent<MeshRenderer>().material = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+        //}
     }
 
     void PlayerStance()
@@ -669,6 +687,7 @@ public class playerController : MonoBehaviour, IDamage
         controller.height = Mathf.SmoothDamp(controller.height, currentStance.stanceCollider.height, ref playerStanceHeightVelocity, playerPoseSmooth);
         controller.center = Vector3.SmoothDamp(controller.center, currentStance.stanceCollider.center, ref playerStanceCenterVelocity, playerPoseSmooth);
     }
+
     void Jump()
     {
         if (!isGrounded() || playerPose == gameManager.PlayerPose.Prone)
@@ -687,37 +706,46 @@ public class playerController : MonoBehaviour, IDamage
             //return; --------------------------- This can be used to make the player stand up only and not jump at the same time.
         }
 
-        if (!isGrounded() && jumpCount == 0)
-        {
-            jumpCount = maxJumps;
-        }
+        //if (!isGrounded() && jumpCount == 0)
+        //{
+        //    jumpCount = maxJumps;
+        //}
         // Compare number of jumps preformed & max number of jumps to check if player can jump.
 
         if (jumpCount < maxJumps)
         {
             jumpCount++;
-            // Check state of gravity to determine direction to jump the player
-        }
-
-        if (isGrounded())
-        {
             playerGravity = 0;
 
             if (!gravityFlipped)
             {
-                playerVelocity.y = jumpHeight;
-
                 jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
             }
             else if (gravityFlipped)
             {
-                playerVelocity.y = -jumpHeight;
                 jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
             }
 
             aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
             currentWeapon.TriggerJump();
         }
+
+        //if (isGrounded())
+        //{
+        //    playerGravity = 0;
+
+        //    if (!gravityFlipped)
+        //    {
+        //        jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
+        //    }
+        //    else if (gravityFlipped)
+        //    {
+        //        jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
+        //    }
+
+        //    aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+        //    currentWeapon.TriggerJump();
+        //}
     }
 
     void Jumping()
@@ -752,6 +780,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
+
     void SetIsFalling()
     {
         isFalling = !isGrounded() && controller.velocity.magnitude >= playerSettings.isFallingSpeed;
@@ -844,8 +873,6 @@ public class playerController : MonoBehaviour, IDamage
         gravityFlipped = !gravityFlipped;
         gravity *= -1;
 
-        playerVelocity.y = 0;
-        //playerVelocity.y = 0;
         playerGravity = 0;
         aud.PlayOneShot(audGrav, audGravVol);
 
@@ -921,17 +948,21 @@ public class playerController : MonoBehaviour, IDamage
         }
         return false;
     }
+
     void ShootMouseClick()
     {
-        if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot)
+        if (activeWeapon != null)
         {
-            StartCoroutine(shoot());
-            //Update UI for bullet count
-            bulletCountUpdate();
-        }
-        else
-        {
-            StopCoroutine(shoot());
+            if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot)
+            {
+                StartCoroutine(shoot());
+                //Update UI for bullet count
+                bulletCountUpdate();
+            }
+            else
+            {
+                StopCoroutine(shoot());
+            }
         }
     }
 
@@ -942,7 +973,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (activeWeapon.clipSize > 0)
             {
-                aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
+                aud.PlayOneShot(weaponShootAud, weaponShootVol);
                 // Set flag
                 isShooting = true;
                 // Reduce current ammo
@@ -950,7 +981,7 @@ public class playerController : MonoBehaviour, IDamage
                 // Fire projectile
                 GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * bulletSpeed;
-                yield return new WaitForSeconds(activeWeapon.rate);
+                yield return new WaitForSeconds(shootRate);
                 isShooting = false;
             }
         }
@@ -977,7 +1008,7 @@ public class playerController : MonoBehaviour, IDamage
         // Enter loop while player is **holding** left click, leave when player releases
         while (Input.GetButton("Shoot"))
         {
-            
+
             trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * 2);
             yield return new WaitForEndOfFrame();
         }
@@ -988,9 +1019,9 @@ public class playerController : MonoBehaviour, IDamage
         // Reduce current ammo
         activeWeapon.clipSize--;
         trajectoryRender.instance.trajectoryLine.enabled = false;
-        yield return new WaitForSeconds(activeWeapon.rate);
+        yield return new WaitForSeconds(shootRate);
         isShooting = false;
-        
+
     }
 
     void AimPressed()
@@ -1017,21 +1048,20 @@ public class playerController : MonoBehaviour, IDamage
     {
         isMelee = true;
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, activeWeapon.range))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootRange))
         {
             if (!hit.collider.CompareTag("Player"))
             {
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 if (damageable != null)
                 {
-                    damageable.takeDamage(activeWeapon.damage);
-                    aud.PlayOneShot(activeWeapon.gunShotAud, activeWeapon.gunShotAudVol);
+                    damageable.takeDamage(weaponDamage);
+                    aud.PlayOneShot(weaponShootAud, weaponShootVol);
                 }
             }
-
         }
 
-        yield return new WaitForSeconds(activeWeapon.rate);
+        yield return new WaitForSeconds(shootRate);
         isMelee = false;
     }
 
@@ -1083,7 +1113,7 @@ public class playerController : MonoBehaviour, IDamage
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;
-                    aud.PlayOneShot(activeWeapon.audReload, activeWeapon.audReloadVol);
+                    aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
                 }
             }
         }
@@ -1171,6 +1201,49 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.bulletCountText.text = activeWeapon.clipSize.ToString() + " / " + activeWeapon.ammo.ToString();
         }
+    }
+
+    public void ResetWeapon()
+    {
+        Camera.main.fieldOfView = currentWeapon.fovOrig;
+        //weaponPos.transform.localPosition = new Vector3(0, 0, 0);
+        //weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
+        //weaponPos.transform.localScale = new Vector3(0, 0, 0);
+        //shootEffectPos.localPosition = new Vector3(0, 0, 0);
+        //weaponHolderPos.transform.eulerAngles = new Vector3(0, 0, 0);
+
+        weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponPos.transform.localScale = new Vector3(0, 0, 0);
+        shootPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
+
+    }
+
+    void ChangeWeapon()
+    {
+        ResetWeapon();
+
+        weaponPos.transform.localScale = activeWeapon.weaponScale;
+        weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
+        weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
+        shootPos.transform.localPosition = activeWeapon.shootPos;
+
+        currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
+        currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
+        currentWeapon.zoomInFOVSpeed = activeWeapon.zoomOutFOVSpeed;
+        currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
+
+        weaponDamage = activeWeapon.damage;
+        shootRate = activeWeapon.rate;
+        shootRange = activeWeapon.range;
+
+        weaponShootAud = activeWeapon.weaponShootAud;
+        weaponShootVol = activeWeapon.weaponShotVol;
+        weaponReloadAud = activeWeapon.weaponReloadAud;
+
+        weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+        weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
     }
 
     public void addWeapon(weapon gun)

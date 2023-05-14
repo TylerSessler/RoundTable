@@ -217,16 +217,20 @@ public class gameManager : MonoBehaviour
         {
             extractionZone.SetActive(false);
         }
+
         if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
         {
             startTimer();
         }
+
         creditsValueText.text = credits.ToString();
+
         if(PlayerPrefs.HasKey("Credits"))
         {
             loadCredits();
             creditsAvailableUIUpdate();
         }
+
         if(PlayerPrefs.HasKey("MasterVolume"))
         {
             //Load audio settings here
