@@ -12,21 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  weaponHolderPos: {x: 0.275, y: 0.15, z: 0.6}
+  weaponRot: {x: 0, y: 0, z: 0}
+  weaponScale: {x: 0.4, y: 0.4, z: 0.4}
+  weaponSightsPos: {x: 0, y: 0.525, z: -0.725}
+  shootPos: {x: 0, y: 0, z: 0}
+  zoomMaxFov: 55
+  zoomInFOVSpeed: 8
+  zoomOutFOVSpeed: 8
+  ADSSpeed: 20
   label: Pistol
   damage: 1
   rate: 0.5
   range: 20
   ammo: 30
   maxAmmo: 30
-  clipSize: 11
+  clipSize: 7
   maxClip: 11
   canZoom: 0
   reloadTime: 2.5
   model: {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}
-  barrelPos: {fileID: 0}
-  gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: 1f4a699323f61ca42a222a26afaa9aee, type: 3}
-  gunShotAud: {fileID: 8300000, guid: d602dc3578ad95b47bcd92e0664499ca, type: 3}
-  audReload: {fileID: 8300000, guid: 6740654a357631d4f97962142b6e5c2e, type: 3}
-  gunShotAudVol: 0.1
-  audReloadVol: 0.4
+  weaponShootAud: {fileID: 0}
+  weaponReloadAud: {fileID: 0}
+  weaponShotVol: 0
+  weaponReloadVol: 0

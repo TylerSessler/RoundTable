@@ -12,21 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  weaponHolderPos: {x: 0.275, y: 0.15, z: 0.6}
+  weaponRot: {x: 0, y: 0, z: 0}
+  weaponScale: {x: 0.4, y: 0.4, z: 0.4}
+  weaponSightsPos: {x: 0, y: 0.8, z: -0.725}
+  shootPos: {x: 0, y: 0.55, z: 2.525}
+  zoomMaxFov: 45
+  zoomInFOVSpeed: 8
+  zoomOutFOVSpeed: 8
+  ADSSpeed: 20
   label: Rifle
   damage: 1
   rate: 0.15
   range: 30
-  ammo: 131
+  ammo: 90
   maxAmmo: 90
   clipSize: 26
   maxClip: 26
   canZoom: 0
   reloadTime: 4
   model: {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
-  barrelPos: {fileID: 0}
-  gunShot: {fileID: 0}
   sprite: {fileID: 2800000, guid: 126149c16f403ee43ada0f5b5849f528, type: 3}
-  gunShotAud: {fileID: 8300000, guid: 0fcb35cd3ac5ffd40a0c7e2e5ca295fd, type: 3}
-  audReload: {fileID: 8300000, guid: c5bbc0d6953357947b133a150a9b90f1, type: 3}
-  gunShotAudVol: 0.3
-  audReloadVol: 0.04
+  weaponShootAud: {fileID: 8300000, guid: 0fcb35cd3ac5ffd40a0c7e2e5ca295fd, type: 3}
+  weaponReloadAud: {fileID: 8300000, guid: c5bbc0d6953357947b133a150a9b90f1, type: 3}
+  weaponShotVol: 1
+  weaponReloadVol: 1

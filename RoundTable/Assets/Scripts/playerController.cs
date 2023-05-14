@@ -447,7 +447,7 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 moveDirection = CalculateMoveDirection();
         Vector3 newMovementSpeed = CalculateNewMovement(moveDirection, verticalSpeed, horizontalSpeed);
 
-        controller.Move(newMovementSpeed * Time.deltaTime);
+        controller.Move(newMovementSpeed);
     }
 
     Vector3 CalculateMoveDirection()
@@ -478,8 +478,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             playerSettings.isJumping = false;
 
-            float forwardSpeed = verticalSpeed * inputMovement.y;
-            float strafeSpeed = horizontalSpeed * inputMovement.x;
+            float forwardSpeed = verticalSpeed * inputMovement.y * Time.deltaTime;
+            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.deltaTime;
             movementSpeed = Vector3.SmoothDamp(movementSpeed, new Vector3(strafeSpeed, 0, forwardSpeed), ref velocitySpeed, isGrounded() ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
 
             float backwardJumpingFactor = inputMovement.y < 0 ? 0.75f : 1f;
@@ -517,7 +517,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         newMovementSpeed.y += playerGravity;
-        newMovementSpeed += jumpForce;
+        newMovementSpeed += jumpForce * Time.deltaTime;
 
         return newMovementSpeed;
     }
@@ -706,10 +706,10 @@ public class playerController : MonoBehaviour, IDamage
             //return; --------------------------- This can be used to make the player stand up only and not jump at the same time.
         }
 
-        //if (!isGrounded() && jumpCount == 0)
-        //{
-        //    jumpCount = maxJumps;
-        //}
+        if (!isGrounded() && jumpCount == 0)
+        {
+            jumpCount = maxJumps;
+        }
         // Compare number of jumps preformed & max number of jumps to check if player can jump.
 
         if (jumpCount < maxJumps)
@@ -756,6 +756,10 @@ public class playerController : MonoBehaviour, IDamage
             playerSettings.isJumping = true;
             jumpForce = Vector3.SmoothDamp(jumpForce, Vector3.zero, ref jumpSpeed, playerSettings.jumpingFalloff);
             //StartCoroutine(ResetJump());
+        }
+        else
+        {
+            jumpCount = 0;
         }
     }
 
