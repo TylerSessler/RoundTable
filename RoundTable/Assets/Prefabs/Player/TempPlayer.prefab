@@ -408,8 +408,8 @@ MonoBehaviour:
   originalMovementSpeed: {x: 0, y: 0, z: 0}
   jumpHeight: 10
   originalJumpHeight: 9
-  maxJumps: 3
-  originalMaxJumps: 3
+  maxJumps: 1
+  originalMaxJumps: 1
   originalGravity: 20
   tempVal: 0
   bulletSpeed: 20

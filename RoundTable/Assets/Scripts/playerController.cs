@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -80,8 +81,8 @@ public class playerController : MonoBehaviour, IDamage
     bool isMelee;
     bool isPlayingSteps;
     public bool hasObjective;
-    public float shootRate;
-    public float shootRange;
+    [SerializeField] float shootRate;
+    [SerializeField] float shootRange;
     public int weaponDamage;
 
     [Header("--- Weapon Transformations---")]
@@ -92,9 +93,9 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Store")]
     [Header("----- Weapon ADS Stats -----")]
-    public float zoomMax;
-    public int zoomInSpeed;
-    public int zoomOutSpeed;
+    [SerializeField] float zoomMax;
+    [SerializeField] int zoomInSpeed;
+    [SerializeField] int zoomOutSpeed;
 
     [Header("Leaning")]
     public Transform cameraLeanPivot;
@@ -153,10 +154,10 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField][Range(0, 1)] float audGravVol;
     [SerializeField] AudioClip audPickup;
     [SerializeField][Range(0, 1)] float audPickupVol;
-    public AudioClip weaponShootAud;
-    public AudioClip weaponReloadAud;
-    public float weaponShootVol;
-    public float weaponReloadVol;
+    [SerializeField] AudioClip weaponShootAud;
+    [SerializeField] AudioClip weaponReloadAud;
+    [SerializeField] float weaponShootVol;
+    [SerializeField] float weaponReloadVol;
 
     #endregion variables
 
@@ -679,8 +680,9 @@ public class playerController : MonoBehaviour, IDamage
 
     void Jump()
     {
-        if (!isGrounded() || playerPose == gameManager.PlayerPose.Prone)
+        if (!isGrounded() && jumpCount >= maxJumps - 1)
         {
+            // Player is in the air and has performed the maximum number of jumps already.
             return;
         }
 
@@ -690,52 +692,28 @@ public class playerController : MonoBehaviour, IDamage
             {
                 return;
             }
-
             playerPose = gameManager.PlayerPose.Stand;
-            //return; --------------------------- This can be used to make the player stand up only and not jump at the same time.
+            //return; This can be used to make the player stand up only and not jump at the same time.
         }
 
-        if (!isGrounded() && jumpCount == 0)
+        // Perform the jump...
+        jumpCount++;
+
+        playerGravity = 0;
+
+        if (!gravityFlipped)
         {
-            jumpCount = maxJumps;
+            jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
         }
-        // Compare number of jumps preformed & max number of jumps to check if player can jump.
-
-        if (jumpCount < maxJumps)
+        else if (gravityFlipped)
         {
-            jumpCount++;
-            playerGravity = 0;
-
-            if (!gravityFlipped)
-            {
-                jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
-            }
-            else if (gravityFlipped)
-            {
-                jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
-            }
-
-            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
-            currentWeapon.TriggerJump();
+            jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
         }
 
-        //if (isGrounded())
-        //{
-        //    playerGravity = 0;
-
-        //    if (!gravityFlipped)
-        //    {
-        //        jumpForce = new Vector3(0, playerSettings.jumpingHeight, 0);
-        //    }
-        //    else if (gravityFlipped)
-        //    {
-        //        jumpForce = new Vector3(0, -playerSettings.jumpingHeight, 0);
-        //    }
-
-        //    aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
-        //    currentWeapon.TriggerJump();
-        //}
+        aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
+        currentWeapon.TriggerJump();
     }
+
 
     void Jumping()
     {
@@ -923,7 +901,7 @@ public class playerController : MonoBehaviour, IDamage
         RaycastHit floorCheck;
         if (!gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) /*|| controller.isGrounded*/)
+            if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) || controller.isGrounded)
             {
                 Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 return true;
@@ -932,7 +910,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (gravityFlipped)
         {
-            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) /*|| controller.isGrounded*/)
+            if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) || controller.isGrounded)
             {
                 Debug.DrawRay(transform.position, Vector3.up, Color.red);
                 return true;
@@ -1197,20 +1175,15 @@ public class playerController : MonoBehaviour, IDamage
 
     public void ResetWeapon()
     {
-        //
-        //Camera.main.fieldOfView = currentWeapon.fovOrig;
-        //weaponPos.transform.localPosition = new Vector3(0, 0, 0);
-        //weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
-        //weaponPos.transform.localScale = new Vector3(0, 0, 0);
-        //shootEffectPos.localPosition = new Vector3(0, 0, 0);
-        //weaponHolderPos.transform.eulerAngles = new Vector3(0, 0, 0);
-
         weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
-        weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
-        //weaponPos.transform.localScale = new Vector3(0, 0, 0);
         weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
+        weaponPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
+        weaponPos.transform.localScale = new Vector3(1, 1, 1);
         weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
         shootPos.transform.localPosition = new Vector3(0, 0, 0);
+
+        //shootEffectPos.localPosition = new Vector3(0, 0, 0);
     }
 
     void ChangeWeapon()
@@ -1219,7 +1192,6 @@ public class playerController : MonoBehaviour, IDamage
 
         weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
         weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
-        //weaponPos.transform.localScale = activeWeapon.weaponScale;
         weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
         weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
         shootPos.transform.localPosition = activeWeapon.shootPos;
@@ -1245,8 +1217,6 @@ public class playerController : MonoBehaviour, IDamage
 
     public void addWeapon(weapon gun)
     {
-        ResetWeapon();
-
         bool found = false;
         aud.PlayOneShot(audPickup, audPickupVol);
 
