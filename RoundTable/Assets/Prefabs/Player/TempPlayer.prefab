@@ -1170,22 +1170,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAnimator: {fileID: 3780691297283041232}
   weaponSettings:
-    swayAmount: 0
-    swayAmountADS: 0
-    swaySmoothing: 0
-    swayResetSmoothing: 0
-    swayClampX: 0
-    swayClampY: 0
-    swayLeanAmount: 0
+    swayAmount: 0.0025
+    swayAmountADS: 0.0025
+    swaySmoothing: 0.1
+    swayResetSmoothing: 0.1
+    swayClampX: 4
+    swayClampY: 4
+    swayLeanAmount: 2
     swayYInverted: 0
     swayXInverted: 0
-    swayMovementX: 0
-    swayMovementY: 0
-    swayMovementXADS: 0
-    swayMovementYADS: 0
-    swayMovementYInverted: 0
+    swayMovementX: 10
+    swayMovementY: 2
+    swayMovementXADS: 4
+    swayMovementYADS: 1
+    swayMovementYInverted: 1
     swayMovementXInverted: 0
-    swayMovementSmoothing: 0
+    swayMovementSmoothing: 0.4
   fallingDelay: 0
   weaponSway: {fileID: 1927815345750569424}
   weaponBreathing: {fileID: 6712563560958401959}

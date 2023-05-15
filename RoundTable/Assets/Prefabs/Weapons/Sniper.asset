@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb17735bdc13794db52579396b2837c, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
-  weaponHolderPos: {x: 0, y: 0, z: 0}
+  weaponHolderPos: {x: 0.2, y: 0.3415, z: 0.565}
   weaponRot: {x: 0, y: 0, z: 0}
-  weaponScale: {x: 0.4, y: 0.4, z: 0.4}
-  weaponSightsPos: {x: 0, y: 0, z: 0}
-  shootPos: {x: 0, y: 0, z: 0}
+  weaponScale: {x: 0.2, y: 0.2, z: 0.2}
+  weaponSightsPos: {x: 0, y: 0.565, z: -1.16}
+  shootPos: {x: 0, y: 0.425, z: 3.425}
   zoomMaxFov: 30
   zoomInFOVSpeed: 8
   zoomOutFOVSpeed: 8
@@ -25,9 +25,9 @@ MonoBehaviour:
   damage: 18
   rate: 2.25
   range: 90
-  ammo: 15
+  ammo: 11
   maxAmmo: 15
-  clipSize: 4
+  clipSize: 3
   maxClip: 4
   canZoom: 1
   reloadTime: 5

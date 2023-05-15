@@ -110,8 +110,8 @@ public class weaponController : MonoBehaviour
 
     void WeaponRotation()
     {
-        targetWeaponRotation.y += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayXInverted ? -controller.inputCamera.x : controller.inputCamera.x); // Horizontal Rotation
-        targetWeaponRotation.x += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayYInverted ? controller.inputCamera.y : -controller.inputCamera.y); // Vertical Rotation
+        targetWeaponRotation.y += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayXInverted ? -controller.inputCamera.x : controller.inputCamera.x);// * Time.deltaTime; // Horizontal Rotation
+        targetWeaponRotation.x += (isAiming ? weaponSettings.swayAmountADS : weaponSettings.swayAmount) * (weaponSettings.swayYInverted ? controller.inputCamera.y : -controller.inputCamera.y);// * Time.deltaTime; // Vertical Rotation
 
         targetWeaponRotation.x = Mathf.Clamp(targetWeaponRotation.x, -weaponSettings.swayClampX, weaponSettings.swayClampX);
         targetWeaponRotation.y = Mathf.Clamp(targetWeaponRotation.y, -weaponSettings.swayClampY, weaponSettings.swayClampY);

@@ -557,7 +557,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             // Set active weapon & slot for shoot()
             activeWeapon = inv[0];
-            activeSlot = 1;          
+            activeSlot = 1;
 
             // Enable inventory Highlight
             inventoryUI(1);
@@ -644,7 +644,7 @@ public class playerController : MonoBehaviour, IDamage
             case 5:
                 gameManager.instance.glow5.SetActive(true);
                 break;
-        }   
+        }
 
         if (activeWeapon != null)
         {
@@ -653,7 +653,7 @@ public class playerController : MonoBehaviour, IDamage
             bulletCountUpdate();
 
             // Make sure proper reticle is active
-            //reticleSwap(); <--------------------- Calling in Update() now!
+            //reticleSwap(); <------98888888888888881
         }
     }
 
@@ -1059,18 +1059,18 @@ public class playerController : MonoBehaviour, IDamage
 
     void zoom()
     {
-    //    if (activeWeapon != null)
-    //    {
-    //        isZoomed = Input.GetButton("Zoom");
-    //        if (isZoomed && activeWeapon.canZoom == true)
-    //        {
-    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
-    //        }
-    //        else
-    //        {
-    //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 10f * Time.deltaTime);
-    //        }
-    //    }
+        //    if (activeWeapon != null)
+        //    {
+        //        isZoomed = Input.GetButton("Zoom");
+        //        if (isZoomed && activeWeapon.canZoom == true)
+        //        {
+        //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
+        //        }
+        //        else
+        //        {
+        //            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 10f * Time.deltaTime);
+        //        }
+        //    }
 
 
         if (isSprinting)
@@ -1206,18 +1206,21 @@ public class playerController : MonoBehaviour, IDamage
         //weaponHolderPos.transform.eulerAngles = new Vector3(0, 0, 0);
 
         weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
-        weaponPos.transform.localScale = new Vector3(0, 0, 0);
-        shootPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
+        //weaponPos.transform.localScale = new Vector3(0, 0, 0);
+        weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
         weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
-
+        shootPos.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     void ChangeWeapon()
     {
         ResetWeapon();
 
-        weaponPos.transform.localScale = activeWeapon.weaponScale;
         weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
+        weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
+        //weaponPos.transform.localScale = activeWeapon.weaponScale;
+        weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
         weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
         shootPos.transform.localPosition = activeWeapon.shootPos;
 
@@ -1242,6 +1245,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public void addWeapon(weapon gun)
     {
+        ResetWeapon();
+
         bool found = false;
         aud.PlayOneShot(audPickup, audPickupVol);
 
