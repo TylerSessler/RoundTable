@@ -442,9 +442,10 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 503
-  groundMask:
+  ceilingLayer:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1015
+  ceilingCheckDistance: 1.25
   playerSettings:
     cameraSensHor: 10
     cameraSensVer: 10

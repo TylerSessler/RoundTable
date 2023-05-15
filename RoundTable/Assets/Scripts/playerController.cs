@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
-using static gameManager;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -110,8 +109,9 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("---Settings---")]
     public LayerMask playerMask;
-    public LayerMask groundMask;
-    public gameManager.PlayerSettings playerSettings;
+    public LayerMask ceilingLayer;
+    [SerializeField] float ceilingCheckDistance;
+    [SerializeField] gameManager.PlayerSettings playerSettings;
     [SerializeField] float gravity;
     [SerializeField] Vector3 jumpForce;
     public float playerGravity;
@@ -717,6 +717,12 @@ public class playerController : MonoBehaviour, IDamage
 
     void Jumping()
     {
+        if (IsHittingCeiling())
+        {
+            // Player is hitting the ceiling. Apply downward force, set jumpForce to zero, or handle it however you want.
+            jumpForce = Vector3.zero;
+        }
+
         if (!isGrounded())
         {
             //isSprinting = false; // Can comment this out if you want to always sprint
@@ -750,6 +756,19 @@ public class playerController : MonoBehaviour, IDamage
                 timeSinceLastJump = playerSettings.jumpTimeWindow + 1f;
             }
         }
+    }
+
+    bool IsHittingCeiling()
+    {
+        if (!gravityFlipped)
+        {
+            return Physics.Raycast(transform.position, Vector3.up, ceilingCheckDistance, ceilingLayer);
+        }
+        else 
+        {
+            return Physics.Raycast(transform.position, Vector3.down, ceilingCheckDistance, ceilingLayer);
+        }
+        
     }
 
     void SetIsFalling()
