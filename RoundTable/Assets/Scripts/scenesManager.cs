@@ -65,6 +65,7 @@ public class scenesManager : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(s.ToString());
         operation.allowSceneActivation = false;
 
+        
         while (operation.progress < 0.9f)
         {
             float progressValue = Mathf.Clamp01(operation.progress / 0.9f);

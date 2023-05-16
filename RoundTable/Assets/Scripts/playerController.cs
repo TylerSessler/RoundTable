@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float lockVerMin;
     [SerializeField] float lockVerMax;
     [SerializeField] GameObject playerBullet;
+    [SerializeField] GameObject grenade;
     [SerializeField] GameObject activeModel;
     [SerializeField] AudioSource aud;
 
@@ -82,6 +83,7 @@ public class playerController : MonoBehaviour, IDamage
     public bool hasObjective;
     [SerializeField] float shootRate;
     [SerializeField] float shootRange;
+    [SerializeField] float throwPower;
     public int weaponDamage;
 
     [Header("--- Weapon Transformations---")]
@@ -90,7 +92,6 @@ public class playerController : MonoBehaviour, IDamage
     public Transform weaponSightsPos;
     [SerializeField] Transform shootPos;
 
-    [Header("Store")]
     [Header("----- Weapon ADS Stats -----")]
     [SerializeField] float zoomMax;
     [SerializeField] int zoomInSpeed;
@@ -1008,13 +1009,15 @@ public class playerController : MonoBehaviour, IDamage
         // Enter loop while player is **holding** left click, leave when player releases
         while (Input.GetButton("Shoot"))
         {
-            trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * 2);
+            trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * throwPower);
             yield return new WaitForEndOfFrame();
         }
         // Loop has cancelled, meaning player let go of left click.
         // Throw grenade
-        GameObject grenadeClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
-        grenadeClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * 1;
+        GameObject grenadeClone = Instantiate(grenade, shootPos.position, playerBullet.transform.rotation);
+        Rigidbody projectile = grenadeClone.GetComponent<Rigidbody>();
+        projectile.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
+        
         // Reduce current ammo
         activeWeapon.clipSize--;
         trajectoryRender.instance.trajectoryLine.enabled = false;
@@ -1095,20 +1098,16 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator reload()
     {
-        Debug.Log("Reload Called");
         isReloading = true;
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
         {
-            Debug.Log("Need Bullet");
             // Prevent overloading
             if (activeWeapon.clipSize < activeWeapon.maxClip)
             {
-                Debug.Log("Not overloading");
                 // Prevent free-loading
                 if (activeWeapon.ammo > 0)
                 {
-                    Debug.Log("Not free-loading");
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;

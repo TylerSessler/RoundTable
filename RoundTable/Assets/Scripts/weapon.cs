@@ -27,6 +27,7 @@ public class weapon : ScriptableObject
     public int maxAmmo;
     public int clipSize;
     public int maxClip;
+    public float delay;
     public bool canZoom;
     public float reloadTime;
     public GameObject model;
