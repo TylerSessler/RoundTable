@@ -242,12 +242,19 @@ public class playerController : MonoBehaviour, IDamage
         input.Disable();
     }
 
+    private void FixedUpdate()
+    {
+        movement();
+        RotatePlayer();
+        Cam();
+    }
+
     void Update()
     {
         if (Time.timeScale != 0)
         {
             RotatePlayer();
-            movement();
+            //movement();
             PlayerStance();
             inventory();
             reticleSwap();
@@ -275,10 +282,10 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    void LateUpdate()
-    {
-        Cam();
-    }
+    //void LateUpdate()
+    //{
+    //    Cam();
+    //}
 
     public void setPlayerPos()
     {
@@ -695,6 +702,10 @@ public class playerController : MonoBehaviour, IDamage
             playerPose = gameManager.PlayerPose.Stand;
             //return; This can be used to make the player stand up only and not jump at the same time.
         }
+        else if (playerPose == gameManager.PlayerPose.Prone)
+        {
+            return;
+        }
 
         // Perform the jump...
         jumpCount++;
@@ -713,7 +724,6 @@ public class playerController : MonoBehaviour, IDamage
         aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
         currentWeapon.TriggerJump();
     }
-
 
     void Jumping()
     {

@@ -190,11 +190,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c622a59feed75aa4d97902d64ed9c5b6, type: 3}
   m_PrefabInstance: {fileID: 1620079150}
   m_PrefabAsset: {fileID: 0}
---- !u!120 &9880617 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 3205496135787335894, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-  m_PrefabInstance: {fileID: 1200795380}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &17186965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9485,10 +9480,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4727310255941339970, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5520502456987949596, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -9533,26 +9524,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5520502456987949598, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5520502456987949666, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
       propertyPath: m_Name
       value: TempPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 7655903087687769168, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: smooth
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655903087687769168, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: maxLineLength
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655903087687769168, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
-      propertyPath: trajectoryLine
-      value: 
-      objectReference: {fileID: 9880617}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c3f3c797b8ed804686638fdc35197a1, type: 3}
 --- !u!4 &1201105651 stripped

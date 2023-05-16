@@ -475,7 +475,7 @@ MonoBehaviour:
     isGroundedRadius: 0.25
     isFallingSpeed: 3
     groundDistance: 0.5
-  gravity: 0.01
+  gravity: 0.2
   jumpForce: {x: 0, y: 0, z: 0}
   playerGravity: 0
   isFalling: 0
