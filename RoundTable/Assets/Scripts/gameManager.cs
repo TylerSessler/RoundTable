@@ -218,7 +218,7 @@ public class gameManager : MonoBehaviour
             extractionZone.SetActive(false);
         }
 
-        if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
+        if (gameManager.instance.extractionZone != null && playerScript.hasObjective) 
         {
             startTimer();
         }
