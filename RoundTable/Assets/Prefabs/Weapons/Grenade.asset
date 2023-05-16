@@ -27,10 +27,11 @@ MonoBehaviour:
   range: 1
   ammo: 2
   maxAmmo: 2
-  clipSize: 1
+  clipSize: 0
   maxClip: 1
+  delay: 3
   canZoom: 0
-  reloadTime: 6
+  reloadTime: 3
   model: {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
   sprite: {fileID: 2800000, guid: be084087035856745973edaed758d3ba, type: 3}
   weaponShootAud: {fileID: 0}
