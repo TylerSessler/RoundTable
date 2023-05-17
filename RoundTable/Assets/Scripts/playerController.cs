@@ -1005,7 +1005,11 @@ public class playerController : MonoBehaviour, IDamage
         else if (activeWeapon.label == "Grenade")
         {
             trajectoryRender.instance.trajectoryLine.enabled = true;
-            StartCoroutine(throwGrenade());
+            if (activeWeapon.clipSize >0)
+            {
+                StartCoroutine(throwGrenade());
+            }
+            
         }
     }
 
@@ -1123,6 +1127,7 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
         }
+
         yield return new WaitForSeconds(activeWeapon.reloadTime);
 
         isReloading = false;

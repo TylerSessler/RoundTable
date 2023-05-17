@@ -33,25 +33,23 @@ public class grenade : MonoBehaviour
 
         // Deal damage to nearby objects.
         Collider[] hitColliders = Physics.OverlapSphere(projectile.transform.position, explosionRange);
-        for (int i = 0; i < hitColliders.Length; i++) 
+        foreach (Collider hitCollider in hitColliders)
         {
-            foreach (Collider hitCollider in hitColliders)
+            IDamage damageable = hitCollider.GetComponent<IDamage>();
+            if (damageable != null)
             {
-                IDamage damageable = hitCollider.GetComponent<IDamage>();
-                if (damageable != null)
+                // Explosion does less damage to player
+                if (hitCollider.CompareTag("Player"))
                 {
-                    // Explosion does less damage to player
-                    if (hitCollider.CompareTag("Player"))
-                    {
-                        damageable.takeDamage(explosionDamage);
-                    }
-                    else
-                    {
-                        damageable.takeDamage(explosionDamage*2);
-                    }
+                    damageable.takeDamage(explosionDamage);
+                }
+                else
+                {
+                    damageable.takeDamage(explosionDamage*2);
                 }
             }
         }
+        
         // Play explosion effect
         explosion.Play();
         yield return new WaitForSeconds(0.75f);
