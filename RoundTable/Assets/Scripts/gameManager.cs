@@ -228,6 +228,7 @@ public class gameManager : MonoBehaviour
         if(PlayerPrefs.HasKey("Credits"))
         {
             loadCredits();
+            gameManager.instance.playerScript.LoadPlayerData();
             creditsAvailableUIUpdate();
         }
 

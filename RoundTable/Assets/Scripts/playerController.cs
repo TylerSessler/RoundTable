@@ -228,10 +228,6 @@ public class playerController : MonoBehaviour, IDamage
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
         setPlayerPos();
-        if (PlayerPrefs.HasKey("CurrentHealth"))
-        {
-            LoadPlayerData();
-        }
     }
 
     private void OnEnable()
