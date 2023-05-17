@@ -24,7 +24,8 @@ public class trajectoryRender : MonoBehaviour
         {
             Debug.Log("point: " + i + " is at " + renderPoints[i]);
         }
-        trajectoryLine.SetPositions(renderPoints);
+        this.trajectoryLine.enabled = true;
+        this.trajectoryLine.SetPositions(renderPoints);
     }
 
     Vector3[] calculateLine(Vector3 start, Vector3 velocity, float spacing)
@@ -36,7 +37,7 @@ public class trajectoryRender : MonoBehaviour
             float offset = spacing * i;
 
             Vector3 preGrav = start * offset;
-            Vector3 gravOffset = Vector3.up * 1f * 1 * offset * offset;
+            Vector3 gravOffset = Camera.main.transform.up * 1f * 1 * offset * offset;
             Vector3 postGrav = start + preGrav - gravOffset;
             renderPoints[i] = postGrav;
         }

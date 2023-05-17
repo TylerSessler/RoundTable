@@ -244,7 +244,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4727310255941339970}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -288,8 +288,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.017910004
-        value: 0.12838554
+        time: 0
+        value: 0.9932533
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -401,6 +401,7 @@ MonoBehaviour:
   lockVerMin: -90
   lockVerMax: 90
   playerBullet: {fileID: 4666130587434676967, guid: 664044c8bc0b8c14991c83e9e8970936, type: 3}
+  grenade: {fileID: 7990681184388241291, guid: 4623b6779b242ce48b1b97e90b1f337d, type: 3}
   activeModel: {fileID: 6176959737010256972}
   aud: {fileID: 1272312315572411503}
   health: 10
@@ -428,6 +429,7 @@ MonoBehaviour:
   hasObjective: 0
   shootRate: 0
   shootRange: 0
+  throwPower: 15
   weaponDamage: 0
   weaponHolderPos: {fileID: 7050311812053723958}
   weaponPos: {fileID: 147114748739179905}
