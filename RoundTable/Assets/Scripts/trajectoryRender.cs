@@ -22,7 +22,7 @@ public class trajectoryRender : MonoBehaviour
         trajectoryLine.positionCount = smooth;
         for (int i = 0; i < renderPoints.Length; i++)
         {
-            Debug.Log("point: " + i + " is at " + renderPoints[i]);
+            //Debug.Log("point: " + i + " is at " + renderPoints[i]);
         }
         trajectoryLine.SetPositions(renderPoints);
     }
