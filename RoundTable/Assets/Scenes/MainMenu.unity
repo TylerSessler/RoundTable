@@ -123,6 +123,82 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &38365166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38365167}
+  - component: {fileID: 38365169}
+  - component: {fileID: 38365168}
+  m_Layer: 5
+  m_Name: Background(new)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &38365167
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38365166}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1792294950}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1820, y: 980}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &38365168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38365166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: abe172e4d463bb644952afe464b885fe, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &38365169
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38365166}
+  m_CullTransparentMesh: 1
 --- !u!1 &85313297
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +706,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
         m_MethodName: buttonAudio
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1401,6 +1489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 443824140}
   - component: {fileID: 443824141}
+  - component: {fileID: 443824142}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -1425,7 +1514,7 @@ RectTransform:
   - {fileID: 1341512158}
   - {fileID: 610719170}
   m_Father: {fileID: 1045584780}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1453,6 +1542,26 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+--- !u!95 &443824142
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443824139}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9943dd36506f1c24ea1329d86e570eb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &523710614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3579,11 +3688,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1591911926}
+  - {fileID: 1792294950}
   - {fileID: 1594521501}
   - {fileID: 793761842}
-  - {fileID: 443824140}
   - {fileID: 1113891197}
+  - {fileID: 443824140}
   - {fileID: 867598815}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -4037,6 +4146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113891197}
   - component: {fileID: 1113891198}
+  - component: {fileID: 1113891199}
   m_Layer: 5
   m_Name: LevelSelectMenu
   m_TagString: Untagged
@@ -4062,7 +4172,7 @@ RectTransform:
   - {fileID: 1380995339}
   - {fileID: 1585128415}
   m_Father: {fileID: 1045584780}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4090,6 +4200,26 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+--- !u!95 &1113891199
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113891196}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c9186a63fdfc9a46a1cacef0079f75b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1118115267
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,6 +5732,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1585128417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5670,13 +5812,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1045584780}
+  m_Father: {fileID: 1792294950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1820, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1591911927
 MonoBehaviour:
@@ -6399,7 +6541,45 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -42}
+  m_AnchoredPosition: {x: 0, y: -202}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1792294949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792294950}
+  m_Layer: 5
+  m_Name: Backgrounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1792294950
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792294949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1591911926}
+  - {fileID: 38365167}
+  m_Father: {fileID: 1045584780}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1795865119
@@ -6865,7 +7045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -761}
+  m_AnchoredPosition: {x: 0, y: -867}
   m_SizeDelta: {x: 160, y: 71.95628}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1818973053
@@ -6890,110 +7070,108 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Male Jumping and Landing by pekena_larva
 
-    
 
-    Footsteps-Tiles
-    by DWOBoyle
 
-    
+    Footsteps-Tiles by DWOBoyle
 
-    SniperShot by EMSlarma
 
-    
 
-    AssaultRifle3 by
-    SuperPhat
+    SniperShot
+    by EMSlarma
 
-    
+
+
+    AssaultRifle3 by SuperPhat
+
+
 
     Pistol Shoot by Carlfnf
 
-    
 
-    Punch1 by Merrick079
 
-    
+    Punch1
+    by Merrick079
 
-    Lazors
-    by loudernoises
 
-    
+
+    Lazors by loudernoises
+
+
 
     Camera Click_NIKON by Snapper4298
 
-    
+
 
     Glock19_reload
     Fr3yr
 
-    
+
 
     Gun reload by Mixedupmoviestuff
 
-    
 
-    Easy swap by
-    Ryzhikoff
 
-    
+    Easy swap by Ryzhikoff
 
-    Jingle_Win_00 by LittleRobotSoundFactory
 
-    
 
-    Appear
-    2.0 by Halgrimm
+    Jingle_Win_00
+    by LittleRobotSoundFactory
 
-    
 
-    Jingle_Lose_00 by LittleRobotSoundFactory
 
-    
+    Appear 2.0 by Halgrimm
 
-    Swipe
-    Woosh by qubodup
 
-    
 
-    Bamboo Swing by InspectorJ
+    Jingle_Lose_00
+    by LittleRobotSoundFactory
 
-    
 
-    Background
-    Theme Music by Sunsai
 
-    
+    Swipe Woosh by qubodup
+
+
+
+    Bamboo Swing
+    by InspectorJ
+
+
+
+    Background Theme Music by Sunsai
+
+
 
     ItemPickup by nicholasdaryl
 
-    
+
 
     Coins
     on coins_06 by deleted_user_2104797
 
-    
+
 
     Coins Sounds Lirbrary by LittleRobotSoundFactory
 
-    
+
 
     Coin
     Pile by RoyalReaper_yt
 
-    
+
 
     UI Sound design 2 by nezuai
 
-    
+
 
     Fatoutofspace
     by ibisxenon
 
-    
+
 
     Dusty Lofi Melody Loop by holizna
 
-    
+
 
     jp_lightswitch04
     by JPolito'
@@ -7974,7 +8152,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: -339}
+  m_AnchoredPosition: {x: 0.000061035156, y: -185}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2411581088608746303
