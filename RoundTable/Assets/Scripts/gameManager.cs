@@ -176,7 +176,7 @@ public class gameManager : MonoBehaviour
     {
         instance = this;
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        if (player == null)
+        if (player == null && scenesManager.instance.mainMenuCheck == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
             playerScript = player.GetComponent<playerController>();
@@ -228,6 +228,7 @@ public class gameManager : MonoBehaviour
         if(PlayerPrefs.HasKey("Credits"))
         {
             loadCredits();
+            gameManager.instance.playerScript.LoadPlayerData();
             creditsAvailableUIUpdate();
         }
 
