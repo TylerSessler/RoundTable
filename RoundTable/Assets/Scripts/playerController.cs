@@ -1024,11 +1024,13 @@ public class playerController : MonoBehaviour, IDamage
         
         // Reduce current ammo
         activeWeapon.clipSize--;
+        bulletCountUpdate();
         trajectoryRender.instance.trajectoryLine.enabled = false;
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
 
     }
+
 
     void AimPressed()
     {
