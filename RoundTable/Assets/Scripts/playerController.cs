@@ -320,7 +320,7 @@ public class playerController : MonoBehaviour, IDamage
             PlayerPrefs.SetInt(inv[i].label, 1);
             PlayerPrefs.SetInt(inv[i].label + "Ammo", inv[i].ammo);
         }
-
+        Debug.Log("Saving player data");
         PlayerPrefs.Save();
     }
 
