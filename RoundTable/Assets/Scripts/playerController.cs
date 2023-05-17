@@ -325,6 +325,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void LoadPlayerData()
     {
+        int counter = 1;
         health = PlayerPrefs.GetInt("CurrentHealth");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
         sprintSpeed = PlayerPrefs.GetFloat("SprintSpeed");
@@ -338,21 +339,24 @@ public class playerController : MonoBehaviour, IDamage
         {
             //add pistol to inventory
             addWeapon(pistol);
-            inv[1].ammo = PlayerPrefs.GetInt("PistolAmmo");
+            inv[counter].ammo = PlayerPrefs.GetInt("PistolAmmo");
+            counter++;
         }
 
         if (PlayerPrefs.HasKey("Rifle") && PlayerPrefs.GetInt("Rifle") == 1)
         {
             //add rifle to inventory
             addWeapon(rifle);
-            inv[2].ammo = PlayerPrefs.GetInt("RifleAmmo");
+            inv[counter].ammo = PlayerPrefs.GetInt("RifleAmmo");
+            counter++;
         }
 
         if (PlayerPrefs.HasKey("Sniper") && PlayerPrefs.GetInt("Sniper") == 1)
         {
             //add sniper to inventory
             addWeapon(sniper);
-            inv[3].ammo = PlayerPrefs.GetInt("SniperAmmo");
+            inv[counter].ammo = PlayerPrefs.GetInt("SniperAmmo");
+            counter++;
         }
         if (PlayerPrefs.HasKey("Grenade") && PlayerPrefs.GetInt("Grenade") == 1)
         {
