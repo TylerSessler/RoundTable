@@ -204,7 +204,8 @@ public class playerController : MonoBehaviour, IDamage
         playerRotation = transform.localRotation.eulerAngles;
 
         //cameraHeight = mainCamera.localPosition.y;
-
+        inv.Add(meleeweapon);
+        
         if (currentWeapon)
         {
             currentWeapon.Initialize(this);
@@ -222,11 +223,11 @@ public class playerController : MonoBehaviour, IDamage
         camerHeightOrig = cameraHeight;
         playerRotationOffset = 0f;
 
+
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
         reticleSwap();
         setPlayerPos();
-        inv.Add(meleeweapon);
         if (PlayerPrefs.HasKey("CurrentHealth"))
         {
             LoadPlayerData();
@@ -325,6 +326,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void LoadPlayerData()
     {
+        Debug.Log("Loading player data");
         int counter = 1;
         health = PlayerPrefs.GetInt("CurrentHealth");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
