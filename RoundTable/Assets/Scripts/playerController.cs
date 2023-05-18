@@ -214,7 +214,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void Start()
     {
-        trajectoryRender.instance.trajectoryLine.enabled = false;
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
@@ -1000,7 +999,6 @@ public class playerController : MonoBehaviour, IDamage
         // Player has grenade selected
         else if (activeWeapon.label == "Grenade")
         {
-            trajectoryRender.instance.trajectoryLine.enabled = true;
             if (activeWeapon.clipSize >0)
             {
                 StartCoroutine(throwGrenade());
@@ -1015,7 +1013,6 @@ public class playerController : MonoBehaviour, IDamage
         // Enter loop while player is **holding** left click, leave when player releases
         while (Input.GetButton("Shoot"))
         {
-            trajectoryRender.instance.drawLine(gameManager.instance.playerScript.shootPos.position, Camera.main.transform.forward * throwPower);
             yield return new WaitForEndOfFrame();
         }
         // Loop has cancelled, meaning player let go of left click.
@@ -1027,7 +1024,6 @@ public class playerController : MonoBehaviour, IDamage
         // Reduce current ammo
         activeWeapon.clipSize--;
         bulletCountUpdate();
-        trajectoryRender.instance.trajectoryLine.enabled = false;
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
 
@@ -1110,7 +1106,7 @@ public class playerController : MonoBehaviour, IDamage
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
         {
-            aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
+            aud.PlayOneShot(weaponReloadAud, weaponReloadVol * volumeController.instance.);
         }
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
