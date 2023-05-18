@@ -225,7 +225,7 @@ public class gameManager : MonoBehaviour
 
         creditsValueText.text = credits.ToString();
 
-        if(PlayerPrefs.HasKey("Credits"))
+        if(PlayerPrefs.HasKey("Credits") && scenesManager.instance.mainMenuCheck == null)
         {
             loadCredits();
             gameManager.instance.playerScript.LoadPlayerData();
