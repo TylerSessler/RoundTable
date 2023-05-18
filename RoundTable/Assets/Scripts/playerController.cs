@@ -1106,7 +1106,7 @@ public class playerController : MonoBehaviour, IDamage
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
         {
-            aud.PlayOneShot(weaponReloadAud, weaponReloadVol * volumeController.instance.);
+            aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
         }
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
