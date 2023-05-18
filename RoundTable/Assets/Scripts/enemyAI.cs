@@ -48,6 +48,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isRoaming;
     bool isPatrol;
     float speed;
+    bool sawPlayer;
 
 
     [Header("Audio")]
@@ -105,6 +106,7 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= sightAngle)
             {
+                sawPlayer = true;
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
@@ -121,22 +123,7 @@ public class enemyAI : MonoBehaviour, IDamage
         return false;
     }
 
-    bool strippedVision()
-    {
-        playerDir = (gameManager.instance.player.transform.position - headPos.position);
-        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit, shootDist))
-        {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= sightAngle)
-            {
-                return true;
-            }
-        }
-        
-        return false;
-    }
+   
 
     IEnumerator shoot()
     {
@@ -209,6 +196,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+
         }
     }
 
@@ -217,7 +205,18 @@ public class enemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            if (sawPlayer)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                StopCoroutine(delayedAgro());
+                StartCoroutine(delayedAgro());
+            }
         }
+    }
+    IEnumerator delayedAgro()
+    {
+        yield return new WaitForSeconds(3f);
+        agent.SetDestination(gameManager.instance.player.transform.position);
     }
 
     public void takeDamage(int amount)
