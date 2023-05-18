@@ -272,7 +272,6 @@ public class gameManager : MonoBehaviour
         pauseState();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
-        music.Pause();
         aud.PlayOneShot(audLose, audLoseVol);
     }
 
@@ -292,7 +291,6 @@ public class gameManager : MonoBehaviour
 
     public void winCondition()
     {
-        music.Pause();
         aud.PlayOneShot(audWin, audWinVol);
         activeMenu = winMenu;
         activeMenu.SetActive(true);
