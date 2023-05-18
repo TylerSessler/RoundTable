@@ -315,13 +315,11 @@ public class playerController : MonoBehaviour, IDamage
             PlayerPrefs.SetInt(inv[i].label, 1);
             PlayerPrefs.SetInt(inv[i].label + "Ammo", inv[i].ammo);
         }
-        Debug.Log("Saving player data");
         PlayerPrefs.Save();
     }
 
     public void LoadPlayerData()
     {
-        Debug.Log("Loading player data");
         int counter = 1;
         health = PlayerPrefs.GetInt("CurrentHealth");
         originalHealth = PlayerPrefs.GetInt("MaxHealth");
@@ -934,7 +932,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (Physics.Raycast(transform.position, Vector3.down, out floorCheck, 1.25f) || controller.isGrounded)
             {
-                Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 return true;
             }
             return false;
@@ -943,7 +940,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (Physics.Raycast(transform.position, Vector3.up, out floorCheck, 1.25f) || controller.isGrounded)
             {
-                Debug.DrawRay(transform.position, Vector3.up, Color.red);
                 return true;
             }
             return false;

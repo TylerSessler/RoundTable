@@ -22,9 +22,7 @@ public class mainMenu : MonoBehaviour
 
     public void Update()
     {
-        Debug.Log(EventSystem.current);
         
-
     }
     public void Start()
     {
@@ -45,7 +43,7 @@ public class mainMenu : MonoBehaviour
     }
     public void Level2Load()
     {
-        //StartCoroutine(delay(scenesManager.Scene.Level02));
+        StartCoroutine(delay(scenesManager.Scene.Level02));
     }
     public void Level3Load()
     {
@@ -89,20 +87,16 @@ public class mainMenu : MonoBehaviour
     public void newSelection()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        Debug.Log("newSelection Called");
         if (mainMenuOpen)
         {
-            Debug.Log("mainMenuOpen");
             EventSystem.current.SetSelectedGameObject(mainMenuFirst);
         }
         else if (levelSelectOpen)
         {
-            Debug.Log("levelSelectOpen");
             EventSystem.current.SetSelectedGameObject(levelSelectFirst);
         }
         else if (optionsOpen)
         {
-            Debug.Log("optionsOpen");
             EventSystem.current.SetSelectedGameObject(optionsSelectFirst);
         }
     }

@@ -22,7 +22,6 @@ public class scenesManager : MonoBehaviour
 
         if (mainMenuCheck != null)
         {
-            Debug.Log("mainMenuCheck");
             gameManager.instance.creditsUI.SetActive(false);
             gameManager.instance.extractionUI.SetActive(false);
             gameManager.instance.hotbarSquaresUI.SetActive(false);
@@ -41,14 +40,12 @@ public class scenesManager : MonoBehaviour
         Level01,
         Level02,
         Level03,
-        DebugLevel,
     }
 
     public void LoadScene(Scene s)
     {
         if (gameManager.instance.player != null)
         {
-            Debug.Log("Test");
             gameManager.instance.playerScript.SavePlayerData();
             gameManager.instance.saveCredits();
         }
