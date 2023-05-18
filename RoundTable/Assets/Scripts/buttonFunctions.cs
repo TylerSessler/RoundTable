@@ -5,10 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
+    [Header("Audio")]
+    [SerializeField] public AudioSource aud;
+    [SerializeField] public AudioClip click;
+    [SerializeField][Range(0, 1)] public float clickVol;
+
     public void resume()
     {
         gameManager.instance.unpauseState();
         gameManager.instance.isPaused = !gameManager.instance.isPaused;
+        
     }
 
     public void restart()
@@ -36,5 +42,10 @@ public class buttonFunctions : MonoBehaviour
     public void quit()
     {
         Application.Quit();
+    }
+
+    public void buttonAudio()
+    {
+        aud.PlayOneShot(click);
     }
 }

@@ -124,6 +124,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: mainMenu
         m_Mode: 1
         m_Arguments:
@@ -392,6 +404,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: mainMenu
@@ -934,6 +958,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: options
         m_Mode: 1
         m_Arguments:
@@ -1066,6 +1102,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: mainMenu
@@ -3178,6 +3226,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: back
         m_Mode: 1
         m_Arguments:
@@ -5140,6 +5200,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
         m_Arguments:
@@ -5571,6 +5643,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
         m_Arguments:
@@ -5838,6 +5922,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: restart
@@ -6324,6 +6420,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
         m_Arguments:
@@ -6456,6 +6564,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: resume
@@ -6673,6 +6793,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: restart
         m_Mode: 1
         m_Arguments:
@@ -6805,6 +6937,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7159330025367608156}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: restart
@@ -6947,7 +7091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aud: {fileID: 6076398}
-  music: {fileID: 6076398}
+  music: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   playerSpawnPos: {fileID: 0}
@@ -7016,6 +7160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ed77cd0c6ea5e44a86902e6fd48086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 6076398}
+  click: {fileID: 8300000, guid: 3a0d6b766a7fb3940adabd5c109d8729, type: 3}
+  clickVol: 0.5
 --- !u!82 &6076398
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8625,6 +8772,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7159330025367608156}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: buttonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8215388737358715861}
         m_TargetAssemblyTypeName: scenesManager, Assembly-CSharp
         m_MethodName: LoadItemShop
