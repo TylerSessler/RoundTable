@@ -5320,6 +5320,7 @@ GameObject:
   - component: {fileID: 7159330024671064895}
   - component: {fileID: 7159330024671064888}
   - component: {fileID: 7159330024671064889}
+  - component: {fileID: 1888825204}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -5426,6 +5427,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &1888825204
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7159330024671064890}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf74eada2d5f9274cb87e7be9ca62a0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7159330024922201537
 GameObject:
   m_ObjectHideFlags: 0
@@ -6926,7 +6947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aud: {fileID: 6076398}
-  music: {fileID: 0}
+  music: {fileID: 6076398}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   playerSpawnPos: {fileID: 0}
