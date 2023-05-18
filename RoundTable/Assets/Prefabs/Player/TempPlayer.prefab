@@ -214,7 +214,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5520502456987949596}
   - component: {fileID: 5520502456987949597}
-  - component: {fileID: 7655903087687769168}
   - component: {fileID: 5520502456987949598}
   - component: {fileID: 5932448211214763876}
   - component: {fileID: 6138344933840682644}
@@ -407,21 +406,6 @@ MonoBehaviour:
   weaponReloadAud: {fileID: 0}
   weaponShootVol: 0
   weaponReloadVol: 0
---- !u!114 &7655903087687769168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5520502456987949666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f168db30994b1a47aa1b2b41ced349d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLineLength: 3
-  trajectoryLine: {fileID: 0}
-  smooth: 75
 --- !u!143 &5520502456987949598
 CharacterController:
   m_ObjectHideFlags: 0
@@ -541,7 +525,7 @@ AudioSource:
   m_GameObject: {fileID: 5520502456987949666}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 9101472476045299753, guid: 03f85c4e4bc6ddd4f924a10ec2d27bf3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
