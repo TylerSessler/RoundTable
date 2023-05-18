@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponScale: {x: 0.4, y: 0.4, z: 0.4}
   weaponSightsPos: {x: 0, y: 0.8, z: -0.725}
   shootPos: {x: 0, y: 0.525, z: 2.525}
-  zoomMaxFov: 45
+  zoomMaxFov: 50
   zoomInFOVSpeed: 8
   zoomOutFOVSpeed: 8
   ADSSpeed: 20
