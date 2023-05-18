@@ -1757,6 +1757,7 @@ MonoBehaviour:
   drops:
   - {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
   - {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
+  - {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
   creditsDropped: 1
   audShoot:
   - {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
