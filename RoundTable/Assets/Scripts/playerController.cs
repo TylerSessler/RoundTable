@@ -1107,6 +1107,11 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator reload()
     {
         isReloading = true;
+        // Audio conditional
+        if (activeWeapon.clipSize < activeWeapon.maxClip)
+        {
+            aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
+        }
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
         {
@@ -1119,7 +1124,6 @@ public class playerController : MonoBehaviour, IDamage
                     // swap ammo from supply->clip
                     activeWeapon.ammo--;
                     activeWeapon.clipSize++;
-                    aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
                 }
             }
         }
