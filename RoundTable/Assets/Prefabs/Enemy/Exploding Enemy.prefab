@@ -480,6 +480,51 @@ Transform:
   m_Father: {fileID: 5575509117573706362}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2006657447970510338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2631854272428487050}
+  - component: {fileID: 1412263661272385190}
+  m_Layer: 6
+  m_Name: Explosion Range
+  m_TagString: Explosion Sphere
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2631854272428487050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006657447970510338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6467911132272971854}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1412263661272385190
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006657447970510338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2331977476073642056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,7 +1734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6467911132272971854}
-  - component: {fileID: 3815457707330543825}
+  - component: {fileID: 7559825712789997832}
   - component: {fileID: 1760781311034937510}
   - component: {fileID: 6226467182188501213}
   - component: {fileID: 5987727855957975911}
@@ -1716,10 +1761,11 @@ Transform:
   m_Children:
   - {fileID: 8856464673984254811}
   - {fileID: 8062182063937469315}
+  - {fileID: 2631854272428487050}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3815457707330543825
+--- !u!114 &7559825712789997832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1728,40 +1774,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 5336611790063948087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272a9c59bfbb04a4898073743b6040ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 42de8d0af57549d4280474e25141a336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7615992037484738775}
   agent: {fileID: 1760781311034937510}
   anim: {fileID: 6226467182188501213}
   headPos: {fileID: 753547999463877052}
-  shootPos: {fileID: 2840202162596024600}
   aud: {fileID: 5987727855957975911}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 1
+  explosionTrigger: {fileID: 1412263661272385190}
+  HP: 5
   playerFaceSpeed: 5
   sightAngle: 45
+  sightRange: 20
   roamRange: 15
   roamCooldown: 3
   animTransSpeed: 10
   roamAllowed: 1
   patrolAllowed: 0
-  shootDamage: 1
-  shootRate: 1
-  shootDist: 2
-  bulletSpeed: 1
-  vertSpread: 0
-  HoriSpread: 0
-  bullet: {fileID: 8854873231658219293, guid: 2760dd0d1deb56e4facc04999fe19275, type: 3}
+  explosionTimer: 3
+  explosionRadius: 3
+  explosionRange: 5
+  explosionDamage: 5
+  explosionPrefab: {fileID: 2006657447970510338}
+  flashFrequency: 0.25
   drops:
-  - {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
-  - {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
-  - {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   creditsDropped: 1
-  audShoot:
-  - {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
-  audShootVol: 0.1
+  audExplosion:
+  - {fileID: 0}
+  audExplosionVol: 1
 --- !u!195 &1760781311034937510
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1776,7 +1822,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -1792,7 +1838,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5336611790063948087}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4ece57991115b8c43ab07bf1fc820ba3, type: 2}
   m_CullingMode: 0
