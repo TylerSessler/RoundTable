@@ -71,7 +71,6 @@ public class explodingEnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-
         speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
         anim.SetFloat("Speed", speed);
 

@@ -489,8 +489,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             playerSettings.isJumping = false;
 
-            float forwardSpeed = verticalSpeed * inputMovement.y * Time.fixedDeltaTime;
-            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.fixedDeltaTime;
+            float forwardSpeed = verticalSpeed * inputMovement.y * Time.deltaTime;
+            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.deltaTime;
             movementSpeed = Vector3.SmoothDamp(movementSpeed, new Vector3(strafeSpeed, 0, forwardSpeed), ref velocitySpeed, isGrounded() ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
 
             float backwardJumpingFactor = inputMovement.y < 0 ? 0.75f : 1f;
