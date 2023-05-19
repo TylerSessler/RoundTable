@@ -28,7 +28,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] GameObject playerBullet;
     [SerializeField] GameObject grenade;
     [SerializeField] GameObject activeModel;
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
+    explodingEnemyAI explodingEnemy;
 
     Vector3 cameraRotation;
     Vector3 playerRotation;
@@ -368,11 +369,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (!gravityFlipped)
             {
-                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.fixedDeltaTime;
+                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
             }
             else
             {
-                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.fixedDeltaTime;
+                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
             }
 
             playerRotation.z = playerRotationOffset;
@@ -383,7 +384,7 @@ public class playerController : MonoBehaviour, IDamage
     void Cam()
     {
         // Camera Rotation
-        cameraRotation.x += (isAiming ? playerSettings.cameraSensVer * playerSettings.aimSpeedEffector : playerSettings.cameraSensVer) * (playerSettings.invertY ? inputCamera.y : -inputCamera.y) * Time.fixedDeltaTime;
+        cameraRotation.x += (isAiming ? playerSettings.cameraSensVer * playerSettings.aimSpeedEffector : playerSettings.cameraSensVer) * (playerSettings.invertY ? inputCamera.y : -inputCamera.y) * Time.deltaTime;
         cameraRotation.x = Mathf.Clamp(cameraRotation.x, lockVerMin, lockVerMax);
         mainCamera.localRotation = Quaternion.Euler(cameraRotation);
     }

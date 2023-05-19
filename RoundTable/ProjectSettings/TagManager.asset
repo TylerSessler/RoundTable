@@ -12,6 +12,8 @@ TagManager:
   - Pistol
   - Rifle
   - Sniper
+  - Explosion Sphere
+  - Sight Range
   layers:
   - Default
   - TransparentFX
