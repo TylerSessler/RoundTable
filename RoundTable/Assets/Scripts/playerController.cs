@@ -250,7 +250,8 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (Time.timeScale != 0)
         {
-            RotatePlayer();
+            //RotatePlayer();
+            //Cam();
             //movement();
             PlayerStance();
             inventory();
@@ -367,11 +368,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (!gravityFlipped)
             {
-                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+                playerRotation.y += (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.fixedDeltaTime;
             }
             else
             {
-                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.deltaTime;
+                playerRotation.y -= (isAiming ? playerSettings.cameraSensHor * playerSettings.aimSpeedEffector : playerSettings.cameraSensHor) * (playerSettings.invertX ? -inputCamera.x : inputCamera.x) * Time.fixedDeltaTime;
             }
 
             playerRotation.z = playerRotationOffset;
@@ -382,7 +383,7 @@ public class playerController : MonoBehaviour, IDamage
     void Cam()
     {
         // Camera Rotation
-        cameraRotation.x += (isAiming ? playerSettings.cameraSensVer * playerSettings.aimSpeedEffector : playerSettings.cameraSensVer) * (playerSettings.invertY ? inputCamera.y : -inputCamera.y) * Time.deltaTime;
+        cameraRotation.x += (isAiming ? playerSettings.cameraSensVer * playerSettings.aimSpeedEffector : playerSettings.cameraSensVer) * (playerSettings.invertY ? inputCamera.y : -inputCamera.y) * Time.fixedDeltaTime;
         cameraRotation.x = Mathf.Clamp(cameraRotation.x, lockVerMin, lockVerMax);
         mainCamera.localRotation = Quaternion.Euler(cameraRotation);
     }
@@ -391,7 +392,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (!isGrounded())
         {
-            playerGravity -= gravity * Time.deltaTime;
+            playerGravity -= gravity * Time.fixedDeltaTime;
         }
         else
         {
@@ -487,8 +488,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             playerSettings.isJumping = false;
 
-            float forwardSpeed = verticalSpeed * inputMovement.y * Time.deltaTime;
-            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.deltaTime;
+            float forwardSpeed = verticalSpeed * inputMovement.y * Time.fixedDeltaTime;
+            float strafeSpeed = horizontalSpeed * inputMovement.x * Time.fixedDeltaTime;
             movementSpeed = Vector3.SmoothDamp(movementSpeed, new Vector3(strafeSpeed, 0, forwardSpeed), ref velocitySpeed, isGrounded() ? playerSettings.movementSmoothing : playerSettings.fallingSmoothing);
 
             float backwardJumpingFactor = inputMovement.y < 0 ? 0.75f : 1f;
@@ -526,7 +527,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         newMovementSpeed.y += playerGravity;
-        newMovementSpeed += jumpForce * Time.deltaTime;
+        newMovementSpeed += jumpForce * Time.fixedDeltaTime;
 
         return newMovementSpeed;
     }
@@ -1025,10 +1026,12 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-
     void AimPressed()
     {
-        isAiming = true;
+        if (activeWeapon != null && activeWeapon.label != "Unarmed")
+        {
+            isAiming = true;
+        }
     }
 
     void AimReleased()
@@ -1038,7 +1041,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void Aiming()
     {
-        if (!currentWeapon)
+        if (!currentWeapon && activeWeapon == null && activeWeapon.label == "Unarmed")
         {
             return;
         }
