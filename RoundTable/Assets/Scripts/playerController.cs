@@ -89,6 +89,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float throwPower;
     public int weaponDamage;
 
+
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
     public Transform weaponPos;
@@ -586,6 +587,7 @@ public class playerController : MonoBehaviour, IDamage
 
 void inventory()
     {
+        // Scroll wheel functionality
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // positive
         {
             activeSlot++;
@@ -610,12 +612,16 @@ void inventory()
             // Enable inventory Highlight
             inventoryUI(activeSlot);
         }
+        
         if (Input.GetButtonDown("1"))
         {
+            if (activeSlot != 1)
+            {
+                StopCoroutine(weaponDelay());
+            }
             // Set active weapon & slot for shoot()
             activeWeapon = inv[0];
             activeSlot = 1;
-
             // Enable inventory Highlight
             inventoryUI(1);
         }
@@ -624,10 +630,13 @@ void inventory()
             // Make sure slot is filled
             if (inv.Count >= 2)
             {
+                if (activeSlot != 2)
+                {
+                    StopCoroutine(weaponDelay());
+                }
                 // Set active weapon for shoot()
                 activeWeapon = inv[1];
                 activeSlot = 2;
-
                 // Enable inventory Highlight
                 inventoryUI(2);
             }
@@ -638,10 +647,13 @@ void inventory()
             // Make sure slot is filled
             if (inv.Count >= 3)
             {
+                if (activeSlot != 3)
+                {
+                    StopCoroutine(weaponDelay());
+                }
                 // Set active weapon for shoot()
                 activeWeapon = inv[2];
                 activeSlot = 3;
-
                 // Enable inventory Highlight
                 inventoryUI(3);
             }
@@ -651,6 +663,10 @@ void inventory()
             // Make sure slot is filled
             if (inv.Count >= 4)
             {
+                if (activeSlot != 4)
+                {
+                    StopCoroutine(weaponDelay());
+                }
                 // Set active weapon for shoot()
                 activeWeapon = inv[3];
                 activeSlot = 4;
@@ -664,14 +680,23 @@ void inventory()
             // Make sure slot is filled
             if (inv.Count >= 5)
             {
+                if (activeSlot != 5)
+                {
+                    StopCoroutine(weaponDelay());
+                }
                 // Set active weapon for shoot()
                 activeWeapon = inv[4];
                 activeSlot = 5;
-
                 // Enable inventory Highlight
                 inventoryUI(5);
             }
         }
+    }
+    IEnumerator weaponDelay()
+    {
+        StopCoroutine(shoot());
+        isShooting = false;
+        yield return new WaitForSeconds(1f);
     }
 
     void inventoryUI(int num)
