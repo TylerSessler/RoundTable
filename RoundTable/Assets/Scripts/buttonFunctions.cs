@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
+    public static buttonFunctions instance;
+
     [Header("Audio")]
     [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip click;
     [SerializeField][Range(0, 1)] public float clickVol;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void resume()
     {
@@ -47,6 +54,10 @@ public class buttonFunctions : MonoBehaviour
 
     public void buttonAudio()
     {
-        aud.PlayOneShot(click);
+        if(Input.GetMouseButtonDown(0))
+        {
+            aud.PlayOneShot(click);
+
+        }
     }
 }

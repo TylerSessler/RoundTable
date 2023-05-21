@@ -34,6 +34,7 @@ public class volumeController : MonoBehaviour
         if (enableSound)
         {
             _slider.value = _slider.maxValue;
+            buttonFunctions.instance.buttonAudio();
         }
         else
         {
@@ -54,6 +55,7 @@ public class volumeController : MonoBehaviour
         _disableToggleEvent = true;
         _toggle.isOn = _slider.value > _slider.minValue;
         _disableToggleEvent = false;
+        buttonFunctions.instance.buttonAudio();
     }
 
     // Start is called before the first frame update

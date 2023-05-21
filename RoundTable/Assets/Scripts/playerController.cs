@@ -305,6 +305,7 @@ public class playerController : MonoBehaviour, IDamage
         jumpHeight = originalJumpHeight;
         maxJumps = originalMaxJumps;
         gravity = originalGravity;
+        gameManager.instance.credits = 0;
     }
 
     public void clearWeapons()

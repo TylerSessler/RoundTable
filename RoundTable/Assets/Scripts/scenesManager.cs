@@ -45,7 +45,7 @@ public class scenesManager : MonoBehaviour
 
     public void LoadScene(Scene s)
     {
-        if (gameManager.instance.player != null)
+        if (gameManager.instance.player != null && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("TutorialLevel"))
         {
             gameManager.instance.playerScript.SavePlayerData();
             gameManager.instance.saveCredits();
