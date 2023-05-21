@@ -52,6 +52,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float bulletSpeed;
     [SerializeField] float rotationDuration;
 
+    bool isSprintButtonPressed;
     bool isRotating;
     public bool canRotate;
 
@@ -227,7 +228,7 @@ public class playerController : MonoBehaviour, IDamage
         camerHeightOrig = cameraHeight;
         playerRotationOffset = 0f;
         originalMaxHealth = originalHealth;
-
+        isSprintButtonPressed = false;
 
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
@@ -437,7 +438,11 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
-        if (inputMovement.y <= 0.1f || isAiming)
+        if (inputMovement.y > 0.1f && isSprintButtonPressed && !isAiming)
+        {
+            isSprinting = true;
+        }
+        else
         {
             isSprinting = false;
         }
@@ -1368,6 +1373,8 @@ public class playerController : MonoBehaviour, IDamage
 
     void ToggleSprint()
     {
+        isSprintButtonPressed = true;
+
         if (inputMovement.y <= 0.2f || isAiming || playerPose == gameManager.PlayerPose.Prone)
         {
             isSprinting = false;
@@ -1389,6 +1396,8 @@ public class playerController : MonoBehaviour, IDamage
 
     void StopSprint()
     {
+        isSprintButtonPressed = false;
+
         if (playerSettings.holdSprint)
         {
             isSprinting = false;
