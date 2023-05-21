@@ -271,10 +271,13 @@ public class gameManager : MonoBehaviour
 
     public void playerDead()
     {
-        pauseState();
-        activeMenu = loseMenu;
-        activeMenu.SetActive(true);
-        aud.PlayOneShot(audLose, audLoseVol);
+        if (activeMenu != loseMenu)
+        {
+            pauseState();
+            activeMenu = loseMenu;
+            activeMenu.SetActive(true);
+            aud.PlayOneShot(audLose, audLoseVol);
+        }
     }
 
     public void startTimer()
