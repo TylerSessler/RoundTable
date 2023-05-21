@@ -6,6 +6,7 @@ using TMPro;
 using System.Threading;
 using JetBrains.Annotations;
 using System;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
