@@ -48,7 +48,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isRoaming;
     bool isPatrol;
     float speed;
-    bool sawPlayer;
+    public bool sawPlayer;
 
 
     [Header("Audio")]

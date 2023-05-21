@@ -607,7 +607,7 @@ void inventory()
             if (activeSlot < 1)
             {
                 // Prevent scrollling past inventory limit.
-                activeSlot++;
+                activeSlot = 1;
             }
             activeWeapon = inv[activeSlot - 1];
             // Enable inventory Highlight

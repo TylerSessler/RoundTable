@@ -29,7 +29,7 @@ MonoBehaviour:
   maxAmmo: 2
   clipSize: 0
   maxClip: 1
-  delay: 3
+  delay: 2
   canZoom: 0
   reloadTime: 3
   model: {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}

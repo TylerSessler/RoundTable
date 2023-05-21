@@ -352,8 +352,8 @@ MonoBehaviour:
   shootRate: 2
   shootDist: 35
   bulletSpeed: 1
-  vertSpread: 2
-  HoriSpread: 2
+  vertSpread: 1.607
+  HoriSpread: 1.674
   bullet: {fileID: 8854873231658219293, guid: 1fdd251a3808a34409401bd0a96e6ce3, type: 3}
   drops:
   - {fileID: 8529395360258299837, guid: ecc8bb95ac29f8b40aacde75b90c9cbd, type: 3}
