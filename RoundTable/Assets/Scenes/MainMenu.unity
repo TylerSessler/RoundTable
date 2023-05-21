@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443824139}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
@@ -1822,6 +1822,8 @@ MonoBehaviour:
   levelSelectOpen: 0
   optionsOpen: 0
   creditsMenu: {fileID: 0}
+  mainMenuUI: {fileID: 0}
+  title: {fileID: 0}
 --- !u!95 &443824142
 Animator:
   serializedVersion: 5
@@ -3332,6 +3334,8 @@ MonoBehaviour:
   levelSelectOpen: 0
   optionsOpen: 0
   creditsMenu: {fileID: 0}
+  mainMenuUI: {fileID: 0}
+  title: {fileID: 0}
 --- !u!82 &793761844
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3705,7 +3709,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867598814}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
@@ -3721,6 +3725,8 @@ MonoBehaviour:
   levelSelectOpen: 0
   optionsOpen: 0
   creditsMenu: {fileID: 0}
+  mainMenuUI: {fileID: 0}
+  title: {fileID: 0}
 --- !u!1 &941855199
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,7 +4409,9 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
-  creditsMenu: {fileID: 0}
+  creditsMenu: {fileID: 867598814}
+  mainMenuUI: {fileID: 793761841}
+  title: {fileID: 1594521500}
 --- !u!82 &1045584782
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4867,7 +4875,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113891196}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
@@ -4883,6 +4891,8 @@ MonoBehaviour:
   levelSelectOpen: 0
   optionsOpen: 0
   creditsMenu: {fileID: 0}
+  mainMenuUI: {fileID: 0}
+  title: {fileID: 0}
 --- !u!95 &1113891199
 Animator:
   serializedVersion: 5

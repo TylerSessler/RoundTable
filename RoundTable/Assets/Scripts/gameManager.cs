@@ -73,6 +73,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public int credits;
     public bool isPaused;
     float timeScaleOrig;
+    bool extractStarted;
 
     [Header("Audio")]
     [SerializeField] AudioClip audWin;
@@ -262,9 +263,9 @@ public class gameManager : MonoBehaviour
         enemiesRemaining += amount;
         enemiesRemainingUIUpdate();
         creditsAvailableUIUpdate();
-        if (gameManager.instance.playerScript.hasObjective)
+        if (gameManager.instance.playerScript.hasObjective && !extractStarted)
         {
-            StartCoroutine(startExtraction(extractValue));
+            StartCoroutine(timerUpdate(timeValue));
         }
     }
 
@@ -303,6 +304,7 @@ public class gameManager : MonoBehaviour
 
     IEnumerator timerUpdate(int time)
     {
+        extractStarted = true;
         extractionZone.SetActive(false);
         // Time until extraction starts
         for (int i = time; i >= 0; i--)
@@ -317,6 +319,7 @@ public class gameManager : MonoBehaviour
     {
         if (timeUntilText.activeSelf == true) 
         {
+            
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
             aud.PlayOneShot(audExtractionAppear, audExtractionVol);
