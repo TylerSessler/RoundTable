@@ -210,7 +210,7 @@ public class playerController : MonoBehaviour, IDamage
 
         //cameraHeight = mainCamera.localPosition.y;
         inv.Add(meleeweapon);
-        
+
         if (currentWeapon)
         {
             currentWeapon.Initialize(this);
@@ -321,7 +321,7 @@ public class playerController : MonoBehaviour, IDamage
         PlayerPrefs.SetInt("Pistol", 0);
         PlayerPrefs.SetInt("Rifle", 0);
         PlayerPrefs.SetInt("Sniper", 0);
-        PlayerPrefs.SetInt("Grenade", 0);   
+        PlayerPrefs.SetInt("Grenade", 0);
     }
 
     public void SavePlayerData()
@@ -584,9 +584,7 @@ public class playerController : MonoBehaviour, IDamage
         isPlayingSteps = false;
     }
 
-
-
-void inventory()
+    void inventory()
     {
         // Scroll wheel functionality
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // positive
@@ -613,7 +611,7 @@ void inventory()
             // Enable inventory Highlight
             inventoryUI(activeSlot);
         }
-        
+
         if (Input.GetButtonDown("1"))
         {
             if (activeSlot != 1)
@@ -693,6 +691,7 @@ void inventory()
             }
         }
     }
+
     IEnumerator weaponDelay()
     {
         StopCoroutine(shoot());
@@ -849,11 +848,11 @@ void inventory()
         {
             return Physics.Raycast(transform.position, Vector3.up, ceilingCheckDistance, ceilingLayer);
         }
-        else 
+        else
         {
             return Physics.Raycast(transform.position, Vector3.down, ceilingCheckDistance, ceilingLayer);
         }
-        
+
     }
 
     void SetIsFalling()
@@ -1070,11 +1069,11 @@ void inventory()
         // Player has grenade selected
         else if (activeWeapon.label == "Grenade")
         {
-            if (activeWeapon.clipSize >0)
+            if (activeWeapon.clipSize > 0)
             {
                 StartCoroutine(throwGrenade());
             }
-            
+
         }
     }
 
@@ -1091,7 +1090,7 @@ void inventory()
         GameObject grenadeClone = Instantiate(grenade, shootPos.position, playerBullet.transform.rotation);
         Rigidbody projectile = grenadeClone.GetComponent<Rigidbody>();
         projectile.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
-        
+
         // Reduce current ammo
         activeWeapon.clipSize--;
         bulletCountUpdate();
@@ -1396,137 +1395,3 @@ void inventory()
         }
     }
 }
-
-// Update is called once per frame
-//void Update()
-//{
-//    if (!gameManager.instance.isPaused)
-//    {
-//        movement();
-//        inventory();
-//        //zoom();
-
-//        if (Input.GetButtonDown("Flip Gravity") && !isRotating && canRotate)
-//        {
-//            flipGrav();
-//        }
-
-//        if (!isReloading && Input.GetButtonDown("Reload"))
-//        {
-//            StartCoroutine(reload());
-//            bulletCountUpdate();
-//        }
-
-//        if (!isShooting && Input.GetButton("Shoot"))
-//        {
-//            StartCoroutine(shoot());
-//            // Update UI for bullet count
-//            bulletCountUpdate();
-//        }
-//    }
-//}
-
-//void jump()
-//{
-//    // If player is not grounded and didn't jump to enter the state effectively disable double/extra jumps
-//    if (groundedPlayer == false && jumpCount == 0)
-//    {
-//        jumpCount = maxJumps;
-//    }
-//    // Compare number of jumps preformed & max number of jumps to check if player can jump.
-//    if (jumpCount < maxJumps)
-//    {
-//        jumpCount++;
-//        // Check state of gravity to determine direction to jump the player
-//        if (!gravityFlipped)
-//        {
-//            playerVelocity.y = jumpHeight;
-//            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
-//        }
-//        else if (gravityFlipped)
-//        {
-//            playerVelocity.y = -jumpHeight;
-//            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
-//        }
-//    }
-//}
-
-//void zoom()
-//{
-//    if (activeWeapon != null)
-//    {
-//        isAiming = Input.GetButton("Zoom");
-//        if (isAiming && activeWeapon.canZoom == true)
-//        {
-//            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 0, 10f * Time.deltaTime);
-//        }
-//        else
-//        {
-//            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-//        }
-//    }
-
-
-//    if (isSprinting)
-//    {
-//        movementSpeed = sprintSpeed;
-//        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
-//    }
-//    // Reset function
-//    else
-//    {
-//        movementSpeed = originalMovementSpeed;
-//        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-//    }
-//}
-
-//void movement()
-//{
-//    isSprinting = Input.GetButton("Sprint");
-//    groundedPlayer = isGrounded();
-//    if (groundedPlayer)
-//    {
-//        if (!isPlayingSteps && move.normalized.magnitude > 0.5f)
-//        {
-//            StartCoroutine(playSteps());
-//        }
-//        if (!gravityFlipped && playerVelocity.y < 0)
-//        {
-//            playerVelocity.y = 0;
-//            jumpCount = 0;
-//        }
-//        else if (gravityFlipped && playerVelocity.y > 0)
-//        {
-//            playerVelocity.y = 0;
-//            jumpCount = 0;
-//        }
-
-//    }
-
-//    // Might implement if-check to prevent/lower air-strafing.
-//    move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
-
-
-//    // If sprint is held
-//    if (isSprinting)
-//    {
-//        movementSpeed = sprintSpeed;
-//        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 100, 10f * Time.deltaTime);
-//    }
-//    // Reset function
-//    else
-//    {
-//        movementSpeed = originalMovementSpeed;
-//        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 80, 10f * Time.deltaTime);
-//    }
-//    controller.Move(movementSpeed * Time.deltaTime * move);
-
-//    if (Input.GetButtonDown("Jump"))
-//    {
-//        jump();
-//    }
-
-//    playerVelocity.y -= gravity * Time.deltaTime;
-//    controller.Move(playerVelocity * Time.deltaTime);
-
-//}
