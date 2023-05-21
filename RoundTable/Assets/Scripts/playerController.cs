@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
@@ -581,8 +582,34 @@ public class playerController : MonoBehaviour, IDamage
         isPlayingSteps = false;
     }
 
-    void inventory()
+
+
+void inventory()
     {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // positive
+        {
+            activeSlot++;
+            if (activeSlot > inv.Count)
+            {
+                // Prevent scrollling past inventory limit.
+                activeSlot--;
+            }
+            activeWeapon = inv[activeSlot - 1];
+            // Enable inventory Highlight
+            inventoryUI(activeSlot);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f) // negative
+        {
+            activeSlot--;
+            if (activeSlot < 1)
+            {
+                // Prevent scrollling past inventory limit.
+                activeSlot++;
+            }
+            activeWeapon = inv[activeSlot - 1];
+            // Enable inventory Highlight
+            inventoryUI(activeSlot);
+        }
         if (Input.GetButtonDown("1"))
         {
             // Set active weapon & slot for shoot()

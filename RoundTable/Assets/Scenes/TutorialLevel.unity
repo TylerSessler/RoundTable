@@ -18070,7 +18070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Insert Name Here
+  m_text: Robot not located
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -62718,7 +62718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Insert Name Here
+  m_text: Robot not located
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -67127,7 +67127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalScale.x
-      value: 30
+      value: 30.027
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalScale.y
@@ -67135,11 +67135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0132
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -67147,7 +67147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -52.506992
+      value: -53.2
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -79211,7 +79211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Insert Name Here
+  m_text: Robot not located
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -82177,7 +82177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -82189,7 +82189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -52.506992
+      value: -53.26
       objectReference: {fileID: 0}
     - target: {fileID: 3513311022983820768, guid: 3dff0af5e501a06488f09997881258de, type: 3}
       propertyPath: m_LocalRotation.w
