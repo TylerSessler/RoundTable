@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class mainMenu : MonoBehaviour
 {
+    public mainMenu instance;
     [Header("First Selected")]
     [SerializeField] public GameObject mainMenuFirst;
     [SerializeField] public GameObject levelSelectFirst;
@@ -20,12 +22,17 @@ public class mainMenu : MonoBehaviour
     public bool levelSelectOpen;
     public bool optionsOpen;
 
+    [SerializeField] GameObject creditsMenu;
+    [SerializeField] GameObject mainMenuUI;
+    [SerializeField] GameObject title;
+
     public void Update()
     {
         
     }
     public void Start()
     {
+        instance = this;
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
     }
     public void Play()
@@ -66,6 +73,18 @@ public class mainMenu : MonoBehaviour
         levelSelectOpen = false;
         optionsOpen = false;
         newSelection();
+    }
+
+    public void credits()
+    {
+        StartCoroutine(turnOffCredits());
+    }
+    IEnumerator turnOffCredits()
+    {
+        yield return new WaitForSeconds(27.25f);
+        creditsMenu.SetActive(false);
+        mainMenuUI.SetActive(true);
+        title.SetActive(true);
     }
     public void openLevelSelect()
     {

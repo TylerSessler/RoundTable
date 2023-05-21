@@ -1811,6 +1811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   mainMenuFirst: {fileID: 1989604484}
   levelSelectFirst: {fileID: 695982664}
   optionsSelectFirst: {fileID: 1724552219}
@@ -1820,6 +1821,7 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+  creditsMenu: {fileID: 0}
 --- !u!95 &443824142
 Animator:
   serializedVersion: 5
@@ -2593,6 +2595,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1045584781}
+        m_TargetAssemblyTypeName: mainMenu, Assembly-CSharp
+        m_MethodName: credits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &619600022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3307,6 +3321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   mainMenuFirst: {fileID: 1989604484}
   levelSelectFirst: {fileID: 695982664}
   optionsSelectFirst: {fileID: 1724552219}
@@ -3316,6 +3331,7 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+  creditsMenu: {fileID: 0}
 --- !u!82 &793761844
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3694,6 +3710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   mainMenuFirst: {fileID: 0}
   levelSelectFirst: {fileID: 0}
   optionsSelectFirst: {fileID: 0}
@@ -3703,6 +3720,7 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+  creditsMenu: {fileID: 0}
 --- !u!1 &941855199
 GameObject:
   m_ObjectHideFlags: 0
@@ -4375,6 +4393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   mainMenuFirst: {fileID: 1989604484}
   levelSelectFirst: {fileID: 695982664}
   optionsSelectFirst: {fileID: 1724552219}
@@ -4384,6 +4403,7 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+  creditsMenu: {fileID: 0}
 --- !u!82 &1045584782
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4852,6 +4872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad33010ed8df34188361cfb1323dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   mainMenuFirst: {fileID: 1989604484}
   levelSelectFirst: {fileID: 695982664}
   optionsSelectFirst: {fileID: 1724552219}
@@ -4861,6 +4882,7 @@ MonoBehaviour:
   mainMenuOpen: 0
   levelSelectOpen: 0
   optionsOpen: 0
+  creditsMenu: {fileID: 0}
 --- !u!95 &1113891199
 Animator:
   serializedVersion: 5
