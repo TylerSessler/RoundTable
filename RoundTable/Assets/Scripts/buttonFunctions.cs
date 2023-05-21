@@ -24,9 +24,10 @@ public class buttonFunctions : MonoBehaviour
     }
     public void mainMenu()
     {
+        playerController.instance.resetStats();
+        playerController.instance.clearWeapons();
         gameManager.instance.unpauseState();
         Cursor.visible = true;
-        PlayerPrefs.DeleteAll();
         scenesManager.instance.LoadScene(scenesManager.Scene.MainMenu);
     }
     public void options()

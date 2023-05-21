@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -124,6 +125,7 @@ public class playerController : MonoBehaviour, IDamage
     public float timeSinceLastJump;
     Vector3 previousJumpDirection;
 
+    int originalMaxHealth;
     public bool isSprinting;
     public bool isWalking;
     Vector3 movementSpeed;
@@ -223,6 +225,7 @@ public class playerController : MonoBehaviour, IDamage
         canRotate = false;
         camerHeightOrig = cameraHeight;
         playerRotationOffset = 0f;
+        originalMaxHealth = originalHealth;
 
 
         inventoryUI(1);
@@ -294,12 +297,29 @@ public class playerController : MonoBehaviour, IDamage
         controller.enabled = true;
     }
 
-    void resetStats()
+    public void resetStats()
     {
+        originalHealth = originalMaxHealth;
         health = originalHealth;
         movementSpeed = originalMovementSpeed;
         jumpHeight = originalJumpHeight;
+        maxJumps = originalMaxJumps;
         gravity = originalGravity;
+    }
+
+    public void clearWeapons()
+    {
+        if (inv.Count > 0)
+        {
+            for (int i = inv.Count - 1; i >= 0; i--)
+            {
+                inv.RemoveAt(i);
+            }
+        }
+        PlayerPrefs.SetInt("Pistol", 0);
+        PlayerPrefs.SetInt("Rifle", 0);
+        PlayerPrefs.SetInt("Sniper", 0);
+        PlayerPrefs.SetInt("Grenade", 0);   
     }
 
     public void SavePlayerData()
