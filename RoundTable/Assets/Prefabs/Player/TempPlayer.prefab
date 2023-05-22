@@ -280,7 +280,7 @@ MonoBehaviour:
   originalMaxJumps: 1
   originalGravity: 20
   tempVal: 0
-  bulletSpeed: 20
+  bulletSpeed: 100
   rotationDuration: 0.5
   canRotate: 0
   sprintSpeed: 0
@@ -296,6 +296,7 @@ MonoBehaviour:
   hasObjective: 0
   shootRate: 0
   shootRange: 0
+  maxRayDistance: 10
   throwPower: 15
   weaponDamage: 0
   weaponHolderPos: {fileID: 7050311812053723958}

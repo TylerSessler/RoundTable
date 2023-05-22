@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
     {
         if (other.isTrigger)
             return;
-        
+
         IDamage damageable = other.GetComponent<IDamage>();
 
         if (damageable != null)

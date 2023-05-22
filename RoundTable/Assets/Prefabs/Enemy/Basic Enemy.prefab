@@ -835,7 +835,7 @@ MonoBehaviour:
   aud: {fileID: -917005356653473465}
   patrol1: {fileID: 0}
   patrol2: {fileID: 0}
-  HP: 3
+  HP: 5
   playerFaceSpeed: 60
   sightAngle: 45
   roamRange: 10
@@ -857,6 +857,7 @@ MonoBehaviour:
   - {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
   - {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
   creditsDropped: 1
+  sawPlayer: 0
   audShoot:
   - {fileID: 8300000, guid: f298dc13eb6a2034791bb170e4de7bb6, type: 3}
   - {fileID: 8300000, guid: b13eca45acd8f4749a2433cbcd93c06e, type: 3}

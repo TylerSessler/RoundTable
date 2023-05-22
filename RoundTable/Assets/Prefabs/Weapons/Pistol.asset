@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponHolderPos: {x: 0.4, y: 0.2, z: 0.65}
   weaponRot: {x: 0, y: 0, z: 0}
   weaponScale: {x: 0.4, y: 0.4, z: 0.4}
-  weaponSightsPos: {x: 0, y: 0.565, z: -0.425}
+  weaponSightsPos: {x: 0, y: 0.51, z: -0.425}
   shootPos: {x: 0, y: 0.425, z: 0.525}
   zoomMaxFov: 55
   zoomInFOVSpeed: 8
@@ -25,10 +25,11 @@ MonoBehaviour:
   damage: 1
   rate: 0.5
   range: 20
-  ammo: 8
+  ammo: 15
   maxAmmo: 30
-  clipSize: 7
+  clipSize: 11
   maxClip: 11
+  delay: 0
   canZoom: 0
   reloadTime: 2.5
   model: {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}

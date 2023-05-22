@@ -32,6 +32,9 @@ public class gameManager : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
+    public TextMeshProUGUI reloadBulletText;
+    public TextMeshProUGUI lowAmmoText;
+    public TextMeshProUGUI noAmmoText; 
     public GameObject loadMenu;
     public Image fillBar;
     public GameObject skipText;

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor;
-
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -87,9 +88,10 @@ public class playerController : MonoBehaviour, IDamage
     public bool hasObjective;
     [SerializeField] float shootRate;
     [SerializeField] float shootRange;
+    [SerializeField] float maxRayDistance;  // Set this to whatever maximum distance you want
     [SerializeField] float throwPower;
     public int weaponDamage;
-
+    private bool isCooldown;
 
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
@@ -229,6 +231,10 @@ public class playerController : MonoBehaviour, IDamage
         playerRotationOffset = 0f;
         originalMaxHealth = originalHealth;
         isSprintButtonPressed = false;
+        isCooldown = false;
+        gameManager.instance.reloadBulletText.enabled = false;
+        gameManager.instance.lowAmmoText.enabled = false;
+        gameManager.instance.noAmmoText.enabled = false;
 
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
@@ -262,6 +268,7 @@ public class playerController : MonoBehaviour, IDamage
             //movement();
             PlayerStance();
             inventory();
+            ammoState();
             reticleSwap();
             zoom();
             Leaning();
@@ -740,7 +747,7 @@ public class playerController : MonoBehaviour, IDamage
             bulletCountUpdate();
 
             // Make sure proper reticle is active
-            //reticleSwap(); <------98888888888888881
+            //reticleSwap();
         }
     }
 
@@ -1043,22 +1050,106 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    //IEnumerator shoot()
+    //{
+    //    // If player isn't melee
+    //    if (activeWeapon.label != "Unarmed" && activeWeapon.label != "Grenade" && activeWeapon != null)
+    //    {
+    //        if (activeWeapon.clipSize > 0)
+    //        {
+    //            aud.PlayOneShot(weaponShootAud, weaponShootVol);
+    //            // Set flag
+    //            isShooting = true;
+    //            // Reduce current ammo
+    //            activeWeapon.clipSize--;
+    //            // Fire projectile
+    //            GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
+
+    //            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+    //            RaycastHit hit;
+    //            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit))
+    //            {
+    //                Vector3 direction = hit.point - shootPos.position;
+    //                bulletClone.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+    //            }
+
+    //            yield return new WaitForSeconds(shootRate);
+    //            isShooting = false;
+    //        }
+    //    }
+    //    // Player is melee
+    //    else if (activeWeapon.label == "Unarmed")
+    //    {
+    //        if (!isMelee)
+    //        {
+    //            StartCoroutine(melee());
+    //        }
+
+    //    }
+    //    // Player has grenade selected
+    //    else if (activeWeapon.label == "Grenade")
+    //    {
+    //        if (activeWeapon.clipSize > 0)
+    //        {
+    //            StartCoroutine(throwGrenade());
+    //        }
+
+    //    }
+    //}
+
+    void ammoState()
+    {
+        if (activeWeapon != null)
+        {
+            if (activeWeapon.clipSize == 0 && activeWeapon.ammo > 0)
+            {
+                gameManager.instance.reloadBulletText.enabled = true;
+                gameManager.instance.lowAmmoText.enabled = false;
+                gameManager.instance.noAmmoText.enabled = false;
+            }
+            else if (activeWeapon.clipSize > 0 && activeWeapon.ammo == 0)
+            {
+                gameManager.instance.lowAmmoText.enabled = true;
+                gameManager.instance.reloadBulletText.enabled = false;
+                gameManager.instance.noAmmoText.enabled = false;
+            }
+            else if (activeWeapon.clipSize == 0 && activeWeapon.ammo == 0)
+            {
+                gameManager.instance.noAmmoText.enabled = true;
+                gameManager.instance.reloadBulletText.enabled = false;
+                gameManager.instance.lowAmmoText.enabled = false;
+            }
+            else
+            {
+                gameManager.instance.reloadBulletText.enabled = false;
+                gameManager.instance.lowAmmoText.enabled = false;
+                gameManager.instance.noAmmoText.enabled = false;
+            }
+        }
+    }
+
     IEnumerator shoot()
     {
         // If player isn't melee
         if (activeWeapon.label != "Unarmed" && activeWeapon.label != "Grenade" && activeWeapon != null)
         {
-            if (activeWeapon.clipSize > 0)
+            if (activeWeapon.clipSize > 0 && !isCooldown)
             {
                 aud.PlayOneShot(weaponShootAud, weaponShootVol);
-                // Set flag
+
+                // Set flags
                 isShooting = true;
+                isCooldown = true;
+
                 // Reduce current ammo
                 activeWeapon.clipSize--;
-                // Fire projectile
-                GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
-                bulletClone.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * bulletSpeed;
+
+                // Start bullet coroutine
+                StartCoroutine(Bullet());
+
                 yield return new WaitForSeconds(shootRate);
+
+                isCooldown = false;
                 isShooting = false;
             }
         }
@@ -1069,7 +1160,6 @@ public class playerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(melee());
             }
-
         }
         // Player has grenade selected
         else if (activeWeapon.label == "Grenade")
@@ -1078,9 +1168,47 @@ public class playerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(throwGrenade());
             }
-
         }
     }
+
+    IEnumerator Bullet()
+    {
+        // Calculate direction of shot
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        RaycastHit hit;
+        Vector3 rayDirection = ray.direction.normalized;
+
+        // Fire projectile
+        GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 direction = hit.point - shootPos.position;
+            bulletClone.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+        }
+
+        float distanceCovered = 0f;
+        while (distanceCovered < shootRange)
+        {
+            float distanceToTravel = bulletSpeed * Time.deltaTime;
+            if (Physics.Raycast(ray.origin + rayDirection * distanceCovered, rayDirection, out hit, distanceToTravel))
+            {
+                if (hit.collider.GetComponent<IDamage>() != null && !hit.collider.CompareTag("Player"))
+                {
+                    hit.collider.GetComponent<IDamage>().takeDamage(weaponDamage);
+                    Destroy(bulletClone);
+                    break;  // stop the loop if we hit an enemy
+                }
+            }
+
+            // Debug the raycast
+            Debug.DrawRay(ray.origin + rayDirection * distanceCovered, rayDirection * distanceToTravel, Color.red, 2f);
+
+            distanceCovered += distanceToTravel;
+            yield return null;  // wait for the next frame
+        }
+    }
+
 
     IEnumerator throwGrenade()
     {
@@ -1101,7 +1229,6 @@ public class playerController : MonoBehaviour, IDamage
         bulletCountUpdate();
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
-
     }
 
     void AimPressed()
