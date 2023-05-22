@@ -615,6 +615,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9ba7891992f6e494285e17d738a8e246, type: 2}
+    - target: {fileID: 1899036672, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1987995237257513662, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5273597486067423638, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -719,6 +727,10 @@ PrefabInstance:
       propertyPath: mainMenuCheck
       value: 
       objectReference: {fileID: 1045584776}
+    - target: {fileID: 8463006967557018246, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1e68126d503c84dac6a22fbb47e684, type: 3}
 --- !u!1 &197148248
