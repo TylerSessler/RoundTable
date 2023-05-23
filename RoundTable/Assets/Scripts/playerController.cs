@@ -1276,6 +1276,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator reload()
     {
         isReloading = true;
+        isSprinting = false;
         activeWeapon.reloadState = true;
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
