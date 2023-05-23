@@ -177,7 +177,6 @@ public class gameManager : MonoBehaviour
         public float swayMovementSmoothing;
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;
@@ -192,6 +191,8 @@ public class gameManager : MonoBehaviour
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
         timeScaleOrig = Time.timeScale;
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

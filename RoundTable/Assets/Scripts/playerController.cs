@@ -449,7 +449,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
-        if (inputMovement.y > 0.1f && isSprintButtonPressed && !isAiming)
+        if (inputMovement.y > 0.1f && isSprintButtonPressed && !isAiming && !isReloading)
         {
             isSprinting = true;
         }
@@ -1276,7 +1276,6 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator reload()
     {
         isReloading = true;
-        isSprinting = false;
         activeWeapon.reloadState = true;
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
