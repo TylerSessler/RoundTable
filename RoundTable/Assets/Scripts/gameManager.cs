@@ -191,9 +191,12 @@ public class gameManager : MonoBehaviour
         }
         extractionZone = GameObject.FindGameObjectWithTag("Extraction Zone");
         timeScaleOrig = Time.timeScale;
+        if (scenesManager.instance.mainMenuCheck == null)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
