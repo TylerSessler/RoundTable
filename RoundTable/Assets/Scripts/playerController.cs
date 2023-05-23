@@ -66,7 +66,6 @@ public class playerController : MonoBehaviour, IDamage
     bool gravityFlipped;
     float playerRotationOffset;
 
-
     [Header("Weapon Stats")]
     public List<weapon> inv = new List<weapon>();
     [SerializeField] MeshFilter weaponMesh;
@@ -92,6 +91,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float throwPower;
     public int weaponDamage;
     private bool isCooldown;
+    Coroutine reloadCoroutine;
 
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
@@ -103,6 +103,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float zoomMax;
     [SerializeField] int zoomInSpeed;
     [SerializeField] int zoomOutSpeed;
+    public float fovOrig;
 
     [Header("Leaning")]
     public Transform cameraLeanPivot;
@@ -187,7 +188,7 @@ public class playerController : MonoBehaviour, IDamage
         input.Weapon.AimReleased.performed += e => AimReleased();
 
 
-        input.Weapon.Shoot.performed += e => shoot();
+        //input.Weapon.Shoot.performed += e => shoot();
         //input.Weapon.Shoot.performed += e => isShooting = true;
         //input.Weapon.Shoot.canceled += e => isShooting = false;
 
@@ -225,6 +226,9 @@ public class playerController : MonoBehaviour, IDamage
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
+        isShooting = false;
+        isSprinting = false;
+        isReloading = false;
         canShoot = true;
         canRotate = false;
         camerHeightOrig = cameraHeight;
@@ -235,6 +239,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.reloadBulletText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
         gameManager.instance.noAmmoText.enabled = false;
+        gameManager.instance.reloadingText.enabled = false;
 
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
@@ -270,7 +275,7 @@ public class playerController : MonoBehaviour, IDamage
             inventory();
             ammoState();
             reticleSwap();
-            zoom();
+            //zoom();
             Leaning();
             Aiming();
             //zoom();
@@ -286,10 +291,9 @@ public class playerController : MonoBehaviour, IDamage
                 flipGrav();
             }
 
-            if (!isReloading && Input.GetButtonDown("Reload"))
+            if (!isReloading && Input.GetButtonDown("Reload") && activeWeapon != null && activeWeapon.clipSize < activeWeapon.maxClip && activeWeapon.ammo > 0)
             {
                 StartCoroutine(reload());
-                bulletCountUpdate();
             }
         }
     }
@@ -1037,7 +1041,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (activeWeapon != null)
         {
-            if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot)
+            if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot && !isReloading)
             {
                 StartCoroutine(shoot());
                 //Update UI for bullet count
@@ -1050,77 +1054,43 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    //IEnumerator shoot()
-    //{
-    //    // If player isn't melee
-    //    if (activeWeapon.label != "Unarmed" && activeWeapon.label != "Grenade" && activeWeapon != null)
-    //    {
-    //        if (activeWeapon.clipSize > 0)
-    //        {
-    //            aud.PlayOneShot(weaponShootAud, weaponShootVol);
-    //            // Set flag
-    //            isShooting = true;
-    //            // Reduce current ammo
-    //            activeWeapon.clipSize--;
-    //            // Fire projectile
-    //            GameObject bulletClone = Instantiate(playerBullet, shootPos.position, playerBullet.transform.rotation);
-
-    //            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-    //            RaycastHit hit;
-    //            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit))
-    //            {
-    //                Vector3 direction = hit.point - shootPos.position;
-    //                bulletClone.GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
-    //            }
-
-    //            yield return new WaitForSeconds(shootRate);
-    //            isShooting = false;
-    //        }
-    //    }
-    //    // Player is melee
-    //    else if (activeWeapon.label == "Unarmed")
-    //    {
-    //        if (!isMelee)
-    //        {
-    //            StartCoroutine(melee());
-    //        }
-
-    //    }
-    //    // Player has grenade selected
-    //    else if (activeWeapon.label == "Grenade")
-    //    {
-    //        if (activeWeapon.clipSize > 0)
-    //        {
-    //            StartCoroutine(throwGrenade());
-    //        }
-
-    //    }
-    //}
-
     void ammoState()
     {
         if (activeWeapon != null)
         {
-            if (activeWeapon.clipSize == 0 && activeWeapon.ammo > 0)
+            if (!isReloading)
             {
-                gameManager.instance.reloadBulletText.enabled = true;
-                gameManager.instance.lowAmmoText.enabled = false;
-                gameManager.instance.noAmmoText.enabled = false;
-            }
-            else if (activeWeapon.clipSize > 0 && activeWeapon.ammo == 0)
-            {
-                gameManager.instance.lowAmmoText.enabled = true;
-                gameManager.instance.reloadBulletText.enabled = false;
-                gameManager.instance.noAmmoText.enabled = false;
-            }
-            else if (activeWeapon.clipSize == 0 && activeWeapon.ammo == 0)
-            {
-                gameManager.instance.noAmmoText.enabled = true;
-                gameManager.instance.reloadBulletText.enabled = false;
-                gameManager.instance.lowAmmoText.enabled = false;
+                if (activeWeapon.clipSize == 0 && activeWeapon.ammo > 0)
+                {
+                    gameManager.instance.reloadBulletText.enabled = true;
+                    gameManager.instance.lowAmmoText.enabled = false;
+                    gameManager.instance.noAmmoText.enabled = false;
+                }
+                else if (activeWeapon.clipSize > 0 && activeWeapon.ammo == 0)
+                {
+                    gameManager.instance.lowAmmoText.enabled = true;
+                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadingText.enabled = false;
+                    gameManager.instance.noAmmoText.enabled = false;
+                }
+                else if (activeWeapon.clipSize == 0 && activeWeapon.ammo == 0)
+                {
+                    gameManager.instance.noAmmoText.enabled = true;
+                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadingText.enabled = false;
+                    gameManager.instance.lowAmmoText.enabled = false;
+                }
+                else
+                {
+                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadingText.enabled = false;
+                    gameManager.instance.lowAmmoText.enabled = false;
+                    gameManager.instance.noAmmoText.enabled = false;
+                }
             }
             else
             {
+                gameManager.instance.reloadingText.enabled = true;
                 gameManager.instance.reloadBulletText.enabled = false;
                 gameManager.instance.lowAmmoText.enabled = false;
                 gameManager.instance.noAmmoText.enabled = false;
@@ -1208,7 +1178,6 @@ public class playerController : MonoBehaviour, IDamage
             yield return null;  // wait for the next frame
         }
     }
-
 
     IEnumerator throwGrenade()
     {
@@ -1307,11 +1276,20 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator reload()
     {
         isReloading = true;
+        activeWeapon.reloadState = true;
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
         {
             aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
         }
+
+        yield return new WaitForSeconds(activeWeapon.reloadTime);
+
+        if (!activeWeapon.reloadState)
+        {
+            yield break;
+        }
+
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)
         {
@@ -1328,9 +1306,11 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
-        yield return new WaitForSeconds(activeWeapon.reloadTime);
-
+        bulletCountUpdate();
         isReloading = false;
+        activeWeapon.reloadState = false;
+
+        reloadCoroutine = null;  // Reset the reference to indicate that the reload coroutine has completed
     }
 
     private void OnTriggerEnter(Collider other)
@@ -1425,9 +1405,15 @@ public class playerController : MonoBehaviour, IDamage
         shootPos.transform.localPosition = new Vector3(0, 0, 0);
 
         //shootEffectPos.localPosition = new Vector3(0, 0, 0);
+
+        StopCoroutine(shoot());
+        bulletCountUpdate();
+
+        isReloading = false;
+        canShoot = false;
     }
 
-    void ChangeWeapon()
+    public void ChangeWeapon()
     {
         ResetWeapon();
 
@@ -1437,14 +1423,16 @@ public class playerController : MonoBehaviour, IDamage
         weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
         shootPos.transform.localPosition = activeWeapon.shootPos;
 
+        currentWeapon.sightOffset = activeWeapon.sightOffset;
         currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
         currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
-        currentWeapon.zoomInFOVSpeed = activeWeapon.zoomOutFOVSpeed;
-        //currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
+        currentWeapon.zoomOutFOVSpeed = activeWeapon.zoomOutFOVSpeed;
+        currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
 
         weaponDamage = activeWeapon.damage;
         shootRate = activeWeapon.rate;
         shootRange = activeWeapon.range;
+        bulletSpeed = activeWeapon.bulletSpeed;
 
         weaponShootAud = activeWeapon.weaponShootAud;
         weaponShootVol = activeWeapon.weaponShotVol;
@@ -1454,6 +1442,10 @@ public class playerController : MonoBehaviour, IDamage
         weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
+        if (activeWeapon.reloadState && !isReloading)
+        {
+            StartCoroutine(reload());
+        }
     }
 
     public void addWeapon(weapon gun)

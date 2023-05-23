@@ -33,6 +33,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
     public TextMeshProUGUI reloadBulletText;
+    public TextMeshProUGUI reloadingText;
     public TextMeshProUGUI lowAmmoText;
     public TextMeshProUGUI noAmmoText; 
     public GameObject loadMenu;

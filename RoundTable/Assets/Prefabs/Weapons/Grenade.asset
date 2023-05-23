@@ -17,6 +17,7 @@ MonoBehaviour:
   weaponScale: {x: 0, y: 0, z: 0}
   weaponSightsPos: {x: 0, y: 0, z: 0}
   shootPos: {x: 0, y: 0, z: 0}
+  sightOffset: 0.11
   zoomMaxFov: 0
   zoomInFOVSpeed: 0
   zoomOutFOVSpeed: 0
@@ -25,12 +26,14 @@ MonoBehaviour:
   damage: 2
   rate: 6
   range: 1
+  bulletSpeed: 0
   ammo: 0
   maxAmmo: 2
   clipSize: 0
   maxClip: 1
   delay: 2
   canZoom: 0
+  reloadState: 0
   reloadTime: 3
   model: {fileID: 5964186523286822495, guid: d3d2ef2ef4f08184e850c0599ba983f3, type: 3}
   sprite: {fileID: 2800000, guid: be084087035856745973edaed758d3ba, type: 3}

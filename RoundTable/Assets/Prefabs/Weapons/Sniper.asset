@@ -17,20 +17,24 @@ MonoBehaviour:
   weaponScale: {x: 0.2, y: 0.2, z: 0.2}
   weaponSightsPos: {x: 0, y: 0.565, z: -1.16}
   shootPos: {x: 0, y: 0.425, z: 3.425}
+  sightOffset: 0.11
   zoomMaxFov: 30
-  zoomInFOVSpeed: 8
-  zoomOutFOVSpeed: 8
-  ADSSpeed: 8
+  zoomInFOVSpeed: 4
+  zoomOutFOVSpeed: 4
+  ADSSpeed: 0.175
   label: Sniper
   damage: 18
-  rate: 2.25
+  rate: 2
   range: 90
-  ammo: 11
+  bulletSpeed: 150
+  ammo: 12
   maxAmmo: 15
   clipSize: 3
   maxClip: 4
+  delay: 0
   canZoom: 1
-  reloadTime: 5
+  reloadState: 0
+  reloadTime: 1.5
   model: {fileID: 5638556351135895425, guid: e3636e72260484c449772d13c7d5519e, type: 3}
   sprite: {fileID: 2800000, guid: c48a313122fe93f4fbb5c58ee801ebd0, type: 3}
   weaponShootAud: {fileID: 8300000, guid: a8bee23cb250ebe4f8ed328b85583455, type: 3}

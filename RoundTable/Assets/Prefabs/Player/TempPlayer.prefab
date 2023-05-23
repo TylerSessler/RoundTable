@@ -271,8 +271,8 @@ MonoBehaviour:
   grenade: {fileID: 7990681184388241291, guid: 4623b6779b242ce48b1b97e90b1f337d, type: 3}
   activeModel: {fileID: 6176959737010256972}
   aud: {fileID: 1272312315572411503}
-  health: 10
-  originalHealth: 10
+  health: 20
+  originalHealth: 20
   originalMovementSpeed: {x: 0, y: 0, z: 0}
   jumpHeight: 10
   originalJumpHeight: 9
@@ -280,7 +280,7 @@ MonoBehaviour:
   originalMaxJumps: 1
   originalGravity: 20
   tempVal: 0
-  bulletSpeed: 100
+  bulletSpeed: 0
   rotationDuration: 0.5
   canRotate: 0
   sprintSpeed: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   zoomMax: 0
   zoomInSpeed: 0
   zoomOutSpeed: 0
+  fovOrig: 0
   cameraLeanPivot: {fileID: 3988823636104063218}
   leanAngle: 15
   leanSmoothing: 0.2
@@ -324,11 +325,11 @@ MonoBehaviour:
     invertY: 0
     holdSprint: 1
     movementSmoothing: 0
-    forwardWalkSpeed: 7.5
-    backwardWalkSpeed: 5
-    strafeWalkSpeed: 7.5
-    forwardSprintSpeed: 12
-    strafeSprintSpeed: 12
+    forwardWalkSpeed: 10
+    backwardWalkSpeed: 7.5
+    strafeWalkSpeed: 10
+    forwardSprintSpeed: 15
+    strafeSprintSpeed: 15
     isJumping: 0
     jumpDirection: {x: 0, y: 0, z: 0}
     jumpingHeight: 6
@@ -1055,8 +1056,8 @@ MonoBehaviour:
   lerpSpeed: 0.5
   isAiming: 0
   weaponSight: {fileID: 7455707805739662757}
-  sightOffset: 0.11
-  ADSSpeed: 0.1
+  sightOffset: 0
+  ADSSpeed: 0
   fovOrig: 0
   zoomMaxFov: 0
   zoomInFOVSpeed: 0
