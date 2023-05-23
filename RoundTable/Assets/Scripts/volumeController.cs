@@ -47,7 +47,7 @@ public class volumeController : MonoBehaviour
         PlayerPrefs.SetFloat(_volumeParameter, _slider.value);
     }
 
-    private void HandleSliderValueChanged(float value)
+    public void HandleSliderValueChanged(float value)
     {
         if (value == 0)
             value = 0.001f;
@@ -55,7 +55,9 @@ public class volumeController : MonoBehaviour
         _disableToggleEvent = true;
         _toggle.isOn = _slider.value > _slider.minValue;
         _disableToggleEvent = false;
-        buttonFunctions.instance.buttonAudio();
+
+        if (gameManager.instance.optionsMenu.active == true)
+            buttonFunctions.instance.buttonAudio();
     }
 
     // Start is called before the first frame update
@@ -73,6 +75,5 @@ public class volumeController : MonoBehaviour
     public void updateVolume()
     {
         _slider.value = PlayerPrefs.GetFloat(_volumeParameter, _slider.value);
-
     }
 }

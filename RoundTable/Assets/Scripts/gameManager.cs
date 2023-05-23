@@ -7,6 +7,7 @@ using System.Threading;
 using JetBrains.Annotations;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class gameManager : MonoBehaviour
 {
@@ -237,12 +238,6 @@ public class gameManager : MonoBehaviour
             loadCredits();
             gameManager.instance.playerScript.LoadPlayerData();
             creditsAvailableUIUpdate();
-        }
-
-        if(PlayerPrefs.HasKey("MasterVolume"))
-        {
-            //Load audio settings here
-            volumeController.instance.updateVolume();
         }
     }
 
