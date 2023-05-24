@@ -15033,6 +15033,10 @@ PrefabInstance:
       propertyPath: roamAllowed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2402433465468098426, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+      propertyPath: m_Radius
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder
       value: 33
@@ -16949,6 +16953,10 @@ PrefabInstance:
     - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: roamAllowed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402433465468098426, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+      propertyPath: m_Radius
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder
@@ -51658,6 +51666,10 @@ PrefabInstance:
       propertyPath: roamAllowed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2402433465468098426, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+      propertyPath: m_Radius
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder
       value: 34
@@ -53222,6 +53234,10 @@ PrefabInstance:
     - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: roamAllowed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402433465468098426, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+      propertyPath: m_Radius
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder
@@ -55173,6 +55189,10 @@ PrefabInstance:
     - target: {fileID: 594540554505709339, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: roamAllowed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402433465468098426, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
+      propertyPath: m_Radius
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8503887633382417468, guid: b37608c0bd744ef4b908f193c0c5c209, type: 3}
       propertyPath: m_RootOrder

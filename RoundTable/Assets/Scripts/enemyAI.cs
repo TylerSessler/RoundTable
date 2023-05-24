@@ -226,8 +226,9 @@ public class enemyAI : MonoBehaviour, IDamage
         agent.stoppingDistance = 0;
         if (chaseAllowed)
         {
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            agent.SetDestination(gameManager.instance.player.transform.position); 
         }
+
         
 
         StartCoroutine(flashColor());
