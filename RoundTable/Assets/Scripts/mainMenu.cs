@@ -37,7 +37,7 @@ public class mainMenu : MonoBehaviour
     }
     public void Play()
     {
-        StartCoroutine(delay(scenesManager.Scene.Level01));
+        StartCoroutine(delay(scenesManager.Scene.TutorialLevel));
     }
 
     public void TutorialLoad()
