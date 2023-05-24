@@ -78,6 +78,7 @@ public class playerController : MonoBehaviour, IDamage
     bool canShoot;
     int activeSlot;
     public weapon activeWeapon;
+    int lastWeapon;
     bool isReloading;
     bool isZoomed;
     bool isAiming;
@@ -154,6 +155,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] weapon pistol;
     [SerializeField] weapon rifle;
     [SerializeField] weapon sniper;
+    [SerializeField] weapon placeHolder;
 
     [Header("Audio")]
     [SerializeField] AudioClip[] audSteps;
@@ -223,6 +225,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void Start()
     {
+
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
@@ -236,6 +239,7 @@ public class playerController : MonoBehaviour, IDamage
         originalMaxHealth = originalHealth;
         isSprintButtonPressed = false;
         isCooldown = false;
+        lastWeapon = 99;
         gameManager.instance.reloadBulletText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
         gameManager.instance.noAmmoText.enabled = false;
@@ -603,7 +607,7 @@ public class playerController : MonoBehaviour, IDamage
     void inventory()
     {
         // Scroll wheel functionality
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // positive
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f) // positive
         {
             activeSlot++;
             if (activeSlot > inv.Count)
@@ -615,7 +619,7 @@ public class playerController : MonoBehaviour, IDamage
             // Enable inventory Highlight
             inventoryUI(activeSlot);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f) // negative
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // negative
         {
             activeSlot--;
             if (activeSlot < 1)
@@ -665,6 +669,7 @@ public class playerController : MonoBehaviour, IDamage
                 if (activeSlot != 3)
                 {
                     StopCoroutine(weaponDelay());
+
                 }
                 // Set active weapon for shoot()
                 activeWeapon = inv[2];
@@ -717,6 +722,11 @@ public class playerController : MonoBehaviour, IDamage
 
     void inventoryUI(int num)
     {
+        // Edge case fix
+        if (lastWeapon == null)
+        {
+            lastWeapon = 99;
+        }
         // Disable all hightlights
         gameManager.instance.glow1.SetActive(false);
         gameManager.instance.glow2.SetActive(false);
@@ -753,6 +763,7 @@ public class playerController : MonoBehaviour, IDamage
             // Make sure proper reticle is active
             //reticleSwap();
         }
+
     }
 
     void PlayerStance()
@@ -1396,14 +1407,16 @@ public class playerController : MonoBehaviour, IDamage
 
     public void ResetWeapon()
     {
-        weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
-        weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
-        weaponPos.transform.localPosition = new Vector3(0, 0, 0);
-        weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
-        weaponPos.transform.localScale = new Vector3(1, 1, 1);
-        weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
-        shootPos.transform.localPosition = new Vector3(0, 0, 0);
-
+        if (activeSlot != lastWeapon)
+        {
+            weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
+            weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
+            weaponPos.transform.localPosition = new Vector3(0, 0, 0);
+            weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
+            weaponPos.transform.localScale = new Vector3(1, 1, 1);
+            weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
+            shootPos.transform.localPosition = new Vector3(0, 0, 0);
+        }
         //shootEffectPos.localPosition = new Vector3(0, 0, 0);
 
         StopCoroutine(shoot());
@@ -1417,35 +1430,40 @@ public class playerController : MonoBehaviour, IDamage
     {
         ResetWeapon();
 
-        weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
-        weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
-        weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
-        weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
-        shootPos.transform.localPosition = activeWeapon.shootPos;
+        
+        if (activeSlot != lastWeapon)
+        {
+            weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
+            weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
+            weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
+            weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
+            shootPos.transform.localPosition = activeWeapon.shootPos;
 
-        currentWeapon.sightOffset = activeWeapon.sightOffset;
-        currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
-        currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
-        currentWeapon.zoomOutFOVSpeed = activeWeapon.zoomOutFOVSpeed;
-        currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
+            currentWeapon.sightOffset = activeWeapon.sightOffset;
+            currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
+            currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
+            currentWeapon.zoomOutFOVSpeed = activeWeapon.zoomOutFOVSpeed;
+            currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
 
-        weaponDamage = activeWeapon.damage;
-        shootRate = activeWeapon.rate;
-        shootRange = activeWeapon.range;
-        bulletSpeed = activeWeapon.bulletSpeed;
+            weaponDamage = activeWeapon.damage;
+            shootRate = activeWeapon.rate;
+            shootRange = activeWeapon.range;
+            bulletSpeed = activeWeapon.bulletSpeed;
 
-        weaponShootAud = activeWeapon.weaponShootAud;
-        weaponShootVol = activeWeapon.weaponShotVol;
-        weaponReloadAud = activeWeapon.weaponReloadAud;
-        weaponReloadVol = activeWeapon.weaponReloadVol;
-
-        weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-        weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+            weaponShootAud = activeWeapon.weaponShootAud;
+            weaponShootVol = activeWeapon.weaponShotVol;
+            weaponReloadAud = activeWeapon.weaponReloadAud;
+            weaponReloadVol = activeWeapon.weaponReloadVol;
+            weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+            weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+        }
 
         if (activeWeapon.reloadState && !isReloading)
         {
             StartCoroutine(reload());
         }
+        // Set last weapon to current weapon for purpose of not overriding graphics
+        lastWeapon = activeSlot;
     }
 
     public void addWeapon(weapon gun)
