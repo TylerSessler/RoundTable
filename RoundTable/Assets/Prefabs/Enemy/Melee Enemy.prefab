@@ -357,6 +357,7 @@ MonoBehaviour:
   animTransSpeed: 10
   roamAllowed: 1
   patrolAllowed: 0
+  chaseAllowed: 1
   shootDamage: 2
   shootRate: 1
   shootDist: 2
@@ -368,6 +369,7 @@ MonoBehaviour:
   - {fileID: 2001613009041236916, guid: 1a55ef330a25d3e4b84ff896514be057, type: 3}
   - {fileID: 5544935661633263560, guid: 61ef6b01f6f325b4787722cddbe2fec4, type: 3}
   creditsDropped: 1
+  sawPlayer: 0
   audShoot:
   - {fileID: 8300000, guid: 9e82df82982c32f45af642ceb76a8384, type: 3}
   audShootVol: 0.1
