@@ -843,6 +843,7 @@ MonoBehaviour:
   animTransSpeed: 8
   roamAllowed: 1
   patrolAllowed: 0
+  chaseAllowed: 1
   shootDamage: 1
   shootRate: 0.82
   shootDist: 0

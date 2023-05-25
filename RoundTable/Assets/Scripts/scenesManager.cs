@@ -86,6 +86,14 @@ public class scenesManager : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+        Collider[] hitColliders = Physics.OverlapSphere(gameManager.instance.player.transform.position, 30);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (CompareTag("Enemy"))
+            {
+                Destroy(hitCollider.gameObject);
+            }
+        }
         gameManager.instance.loadMenu.SetActive(false);
         operation.allowSceneActivation = true;
     }

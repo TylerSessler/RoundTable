@@ -24,6 +24,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float animTransSpeed;
     [SerializeField] bool roamAllowed;
     [SerializeField] bool patrolAllowed;
+    [SerializeField] bool chaseAllowed;
 
     [Header("----- Enemy Gun -----")]
     [Range(1, 10)][SerializeField] int shootDamage;
@@ -205,7 +206,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            if (sawPlayer)
+            if (sawPlayer && chaseAllowed)
             {
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 StopCoroutine(delayedAgro());
@@ -223,10 +224,11 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         agent.stoppingDistance = 0;
-        if (roamAllowed)
+        if (chaseAllowed)
         {
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            agent.SetDestination(gameManager.instance.player.transform.position); 
         }
+
         
 
         StartCoroutine(flashColor());
