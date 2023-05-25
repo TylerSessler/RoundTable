@@ -36,7 +36,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [Header("Drop Table")]
     [SerializeField] GameObject[] drops;
-    [Range(1,3)] [SerializeField] int creditsDropped;
+    [Range(1, 3)][SerializeField] int creditsDropped;
     // End item decided to be dropped by the enemy
     GameObject trueDrop;
 
@@ -88,7 +88,7 @@ public class enemyAI : MonoBehaviour, IDamage
         // Make sure enemy isn't pathing currently. Both for agro & for current roaming if it is past the cooldown timer while still moving
         else if (!playerInRange && roamAllowed && agent.remainingDistance <= agent.stoppingDistance)
         {
-                StartCoroutine(roam());
+            StartCoroutine(roam());
         }
         else
         {
@@ -124,7 +124,7 @@ public class enemyAI : MonoBehaviour, IDamage
         return false;
     }
 
-   
+
 
     IEnumerator shoot()
     {
@@ -153,7 +153,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 agent.SetDestination(hit.position);
                 yield return new WaitForSeconds(roamCooldown + Random.Range(1, 3));
             }
-            
+
             isRoaming = false;
             agent.stoppingDistance = stoppingDistOrig;
         }
@@ -161,7 +161,7 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             isRoaming = true;
         }
-        
+
     }
 
     IEnumerator patrol()
@@ -232,19 +232,19 @@ public class enemyAI : MonoBehaviour, IDamage
         Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, 5);
         foreach (Collider hitCollider in hitColliders)
         {
-            if(hitCollider.gameObject.layer == 6)
+            if (hitCollider.gameObject.layer == 6)
             {
                 hitCollider.GetComponent<enemyAI>().goToPlayer();
             }
         }
 
-            StartCoroutine(flashColor());
+        StartCoroutine(flashColor());
 
         if (HP <= 0)
         {
             gameManager.instance.credits += creditsDropped;
             gameManager.instance.updateGameGoal(-1);
-            Instantiate(trueDrop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1 , gameObject.transform.position.z), trueDrop.transform.rotation);
+            Instantiate(trueDrop, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z), trueDrop.transform.rotation);
             Destroy(gameObject);
         }
     }

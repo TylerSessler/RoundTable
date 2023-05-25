@@ -14,6 +14,7 @@ TagManager:
   - Sniper
   - Explosion Sphere
   - Sight Range
+  - Glass Wall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Enemy Bullet
   - Player Bullet
   - Objective
-  - 
+  - URP Render 1st
   - 
   - 
   - 

@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272312315160648212}
   - component: {fileID: 1413721449}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Shoot Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,6 +371,7 @@ MonoBehaviour:
   pistol: {fileID: 11400000, guid: 5f2fb100aa9325140bf11f70eef76c1f, type: 2}
   rifle: {fileID: 11400000, guid: a320b2a58d4f5624281f3c2acf1dda81, type: 2}
   sniper: {fileID: 11400000, guid: 54f9e8338f03d084ebaa274863ccec56, type: 2}
+  placeHolder: {fileID: 11400000, guid: 41f498dcff31c2547898f81b5101e66d, type: 2}
   audSteps:
   - {fileID: 8300000, guid: b96b49e4f7314094283513970b623cfc, type: 3}
   - {fileID: 8300000, guid: 2830c68acfd3c3b419ac638bf19c6d25, type: 3}
@@ -642,6 +643,7 @@ GameObject:
   - component: {fileID: 5520502457072740061}
   - component: {fileID: 5520502457072740063}
   - component: {fileID: 5520502457072739872}
+  - component: {fileID: 1727373271589714710}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -732,6 +734,39 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5520502457072739873}
   m_Enabled: 1
+--- !u!114 &1727373271589714710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520502457072739873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: 0
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &5725679944833716286
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7455707805739662757}
   - component: {fileID: 1017502897}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Weapon Sights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +823,7 @@ GameObject:
   - component: {fileID: 6841856840646698742}
   - component: {fileID: 7592210385115916627}
   - component: {fileID: 5672288503770996121}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Weapon Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

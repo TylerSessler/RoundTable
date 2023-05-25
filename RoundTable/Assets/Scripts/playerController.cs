@@ -91,8 +91,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float maxRayDistance;  // Set this to whatever maximum distance you want
     [SerializeField] float throwPower;
     public int weaponDamage;
-    private bool isCooldown;
-    Coroutine reloadCoroutine;
 
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
@@ -238,7 +236,6 @@ public class playerController : MonoBehaviour, IDamage
         playerRotationOffset = 0f;
         originalMaxHealth = originalHealth;
         isSprintButtonPressed = false;
-        isCooldown = false;
         lastWeapon = 99;
         gameManager.instance.reloadBulletText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
@@ -1114,13 +1111,12 @@ public class playerController : MonoBehaviour, IDamage
         // If player isn't melee
         if (activeWeapon.label != "Unarmed" && activeWeapon.label != "Grenade" && activeWeapon != null)
         {
-            if (activeWeapon.clipSize > 0 && !isCooldown)
+            if (activeWeapon.clipSize > 0)
             {
                 aud.PlayOneShot(weaponShootAud, weaponShootVol);
 
                 // Set flags
                 isShooting = true;
-                isCooldown = true;
 
                 // Reduce current ammo
                 activeWeapon.clipSize--;
@@ -1130,7 +1126,6 @@ public class playerController : MonoBehaviour, IDamage
 
                 yield return new WaitForSeconds(shootRate);
 
-                isCooldown = false;
                 isShooting = false;
             }
         }
@@ -1320,8 +1315,6 @@ public class playerController : MonoBehaviour, IDamage
         bulletCountUpdate();
         isReloading = false;
         activeWeapon.reloadState = false;
-
-        reloadCoroutine = null;  // Reset the reference to indicate that the reload coroutine has completed
     }
 
     private void OnTriggerEnter(Collider other)
@@ -1407,16 +1400,14 @@ public class playerController : MonoBehaviour, IDamage
 
     public void ResetWeapon()
     {
-        if (activeSlot != lastWeapon)
-        {
-            weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
-            weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
-            weaponPos.transform.localPosition = new Vector3(0, 0, 0);
-            weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
-            weaponPos.transform.localScale = new Vector3(1, 1, 1);
-            weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
-            shootPos.transform.localPosition = new Vector3(0, 0, 0);
-        }
+        weaponHolderPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponHolderPos.transform.localScale = new Vector3(0, 0, 0);
+        weaponPos.transform.localPosition = new Vector3(0, 0, 0);
+        weaponPos.transform.eulerAngles = new Vector3(0, 0, 0);
+        weaponPos.transform.localScale = new Vector3(1, 1, 1);
+        weaponSightsPos.transform.localPosition = new Vector3(0, 0, 0);
+        shootPos.transform.localPosition = new Vector3(0, 0, 0);
+
         //shootEffectPos.localPosition = new Vector3(0, 0, 0);
 
         StopCoroutine(shoot());
@@ -1428,35 +1419,37 @@ public class playerController : MonoBehaviour, IDamage
 
     public void ChangeWeapon()
     {
+        if (activeSlot == lastWeapon)
+        {
+            return;
+        }
+
         ResetWeapon();
 
-        
-        if (activeSlot != lastWeapon)
-        {
-            weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
-            weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
-            weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
-            weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
-            shootPos.transform.localPosition = activeWeapon.shootPos;
+        weaponHolderPos.transform.localPosition = activeWeapon.weaponHolderPos;
+        weaponPos.transform.eulerAngles = activeWeapon.weaponRot;
+        weaponHolderPos.transform.localScale = activeWeapon.weaponScale;
+        weaponSightsPos.transform.localPosition = activeWeapon.weaponSightsPos;
+        shootPos.transform.localPosition = activeWeapon.shootPos;
 
-            currentWeapon.sightOffset = activeWeapon.sightOffset;
-            currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
-            currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
-            currentWeapon.zoomOutFOVSpeed = activeWeapon.zoomOutFOVSpeed;
-            currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
+        currentWeapon.sightOffset = activeWeapon.sightOffset;
+        currentWeapon.zoomMaxFov = activeWeapon.zoomMaxFov;
+        currentWeapon.zoomInFOVSpeed = activeWeapon.zoomInFOVSpeed;
+        currentWeapon.zoomOutFOVSpeed = activeWeapon.zoomOutFOVSpeed;
+        currentWeapon.ADSSpeed = activeWeapon.ADSSpeed;
 
-            weaponDamage = activeWeapon.damage;
-            shootRate = activeWeapon.rate;
-            shootRange = activeWeapon.range;
-            bulletSpeed = activeWeapon.bulletSpeed;
+        weaponDamage = activeWeapon.damage;
+        shootRate = activeWeapon.rate;
+        shootRange = activeWeapon.range;
+        bulletSpeed = activeWeapon.bulletSpeed;
 
-            weaponShootAud = activeWeapon.weaponShootAud;
-            weaponShootVol = activeWeapon.weaponShotVol;
-            weaponReloadAud = activeWeapon.weaponReloadAud;
-            weaponReloadVol = activeWeapon.weaponReloadVol;
-            weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
-            weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
-        }
+        weaponShootAud = activeWeapon.weaponShootAud;
+        weaponShootVol = activeWeapon.weaponShotVol;
+        weaponReloadAud = activeWeapon.weaponReloadAud;
+        weaponReloadVol = activeWeapon.weaponReloadVol;
+        weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
+        weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
 
         if (activeWeapon.reloadState && !isReloading)
         {
