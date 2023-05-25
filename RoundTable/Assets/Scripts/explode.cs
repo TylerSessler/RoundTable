@@ -6,26 +6,38 @@ public class explode : MonoBehaviour
 {
     [SerializeField] int damage;
     [SerializeField] float timer;
+    [SerializeField] float range;
+    [SerializeField] ParticleSystem explosion;
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, timer);
+        StartCoroutine(explodes());
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    IEnumerator explodes()
     {
-        if (other.isTrigger)
-            return;
 
-        IDamage damageable = other.GetComponent<IDamage>();
-
-        if (damageable != null)
+        // Deal damage to nearby objects.
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, range);
+        foreach (Collider hitCollider in hitColliders)
         {
-            damageable.takeDamage(damage);
+            IDamage damageable = hitCollider.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                // Explosion does less damage to player
+                if (hitCollider.CompareTag("Player"))
+                {
+                    damageable.takeDamage(damage);
+                }
+
+            }
         }
 
+        // Play explosion effect
+        explosion.Play();
+        yield return new WaitForSeconds(0.75f);
         Destroy(gameObject);
     }
 }
