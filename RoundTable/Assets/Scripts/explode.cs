@@ -37,7 +37,7 @@ public class explode : MonoBehaviour
 
         // Play explosion effect
         explosion.Play();
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(timer);
         Destroy(gameObject);
     }
 }
