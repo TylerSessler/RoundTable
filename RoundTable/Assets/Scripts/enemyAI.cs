@@ -226,12 +226,19 @@ public class enemyAI : MonoBehaviour, IDamage
         agent.stoppingDistance = 0;
         if (chaseAllowed)
         {
-            agent.SetDestination(gameManager.instance.player.transform.position); 
+            goToPlayer();
         }
 
-        
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, 5);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if(hitCollider.gameObject.layer == 6)
+            {
+                hitCollider.GetComponent<enemyAI>().goToPlayer();
+            }
+        }
 
-        StartCoroutine(flashColor());
+            StartCoroutine(flashColor());
 
         if (HP <= 0)
         {
@@ -248,7 +255,11 @@ public class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(.1f);
         model.material.color = Color.white;
     }
-
+    void goToPlayer()
+    {
+        agent.stoppingDistance = 0;
+        agent.SetDestination(gameManager.instance.player.transform.position);
+    }
     void facePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
