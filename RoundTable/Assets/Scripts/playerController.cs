@@ -1257,6 +1257,7 @@ public class playerController : MonoBehaviour, IDamage
         // Reduce current ammo
         activeWeapon.clipSize--;
         bulletCountUpdate();
+
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -1348,12 +1349,17 @@ public class playerController : MonoBehaviour, IDamage
             //aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
         }
 
-        yield return new WaitForSeconds(activeWeapon.reloadTime);
-
-        if (!activeWeapon.reloadState)
+        if (!activeWeapon.reloadState || activeWeapon.ammo == activeWeapon.clipSize)
         {
             yield break;
         }
+
+        yield return new WaitForSeconds(activeWeapon.reloadTime);
+
+        //if (!activeWeapon.reloadState || activeWeapon.ammo == activeWeapon.clipSize)
+        //{
+        //    yield break;
+        //}
 
         // Reload 1 bullet at a time (to prevent overloading/free-loading)
         for (int i = 0; i < activeWeapon.maxClip; i++)

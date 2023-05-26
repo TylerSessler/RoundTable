@@ -201,11 +201,6 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        instance.reloadAmmoText.enabled = false;
-        instance.reloadingText.enabled = false;
-        instance.lowAmmoText.enabled = false;
-        instance.noAmmoText.enabled = false;
-
         if (extractionZone)
         {
             extractionZone.SetActive(false);

@@ -23,9 +23,7 @@ public class objective : MonoBehaviour
             {
                 StartCoroutine(pickUp());
             }
-
         }
-
     }
     private void OnTriggerEnter(Collider other)
     {
