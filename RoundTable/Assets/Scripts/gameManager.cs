@@ -33,10 +33,10 @@ public class gameManager : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI bulletCountText;
-    public TextMeshProUGUI reloadBulletText;
+    public TextMeshProUGUI reloadAmmoText;
     public TextMeshProUGUI reloadingText;
     public TextMeshProUGUI lowAmmoText;
-    public TextMeshProUGUI noAmmoText; 
+    public TextMeshProUGUI noAmmoText;
     public GameObject loadMenu;
     public Image fillBar;
     public GameObject skipText;
@@ -199,9 +199,36 @@ public class gameManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        instance.reloadAmmoText.enabled = false;
+        instance.reloadingText.enabled = false;
+        instance.lowAmmoText.enabled = false;
+        instance.noAmmoText.enabled = false;
+
+        if (extractionZone)
+        {
+            extractionZone.SetActive(false);
+        }
+
+        if (gameManager.instance.extractionZone != null && playerScript.hasObjective)
+        {
+            startTimer();
+        }
+
+        creditsValueText.text = credits.ToString();
+
+        if (PlayerPrefs.HasKey("Credits") && scenesManager.instance.mainMenuCheck == null)
+        {
+            loadCredits();
+            gameManager.instance.playerScript.LoadPlayerData();
+            creditsAvailableUIUpdate();
+        }
+    }
+
     // Update is called once per frame
     void Update()
-{
+    {
         if (Input.GetButtonDown("Cancel") && activeMenu == null && scenesManager.instance.mainMenuCheck == null)
         {
             isPaused = !isPaused;
@@ -211,37 +238,15 @@ public class gameManager : MonoBehaviour
             if (isPaused)
             {
                 pauseState();
-            } 
+            }
             else
             {
                 unpauseState();
             }
-                
+
         }
         if (playerScript != null)
             playerScript.playerUIUpdate();
-    }
-
-    private void Start()
-    {
-        if (extractionZone)
-        {
-            extractionZone.SetActive(false);
-        }
-
-        if (gameManager.instance.extractionZone != null && playerScript.hasObjective) 
-        {
-            startTimer();
-        }
-
-        creditsValueText.text = credits.ToString();
-
-        if(PlayerPrefs.HasKey("Credits") && scenesManager.instance.mainMenuCheck == null)
-        {
-            loadCredits();
-            gameManager.instance.playerScript.LoadPlayerData();
-            creditsAvailableUIUpdate();
-        }
     }
 
     public void pauseState()
@@ -320,9 +325,9 @@ public class gameManager : MonoBehaviour
 
     IEnumerator startExtraction(int extract)
     {
-        if (timeUntilText.activeSelf == true) 
+        if (timeUntilText.activeSelf == true)
         {
-            
+
             timeUntilText.SetActive(false);
             extractionZone.SetActive(true);
             aud.PlayOneShot(audExtractionAppear, audExtractionVol);

@@ -3799,7 +3799,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7159330025367608156}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: buttonAudio
         m_Mode: 1
@@ -3811,7 +3811,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7159330025367608156}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: back
         m_Mode: 1
@@ -6654,7 +6654,7 @@ Animator:
   m_GameObject: {fileID: 7159330024671064890}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf74eada2d5f9274cb87e7be9ca62a0c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9ba7891992f6e494285e17d738a8e246, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8254,7 +8254,7 @@ MonoBehaviour:
   HPBar: {fileID: 7159330024500842396}
   enemiesRemainingText: {fileID: 7159330023783506245}
   bulletCountText: {fileID: 7159330025572239159}
-  reloadBulletText: {fileID: 1899036674}
+  reloadAmmoText: {fileID: 1899036674}
   reloadingText: {fileID: 5112859325048626123}
   lowAmmoText: {fileID: 5805058719000566618}
   noAmmoText: {fileID: 2647390626098429845}

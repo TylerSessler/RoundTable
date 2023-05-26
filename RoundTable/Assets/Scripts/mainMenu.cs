@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-
 public class mainMenu : MonoBehaviour
 {
     public mainMenu instance;
@@ -34,6 +33,11 @@ public class mainMenu : MonoBehaviour
     {
         instance = this;
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
+
+        gameManager.instance.reloadAmmoText.enabled = false;
+        gameManager.instance.reloadingText.enabled = false;
+        gameManager.instance.lowAmmoText.enabled = false;
+        gameManager.instance.noAmmoText.enabled = false;
     }
     public void Play()
     {
