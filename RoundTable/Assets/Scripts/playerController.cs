@@ -11,7 +11,6 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
-
 public class playerController : MonoBehaviour, IDamage
 {
     #region variables
@@ -32,6 +31,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] GameObject grenade;
     [SerializeField] GameObject activeModel;
     [SerializeField] public AudioSource aud;
+
     explodingEnemyAI explodingEnemy;
 
     Vector3 cameraRotation;
@@ -91,6 +91,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float maxRayDistance;  // Set this to whatever maximum distance you want
     [SerializeField] float throwPower;
     public int weaponDamage;
+    Coroutine shootCoroutine;
+    bool isShootButtonPressed;
+    float remainingReloadTime;
 
     [Header("--- Weapon Transformations---")]
     public Transform weaponHolderPos;
@@ -106,6 +109,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Leaning")]
     public Transform cameraLeanPivot;
+    [SerializeField] bool aimToLean;
     public float leanAngle;
     public float leanSmoothing;
     float currentLean;
@@ -168,6 +172,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] AudioClip weaponReloadAud;
     [SerializeField] float weaponShootVol;
     [SerializeField] float weaponReloadVol;
+    AudioSource reloadAudioSource;
 
     #endregion variables
 
@@ -223,7 +228,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void Start()
     {
-
         activeWeapon = null;
         activeSlot = 0;
         isRotating = false;
@@ -236,11 +240,15 @@ public class playerController : MonoBehaviour, IDamage
         playerRotationOffset = 0f;
         originalMaxHealth = originalHealth;
         isSprintButtonPressed = false;
+        isShootButtonPressed = false;
         lastWeapon = 99;
         gameManager.instance.reloadBulletText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
         gameManager.instance.noAmmoText.enabled = false;
         gameManager.instance.reloadingText.enabled = false;
+
+        reloadAudioSource = aud;
+        remainingReloadTime = 0f;
 
         inventoryUI(1);
         // Default to ranged reticle (automatic since player has ammo)
@@ -286,6 +294,11 @@ public class playerController : MonoBehaviour, IDamage
             Jumping();
             JumpTimer();
             ShootMouseClick();
+
+            //if (isSprintButtonPressed && !isShooting)
+            //{
+            //    ToggleSprint();
+            //}
 
             if (Input.GetButtonDown("Flip Gravity") && !isRotating && canRotate)
             {
@@ -450,7 +463,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
-        if (inputMovement.y > 0.1f && isSprintButtonPressed && !isAiming && !isReloading)
+        if (inputMovement.y > 0.1f && isSprintButtonPressed && !isAiming && !isReloading && !isShootButtonPressed)
         {
             isSprinting = true;
         }
@@ -473,7 +486,6 @@ public class playerController : MonoBehaviour, IDamage
 
         if (!isSprinting)
         {
-            canShoot = true;
             verticalSpeed = playerSettings.forwardWalkSpeed;
             horizontalSpeed = playerSettings.strafeWalkSpeed;
         }
@@ -483,10 +495,10 @@ public class playerController : MonoBehaviour, IDamage
             horizontalSpeed = playerSettings.strafeSprintSpeed;
         }
 
-        if (canShoot && isShooting)
-        {
-            isSprinting = false;
-        }
+        //if (isShooting)
+        //{
+        //    isSprinting = false;
+        //}
 
         float speedEffector = GetSpeedEffector();
         verticalSpeed *= speedEffector;
@@ -886,17 +898,42 @@ public class playerController : MonoBehaviour, IDamage
 
     void Leaning()
     {
-        if (isLeaningLeft)
+        if (aimToLean)
         {
-            targetLean = leanAngle;
-        }
-        else if (isLeaningRight)
-        {
-            targetLean = -leanAngle;
+            if (isAiming)
+            {
+                if (isLeaningLeft)
+                {
+                    targetLean = leanAngle;
+                }
+                else if (isLeaningRight)
+                {
+                    targetLean = -leanAngle;
+                }
+                else
+                {
+                    targetLean = 0;
+                }
+            }
+            else
+            {
+                targetLean = 0;
+            }
         }
         else
         {
-            targetLean = 0;
+            if (isLeaningLeft)
+            {
+                targetLean = leanAngle;
+            }
+            else if (isLeaningRight)
+            {
+                targetLean = -leanAngle;
+            }
+            else
+            {
+                targetLean = 0;
+            }
         }
 
         currentLean = Mathf.SmoothDamp(currentLean, targetLean, ref leanVelocity, leanSmoothing);
@@ -1049,11 +1086,22 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (activeWeapon != null)
         {
-            if (!isShooting && Input.GetButton("Shoot") && inv.Count > 0 && canShoot && !isReloading)
+            if (Input.GetButton("Shoot"))
             {
-                StartCoroutine(shoot());
-                //Update UI for bullet count
-                bulletCountUpdate();
+                isShootButtonPressed = true;
+
+                if (!isShooting && inv.Count > 0 && canShoot && !isReloading)
+                {
+                    shootCoroutine = StartCoroutine(shoot()); // Assign the shoot coroutine to the variable
+
+                    //StartCoroutine(shoot());
+                    //Update UI for bullet count
+                    bulletCountUpdate();
+                }
+            }
+            else
+            {
+                isShootButtonPressed = false;
             }
         }
     }
@@ -1118,9 +1166,17 @@ public class playerController : MonoBehaviour, IDamage
                 activeWeapon.clipSize--;
 
                 // Start bullet coroutine
-                StartCoroutine(Bullet());            
+                StartCoroutine(Bullet());
 
                 yield return new WaitForSeconds(shootRate);
+
+                float remainingShootTime = shootRate;
+
+                while (activeSlot != lastWeapon && remainingShootTime > 0f)
+                {
+                    yield return null;
+                    remainingShootTime -= Time.deltaTime;
+                }
 
                 isShooting = false;
             }
@@ -1145,11 +1201,6 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator Bullet()
     {
-        if (!canShoot)
-        {
-            yield break;
-        }
-
         // Calculate direction of shot
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
@@ -1287,7 +1338,11 @@ public class playerController : MonoBehaviour, IDamage
         // Audio conditional
         if (activeWeapon.clipSize < activeWeapon.maxClip)
         {
-            aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
+            //reloadAudioSource.clip = weaponReloadAud;
+            //reloadAudioSource.volume = weaponReloadVol;
+            //reloadAudioSource.Play();
+            reloadAudioSource.PlayOneShot(weaponReloadAud, weaponReloadVol);
+            //aud.PlayOneShot(weaponReloadAud, weaponReloadVol);
         }
 
         yield return new WaitForSeconds(activeWeapon.reloadTime);
@@ -1411,12 +1466,18 @@ public class playerController : MonoBehaviour, IDamage
 
         //shootEffectPos.localPosition = new Vector3(0, 0, 0);
 
-        StopCoroutine(shoot());
         bulletCountUpdate();
 
-        isReloading = false;
-        canShoot = false;
-        //isShooting = false;
+        // Stop the reload audio if it's currently playing
+        if (reloadAudioSource != null && reloadAudioSource.isPlaying)
+        {
+            reloadAudioSource.Stop();
+        }
+
+        if (isReloading)
+        {
+            isReloading = false;
+        }
     }
 
     public void ChangeWeapon()
@@ -1452,6 +1513,11 @@ public class playerController : MonoBehaviour, IDamage
         weaponMesh.sharedMesh = activeWeapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponMaterial.sharedMaterial = activeWeapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
+        if (shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            isShooting = false;
+        }
 
         if (activeWeapon.reloadState && !isReloading)
         {
@@ -1507,6 +1573,11 @@ public class playerController : MonoBehaviour, IDamage
     {
         isSprintButtonPressed = true;
 
+        if (isShootButtonPressed || isReloading)
+        {
+            return;
+        }
+
         if (inputMovement.y <= 0.2f || isAiming || playerPose == gameManager.PlayerPose.Prone)
         {
             isSprinting = false;
@@ -1523,7 +1594,7 @@ public class playerController : MonoBehaviour, IDamage
             playerPose = gameManager.PlayerPose.Stand;
         }
 
-        isSprinting = !isSprinting;
+        isSprinting = true;
     }
 
     void StopSprint()
