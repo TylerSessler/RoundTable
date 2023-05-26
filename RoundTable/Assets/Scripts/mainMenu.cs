@@ -35,9 +35,9 @@ public class mainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
 
         gameManager.instance.reloadAmmoText.enabled = false;
-        gameManager.instance.reloadingText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
         gameManager.instance.noAmmoText.enabled = false;
+        gameManager.instance.reloadingText.enabled = false;
     }
     public void Play()
     {

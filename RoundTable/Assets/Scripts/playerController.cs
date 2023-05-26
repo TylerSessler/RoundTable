@@ -242,7 +242,7 @@ public class playerController : MonoBehaviour, IDamage
         isSprintButtonPressed = false;
         isShootButtonPressed = false;
         lastWeapon = 99;
-        gameManager.instance.reloadBulletText.enabled = false;
+        gameManager.instance.reloadAmmoText.enabled = false;
         gameManager.instance.lowAmmoText.enabled = false;
         gameManager.instance.noAmmoText.enabled = false;
         gameManager.instance.reloadingText.enabled = false;
@@ -1114,27 +1114,27 @@ public class playerController : MonoBehaviour, IDamage
             {
                 if (activeWeapon.clipSize == 0 && activeWeapon.ammo > 0)
                 {
-                    gameManager.instance.reloadBulletText.enabled = true;
+                    gameManager.instance.reloadAmmoText.enabled = true;
                     gameManager.instance.lowAmmoText.enabled = false;
                     gameManager.instance.noAmmoText.enabled = false;
                 }
                 else if (activeWeapon.clipSize > 0 && activeWeapon.ammo == 0)
                 {
                     gameManager.instance.lowAmmoText.enabled = true;
-                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadAmmoText.enabled = false;
                     gameManager.instance.reloadingText.enabled = false;
                     gameManager.instance.noAmmoText.enabled = false;
                 }
                 else if (activeWeapon.clipSize == 0 && activeWeapon.ammo == 0)
                 {
                     gameManager.instance.noAmmoText.enabled = true;
-                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadAmmoText.enabled = false;
                     gameManager.instance.reloadingText.enabled = false;
                     gameManager.instance.lowAmmoText.enabled = false;
                 }
                 else
                 {
-                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadAmmoText.enabled = false;
                     gameManager.instance.reloadingText.enabled = false;
                     gameManager.instance.lowAmmoText.enabled = false;
                     gameManager.instance.noAmmoText.enabled = false;
@@ -1145,7 +1145,7 @@ public class playerController : MonoBehaviour, IDamage
                 if (scenesManager.instance.mainMenuCheck == null)
                 {
                     gameManager.instance.reloadingText.enabled = true;
-                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.reloadAmmoText.enabled = false;
                     gameManager.instance.lowAmmoText.enabled = false;
                     gameManager.instance.noAmmoText.enabled = false;
                 }
