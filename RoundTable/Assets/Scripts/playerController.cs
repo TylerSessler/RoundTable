@@ -1142,10 +1142,13 @@ public class playerController : MonoBehaviour, IDamage
             }
             else
             {
-                gameManager.instance.reloadingText.enabled = true;
-                gameManager.instance.reloadBulletText.enabled = false;
-                gameManager.instance.lowAmmoText.enabled = false;
-                gameManager.instance.noAmmoText.enabled = false;
+                if (scenesManager.instance.mainMenuCheck == null)
+                {
+                    gameManager.instance.reloadingText.enabled = true;
+                    gameManager.instance.reloadBulletText.enabled = false;
+                    gameManager.instance.lowAmmoText.enabled = false;
+                    gameManager.instance.noAmmoText.enabled = false;
+                }
             }
         }
     }
