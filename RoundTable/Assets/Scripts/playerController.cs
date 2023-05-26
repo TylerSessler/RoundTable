@@ -1055,10 +1055,6 @@ public class playerController : MonoBehaviour, IDamage
                 //Update UI for bullet count
                 bulletCountUpdate();
             }
-            else
-            {
-                StopCoroutine(shoot());
-            }
         }
     }
 
@@ -1122,7 +1118,7 @@ public class playerController : MonoBehaviour, IDamage
                 activeWeapon.clipSize--;
 
                 // Start bullet coroutine
-                StartCoroutine(Bullet());
+                StartCoroutine(Bullet());            
 
                 yield return new WaitForSeconds(shootRate);
 
@@ -1149,6 +1145,11 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator Bullet()
     {
+        if (!canShoot)
+        {
+            yield break;
+        }
+
         // Calculate direction of shot
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
@@ -1415,6 +1416,7 @@ public class playerController : MonoBehaviour, IDamage
 
         isReloading = false;
         canShoot = false;
+        //isShooting = false;
     }
 
     public void ChangeWeapon()
